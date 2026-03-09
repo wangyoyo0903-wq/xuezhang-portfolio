@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据分析 - 产品经理教学案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #7B68EE;
+            --success-color: #52C41A;
+            --warning-color: #FAAD14;
+            --error-color: #FF4D4F;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --bg-light: #F5F7FA;
+            --bg-white: #FFFFFF;
+            --border-color: #E8E8E8;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title h2 {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+        
+        .badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 1200px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .metric-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .metric-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+        }
+        
+        .metric-header {
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .metric-header.purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .metric-header.green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .metric-header.pink { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .metric-header.blue { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .metric-header.orange { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .metric-header.teal { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; }
+        
+        .metric-icon {
+            font-size: 28px;
+        }
+        
+        .metric-header h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+        
+        .metric-header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 13px;
+        }
+        
+        .metric-content {
+            padding: 20px 25px;
+        }
+        
+        .metric-content > p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .metric-example {
+            background: var(--bg-light);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        
+        .metric-example h4 {
+            color: var(--primary-color);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .metric-example p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin: 5px 0;
+        }
+        
+        .metric-example code {
+            background: rgba(74, 144, 226, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--primary-color);
+        }
+        
+        .formula-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .formula-box code {
+            font-size: 16px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .expand-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+        }
+        
+        .expanded-content {
+            display: none;
+            padding: 20px 25px;
+            background: var(--bg-light);
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .expanded-content.visible {
+            display: block;
+        }
+        
+        .expanded-content h4 {
+            font-size: 15px;
+            color: var(--primary-color);
+            margin: 15px 0 10px;
+        }
+        
+        .expanded-content h4:first-child {
+            margin-top: 0;
+        }
+        
+        .expanded-content ul {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+        
+        .expanded-content li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .expanded-content li:last-child {
+            border-bottom: none;
+        }
+        
+        .expanded-content li strong {
+            color: var(--text-primary);
+        }
+        
+        .related-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .related-tag {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .knowledge-tip {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .knowledge-tip strong {
+            color: #667eea;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+        }
+        
+        footer {
+            background: #2C3E50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+        }
+        
+        .chart-placeholder {
+            background: linear-gradient(135deg, #f5f7fa, #e4e8eb);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            margin: 15px 0;
+            border: 2px dashed var(--border-color);
+        }
+        
+        .chart-placeholder-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .chart-placeholder p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+        
+        .data-table th, .data-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .data-table th {
+            background: var(--bg-light);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .data-table td {
+            color: var(--text-secondary);
+        }
+        
+        .learning-path {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .learning-path h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .learning-path ol {
+            margin-left: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .learning-path li {
+            margin: 10px 0;
+        }
+        
+        .learning-path li strong {
+            color: var(--text-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">📱</div>
+                <span>产品经理教学案例</span>
+            </div>
+            <nav>
+                <a href="index.html">首页</a>
+                <a href="ui-components.html">UI/UX</a>
+                <a href="tech-concepts.html">技术概念</a>
+                <a href="product-flow.html">产品流程</a>
+                <a href="data-analysis.html" class="active">数据分析</a>
+                <a href="case-study.html">综合案例</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <a href="index.html" class="back-link">← 返回首页</a>
+            <h1>📊 数据分析教学</h1>
+            <p>掌握产品经理必备的数据分析能力，用数据驱动产品决策</p>
+            <p style="margin-top: 10px; font-size: 14px; opacity: 0.8;">💡 提示：点击"展开详情"可以查看详细内容</p>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>核心数据指标</h2>
+                <span class="badge">必学指标</span>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header purple">
+                        <span class="metric-icon">👥</span>
+                        <div>
+                            <h3>DAU / MAU</h3>
+                            <p>日/月活跃用户数</p>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p><strong>什么是DAU/MAU？</strong></p>
+                        <p>DAU（Daily Active Users）是日活跃用户数，MAU（Monthly Active Users）是月活跃用户数。这是衡量产品用户规模最基础的指标。</p>
+                        
+                        <div class="formula-box">
+                            <code>DAU/MAU = 用户粘性（理想值 > 20%）</code>
+                        </div>
+                        
+                        <div class="metric-example">
+                            <h4>📌 实际案例</h4>
+                            <p>某社交App：DAU 100万，MAU 500万</p>
+                            <p>粘性 = 100万/500万 = 20%，说明用户平均每月活跃6天</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 如何定义"活跃"？</h4>
+                            <ul>
+                                <li><strong>启动活跃：</strong>打开App即算活跃（最宽松）</li>
+                                <li><strong>行为活跃：</strong>完成核心操作才算（更精准）</li>
+                                <li><strong>时长活跃：</strong>使用时长超过阈值（如30秒）</li>
+                            </ul>
+                            
+                            <div class="metric-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. DAU/MAU比值反映用户粘性，越高越好</p>
+                                <p>2. 不同产品类型的DAU/MAU基准不同</p>
+                                <p>3. 要关注趋势变化，而非单一数值</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">用户规模</span>
+                                <span class="related-tag">粘性指标</span>
+                                <span class="related-tag">核心指标</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header green">
+                        <span class="metric-icon">📈</span>
+                        <div>
+                            <h3>留存率</h3>
+                            <p>用户回访比例</p>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p><strong>什么是留存率？</strong></p>
+                        <p>留存率衡量用户在一段时间后是否还在使用产品。是评估产品质量和用户忠诚度的核心指标。</p>
+                        
+                        <div class="formula-box">
+                            <code>留存率 = 回访用户数 / 新增用户数 × 100%</code>
+                        </div>
+                        
+                        <div class="metric-example">
+                            <h4>📌 常见留存指标</h4>
+                            <p><strong>次日留存：</strong>第2天回来的用户比例</p>
+                            <p><strong>7日留存：</strong>第7天回来的用户比例</p>
+                            <p><strong>30日留存：</strong>第30天回来的用户比例</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 行业基准参考</h4>
+                            <table class="data-table">
+                                <tr>
+                                    <th>产品类型</th>
+                                    <th>次日留存</th>
+                                    <th>7日留存</th>
+                                    <th>30日留存</th>
+                                </tr>
+                                <tr>
+                                    <td>社交类</td>
+                                    <td>40-60%</td>
+                                    <td>20-40%</td>
+                                    <td>10-20%</td>
+                                </tr>
+                                <tr>
+                                    <td>工具类</td>
+                                    <td>30-50%</td>
+                                    <td>15-30%</td>
+                                    <td>5-15%</td>
+                                </tr>
+                                <tr>
+                                    <td>游戏类</td>
+                                    <td>30-50%</td>
+                                    <td>15-25%</td>
+                                    <td>5-10%</td>
+                                </tr>
+                            </table>
+                            
+                            <div class="metric-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 次日留存反映新手引导效果</p>
+                                <p>2. 7日留存反映核心功能吸引力</p>
+                                <p>3. 留存率低需要分析具体流失原因</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">用户忠诚</span>
+                                <span class="related-tag">产品质量</span>
+                                <span class="related-tag">流失分析</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header pink">
+                        <span class="metric-icon">🎯</span>
+                        <div>
+                            <h3>转化率</h3>
+                            <p>目标完成比例</p>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p><strong>什么是转化率？</strong></p>
+                        <p>转化率是用户完成预期目标的比例。不同产品有不同的转化目标，如注册、购买、分享等。</p>
+                        
+                        <div class="formula-box">
+                            <code>转化率 = 完成目标用户数 / 总用户数 × 100%</code>
+                        </div>
+                        
+                        <div class="metric-example">
+                            <h4>📌 常见转化场景</h4>
+                            <p><strong>注册转化：</strong>访客 → 注册用户</p>
+                            <p><strong>购买转化：</strong>浏览商品 → 完成购买</p>
+                            <p><strong>付费转化：</strong>免费用户 → 付费用户</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 提升转化率的方法</h4>
+                            <ul>
+                                <li><strong>简化流程：</strong>减少操作步骤，降低门槛</li>
+                                <li><strong>优化引导：</strong>清晰的指引和提示</li>
+                                <li><strong>建立信任：</strong>展示评价、保障信息</li>
+                                <li><strong>激励措施：</strong>优惠券、限时活动等</li>
+                                <li><strong>A/B测试：</strong>对比不同方案效果</li>
+                            </ul>
+                            
+                            <div class="metric-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 转化率是衡量产品效率的核心指标</p>
+                                <p>2. 要关注每个环节的转化，找出瓶颈</p>
+                                <p>3. 小幅提升转化率可能带来巨大收益</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">漏斗分析</span>
+                                <span class="related-tag">A/B测试</span>
+                                <span class="related-tag">用户行为</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header blue">
+                        <span class="metric-icon">💰</span>
+                        <div>
+                            <h3>ARPU / ARPPU</h3>
+                            <p>用户平均收入</p>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p><strong>什么是ARPU？</strong></p>
+                        <p>ARPU（Average Revenue Per User）是每用户平均收入，ARPPU是每付费用户平均收入。用于衡量产品的变现能力。</p>
+                        
+                        <div class="formula-box">
+                            <code>ARPU = 总收入 / 总用户数</code>
+                        </div>
+                        
+                        <div class="metric-example">
+                            <h4>📌 计算示例</h4>
+                            <p>某游戏月收入1000万，月活用户500万</p>
+                            <p>ARPU = 1000万 / 500万 = 2元/用户/月</p>
+                            <p>若付费用户50万，ARPPU = 1000万 / 50万 = 20元</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 不同产品的ARPU参考</h4>
+                            <table class="data-table">
+                                <tr>
+                                    <th>产品类型</th>
+                                    <th>ARPU范围</th>
+                                    <th>主要变现方式</th>
+                                </tr>
+                                <tr>
+                                    <td>游戏</td>
+                                    <td>5-50元/月</td>
+                                    <td>内购、广告</td>
+                                </tr>
+                                <tr>
+                                    <td>电商</td>
+                                    <td>50-500元/月</td>
+                                    <td>交易佣金</td>
+                                </tr>
+                                <tr>
+                                    <td>工具</td>
+                                    <td>1-10元/月</td>
+                                    <td>会员、广告</td>
+                                </tr>
+                            </table>
+                            
+                            <div class="metric-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. ARPU反映产品的商业价值</p>
+                                <p>2. 提升ARPU需要优化付费设计</p>
+                                <p>3. 要平衡用户体验和商业化</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">变现能力</span>
+                                <span class="related-tag">商业模式</span>
+                                <span class="related-tag">付费设计</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header orange">
+                        <span class="metric-icon">💎</span>
+                        <div>
+                            <h3>LTV</h3>
+                            <p>用户生命周期价值</p>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p><strong>什么是LTV？</strong></p>
+                        <p>LTV（Life Time Value）是用户从开始使用到离开产品期间创造的总价值。帮助判断可以花多少钱获取用户。</p>
+                        
+                        <div class="formula-box">
+                            <code>LTV = ARPU × 用户生命周期（月）</code>
+                        </div>
+                        
+                        <div class="metric-example">
+                            <h4>📌 计算示例</h4>
+                            <p>用户平均ARPU为10元/月</p>
+                            <p>用户平均使用时长为12个月</p>
+                            <p>LTV = 10 × 12 = 120元</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 LTV与CAC的关系</h4>
+                            <ul>
+                                <li><strong>CAC：</strong>用户获取成本（Customer Acquisition Cost）</li>
+                                <li><strong>LTV > CAC：</strong>商业模式可持续</li>
+                                <li><strong>LTV > 3×CAC：</strong>健康的商业模式</li>
+                                <li><strong>LTV < CAC：</strong>每获取一个用户都在亏损</li>
+                            </ul>
+                            
+                            <div class="metric-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. LTV帮助确定获客预算上限</p>
+                                <p>2. 提升LTV需要提高留存和ARPU</p>
+                                <p>3. 不同用户群体的LTV可能差异很大</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">用户价值</span>
+                                <span class="related-tag">获客成本</span>
+                                <span class="related-tag">ROI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header teal">
+                        <span class="metric-icon">📊</span>
+                        <div>
+                            <h3>漏斗分析</h3>
+                            <p>转化路径分析</p>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p><strong>什么是漏斗分析？</strong></p>
+                        <p>漏斗分析用于分析用户在完成目标过程中的转化情况，找出流失严重的环节进行优化。</p>
+                        
+                        <div class="metric-example">
+                            <h4>📌 电商购买漏斗示例</h4>
+                            <p>首页浏览 → 商品详情 → 加入购物车 → 结算 → 支付</p>
+                            <p>100% → 40% → 20% → 15% → 12%</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 漏斗分析的关键点</h4>
+                            <ul>
+                                <li><strong>定义关键路径：</strong>明确用户完成目标需要经过的步骤</li>
+                                <li><strong>计算各环节转化率：</strong>找出转化率最低的环节</li>
+                                <li><strong>分析流失原因：</strong>为什么用户在这一步离开</li>
+                                <li><strong>针对性优化：</strong>改进问题环节</li>
+                                <li><strong>持续监测：</strong>验证优化效果</li>
+                            </ul>
+                            
+                            <div class="metric-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 漏斗最窄的环节是优化的重点</p>
+                                <p>2. 不同用户群体的漏斗可能不同</p>
+                                <p>3. 要结合定性分析了解流失原因</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">转化路径</span>
+                                <span class="related-tag">流失分析</span>
+                                <span class="related-tag">优化策略</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="section-title">
+                <h2>数据分析方法</h2>
+                <span class="badge">分析方法</span>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header purple">
+                        <span class="metric-icon">👥</span>
+                        <div>
+                            <h3>用户分群</h3>
+                            <p>User Segmentation</p>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p><strong>什么是用户分群？</strong></p>
+                        <p>将用户按照特定特征分成不同群体，分析不同群体的行为差异，制定针对性的产品策略。</p>
+                        
+                        <div class="metric-example">
+                            <h4>📌 常见分群维度</h4>
+                            <p><strong>人口属性：</strong>年龄、性别、地域</p>
+                            <p><strong>行为特征：</strong>活跃度、付费习惯</p>
+                            <p><strong>使用场景：</strong>使用时间、设备类型</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 用户分群的应用</h4>
+                            <ul>
+                                <li><strong>精准营销：</strong>针对不同群体推送不同内容</li>
+                                <li><strong>产品优化：</strong>优先满足核心用户群体需求</li>
+                                <li><strong>运营策略：</strong>针对流失风险用户进行召回</li>
+                                <li><strong>定价策略：</strong>不同群体采用不同定价</li>
+                            </ul>
+                            
+                            <div class="metric-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 分群要有明确的业务目的</p>
+                                <p>2. 分群维度要可操作、可触达</p>
+                                <p>3. 定期更新用户分群策略</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">用户画像</span>
+                                <span class="related-tag">精准营销</span>
+                                <span class="related-tag">个性化</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header green">
+                        <span class="metric-icon">⭐</span>
+                        <div>
+                            <h3>NPS净推荐值</h3>
+                            <p>Net Promoter Score</p>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p><strong>什么是NPS？</strong></p>
+                        <p>NPS通过"你有多大可能向朋友推荐这个产品"（0-10分）来衡量用户忠诚度和口碑。</p>
+                        
+                        <div class="formula-box">
+                            <code>NPS = 推荐者比例 - 贬损者比例</code>
+                        </div>
+                        
+                        <div class="metric-example">
+                            <h4>📌 用户分类</h4>
+                            <p><strong>推荐者（9-10分）：</strong>忠诚用户，会主动推荐</p>
+                            <p><strong>中立者（7-8分）：</strong>满意但不热情</p>
+                            <p><strong>贬损者（0-6分）：</strong>不满意，可能负面传播</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 NPS解读</h4>
+                            <table class="data-table">
+                                <tr>
+                                    <th>NPS范围</th>
+                                    <th>评价</th>
+                                </tr>
+                                <tr>
+                                    <td>> 50</td>
+                                    <td>优秀，用户非常忠诚</td>
+                                </tr>
+                                <tr>
+                                    <td>0 ~ 50</td>
+                                    <td>良好，有改进空间</td>
+                                </tr>
+                                <tr>
+                                    <td>< 0</td>
+                                    <td>需要重点关注和改进</td>
+                                </tr>
+                            </table>
+                            
+                            <div class="metric-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. NPS是衡量用户满意度的简单有效指标</p>
+                                <p>2. 要关注贬损者的具体原因</p>
+                                <p>3. NPS趋势比单次数值更重要</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">用户满意度</span>
+                                <span class="related-tag">口碑传播</span>
+                                <span class="related-tag">用户忠诚</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header pink">
+                        <span class="metric-icon">⏱️</span>
+                        <div>
+                            <h3>使用时长</h3>
+                            <p>Time on Page / Session</p>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p><strong>什么是使用时长？</strong></p>
+                        <p>用户在产品中停留的时间。反映用户对产品的参与度和粘性，但需要结合场景解读。</p>
+                        
+                        <div class="metric-example">
+                            <h4>📌 不同场景的解读</h4>
+                            <p><strong>内容类产品：</strong>时长越长越好，说明内容有吸引力</p>
+                            <p><strong>工具类产品：</strong>时长短可能更好，说明效率高</p>
+                            <p><strong>电商类产品：</strong>适中为好，过长可能找不到商品</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 相关指标</h4>
+                            <ul>
+                                <li><strong>单次使用时长：</strong>每次打开App的平均使用时间</li>
+                                <li><strong>日均使用时长：</strong>每天平均使用时间</li>
+                                <li><strong>页面停留时长：</strong>在特定页面停留的时间</li>
+                                <li><strong>会话次数：</strong>每天打开App的次数</li>
+                            </ul>
+                            
+                            <div class="metric-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 时长指标要结合产品类型解读</p>
+                                <p>2. 关注时长分布，而非只看平均值</p>
+                                <p>3. 时长异常变化可能是产品问题的信号</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">用户粘性</span>
+                                <span class="related-tag">参与度</span>
+                                <span class="related-tag">内容质量</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header blue">
+                        <span class="metric-icon">🔗</span>
+                        <div>
+                            <h3>分享率</h3>
+                            <p>Share Rate</p>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p><strong>什么是分享率？</strong></p>
+                        <p>用户主动分享产品内容的比例。反映产品的社交传播能力和用户认可度。</p>
+                        
+                        <div class="formula-box">
+                            <code>分享率 = 分享用户数 / 活跃用户数 × 100%</code>
+                        </div>
+                        
+                        <div class="metric-example">
+                            <h4>📌 提升分享率的方法</h4>
+                            <p><strong>内容激励：</strong>创造值得分享的优质内容</p>
+                            <p><strong>功能便捷：</strong>一键分享到各平台</p>
+                            <p><strong>利益驱动：</strong>分享获得奖励</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 分享相关的指标</h4>
+                            <ul>
+                                <li><strong>分享率：</strong>有多少用户进行了分享</li>
+                                <li><strong>分享次数：</strong>平均每人分享几次</li>
+                                <li><strong>分享回流：</strong>通过分享带来的新用户</li>
+                                <li><strong>K因子：</strong>每个用户平均带来多少新用户</li>
+                            </ul>
+                            
+                            <div class="metric-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 分享是低成本获取用户的方式</p>
+                                <p>2. 要设计合适的分享触发场景</p>
+                                <p>3. 分享内容要有吸引力</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">病毒传播</span>
+                                <span class="related-tag">社交裂变</span>
+                                <span class="related-tag">用户增长</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header orange">
+                        <span class="metric-icon">⚠️</span>
+                        <div>
+                            <h3>崩溃率</h3>
+                            <p>Crash Rate</p>
+                        </div>
+                    </div>
+                    <div class="metric-content">
+                        <p><strong>什么是崩溃率？</strong></p>
+                        <p>App在使用过程中崩溃的比例。是衡量产品质量和稳定性的关键指标，直接影响用户体验。</p>
+                        
+                        <div class="formula-box">
+                            <code>崩溃率 = 崩溃次数 / 启动次数 × 100%</code>
+                        </div>
+                        
+                        <div class="metric-example">
+                            <h4>📌 行业标准</h4>
+                            <p><strong>优秀：</strong>崩溃率 < 0.2%</p>
+                            <p><strong>良好：</strong>崩溃率 < 0.5%</p>
+                            <p><strong>需改进：</strong>崩溃率 > 1%</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 崩溃分析要点</h4>
+                            <ul>
+                                <li><strong>崩溃类型：</strong>什么原因导致的崩溃</li>
+                                <li><strong>崩溃场景：</strong>在什么操作时崩溃</li>
+                                <li><strong>设备分布：</strong>哪些设备更容易崩溃</li>
+                                <li><strong>版本分布：</strong>哪个版本崩溃率更高</li>
+                            </ul>
+                            
+                            <div class="metric-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 崩溃率是产品质量的红线指标</p>
+                                <p>2. 新版本发布后要重点监控崩溃率</p>
+                                <p>3. 崩溃会直接导致用户流失和差评</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">产品质量</span>
+                                <span class="related-tag">用户体验</span>
+                                <span class="related-tag">稳定性</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="learning-path">
+                <h3>📚 数据分析学习建议</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">产品经理的数据分析能力进阶路径：</p>
+                <ol>
+                    <li><strong>第一阶段：</strong>理解核心指标的含义和计算方法</li>
+                    <li><strong>第二阶段：</strong>学会看数据报表，发现问题</li>
+                    <li><strong>第三阶段：</strong>能够提出数据需求，设计埋点方案</li>
+                    <li><strong>第四阶段：</strong>用数据驱动产品决策，验证效果</li>
+                </ol>
+                <div class="knowledge-tip" style="margin-top: 20px;">
+                    <strong>💡 记住：</strong>数据只是工具，不是目的。产品经理要学会从数据中发现问题、验证假设，但最终还是要回归用户价值和产品本质。
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>🎓 产品经理教学案例网站 | 专为初学者打造的交互式学习平台</p>
+            <p style="margin-top: 10px; font-size: 12px;">建议使用Chrome浏览器访问，获得最佳体验</p>
+        </div>
+    </footer>
+    
+    <button onclick="scrollToTop()" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; font-size: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4); z-index: 999; transition: all 0.3s;">↑</button>
+    
+    <script>
+        function toggleExpand(btn) {
+            const content = btn.nextElementSibling;
+            const isVisible = content.classList.contains('visible');
+            
+            if (isVisible) {
+                content.classList.remove('visible');
+                btn.textContent = '展开详情 ↓';
+            } else {
+                content.classList.add('visible');
+                btn.textContent = '收起详情 ↑';
+            }
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
