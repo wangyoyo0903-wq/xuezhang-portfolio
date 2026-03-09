@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品流程教学 - 产品经理教学案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #7B68EE;
+            --success-color: #52C41A;
+            --warning-color: #FAAD14;
+            --error-color: #FF4D4F;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --bg-light: #F5F7FA;
+            --bg-white: #FFFFFF;
+            --border-color: #E8E8E8;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .section {
+            padding: 40px 0;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .section-title h2 {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+        
+        .section-title .badge {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .flow-timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .flow-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #4facfe, #00f2fe, #43e97b, #fa709a, #667eea);
+            border-radius: 2px;
+        }
+        
+        .flow-item {
+            position: relative;
+            margin-bottom: 30px;
+            background: var(--bg-white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .flow-item:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateX(5px);
+        }
+        
+        .flow-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 25px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #4facfe;
+            z-index: 1;
+        }
+        
+        .flow-item:nth-child(1)::before { border-color: #4facfe; }
+        .flow-item:nth-child(2)::before { border-color: #00f2fe; }
+        .flow-item:nth-child(3)::before { border-color: #43e97b; }
+        .flow-item:nth-child(4)::before { border-color: #fa709a; }
+        .flow-item:nth-child(5)::before { border-color: #667eea; }
+        .flow-item:nth-child(6)::before { border-color: #f093fb; }
+        
+        .flow-header {
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        
+        .flow-header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .flow-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .flow-item:nth-child(2) .flow-number { background: linear-gradient(135deg, #00f2fe, #43e97b); }
+        .flow-item:nth-child(3) .flow-number { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .flow-item:nth-child(4) .flow-number { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .flow-item:nth-child(5) .flow-number { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .flow-item:nth-child(6) .flow-number { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        
+        .flow-title h3 {
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+        
+        .flow-title p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .flow-toggle {
+            font-size: 20px;
+            color: var(--text-light);
+            transition: transform 0.3s;
+        }
+        
+        .flow-item.expanded .flow-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .flow-item:not(.expanded) .flow-content {
+            display: none;
+        }
+        
+        .flow-item.expanded .flow-content {
+            display: block;
+            padding: 25px;
+        }
+        
+        .flow-content h4 {
+            font-size: 16px;
+            color: #4facfe;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .flow-content ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .flow-content li {
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .flow-content li:last-child {
+            border-bottom: none;
+        }
+        
+        .flow-content li strong {
+            color: var(--text-primary);
+            min-width: 80px;
+        }
+        
+        .flow-content li .icon {
+            font-size: 16px;
+        }
+        
+        .sub-step {
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.08), rgba(0, 242, 254, 0.08));
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 3px solid #4facfe;
+        }
+        
+        .sub-step-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .sub-step-content {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .deliverable-box {
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.1));
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .deliverable-box h5 {
+            font-size: 14px;
+            color: #4facfe;
+            margin-bottom: 10px;
+        }
+        
+        .deliverable-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .deliverable-tag {
+            background: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .tool-box {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .tool-box h5 {
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        
+        .tool-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tool-tag {
+            background: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .case-box {
+            background: white;
+            border-radius: 12px;
+            margin: 15px 0;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        
+        .case-header {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+            color: white;
+            padding: 12px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .case-header h5 {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .case-toggle {
+            font-size: 12px;
+        }
+        
+        .case-box.expanded .case-toggle::after {
+            content: '收起';
+        }
+        
+        .case-box:not(.expanded) .case-toggle::after {
+            content: '展开';
+        }
+        
+        .case-content {
+            display: none;
+            padding: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        
+        .case-box.expanded .case-content {
+            display: block;
+        }
+        
+        .case-section {
+            margin-bottom: 15px;
+        }
+        
+        .case-section-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .case-section-content {
+            padding-left: 20px;
+        }
+        
+        .prd-preview {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .prd-preview .comment {
+            color: #6a9955;
+        }
+        
+        .prd-preview .title {
+            color: #569cd6;
+        }
+        
+        .prd-preview .highlight {
+            color: #ce9178;
+        }
+        
+        .knowledge-tip {
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.1));
+            border-left: 4px solid #4facfe;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .knowledge-tip strong {
+            color: #4facfe;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+        }
+        
+        footer {
+            background: #2C3E50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+        }
+        
+        .process-diagram {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .process-steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .process-step {
+            background: linear-gradient(135deg, #f5f7fa, #e8ecf1);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .process-step.highlight {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+        }
+        
+        .process-step.warning {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+            color: white;
+        }
+        
+        .process-arrow {
+            font-size: 18px;
+            color: var(--text-light);
+        }
+        
+        .process-arrow.back {
+            color: #fa709a;
+        }
+        
+        .stakeholder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+        
+        .stakeholder-card {
+            background: var(--bg-light);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stakeholder-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .stakeholder-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .stakeholder-role {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .real-scenario {
+            background: linear-gradient(135deg, rgba(250, 112, 154, 0.1), rgba(254, 225, 64, 0.1));
+            border: 1px dashed #fa709a;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .real-scenario h4 {
+            color: #fa709a;
+            font-size: 16px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .scenario-item {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .scenario-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .scenario-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .scenario-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .scenario-solution {
+            background: var(--bg-light);
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .scenario-solution strong {
+            color: #52C41A;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .flow-timeline {
+                padding-left: 30px;
+            }
+            
+            .flow-timeline::before {
+                left: 10px;
+            }
+            
+            .flow-item::before {
+                left: -26px;
+                width: 12px;
+                height: 12px;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+            }
+            
+            .process-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">📱</div>
+                <span>产品经理教学案例</span>
+            </div>
+            <nav>
+                <a href="index.html">首页</a>
+                <a href="ui-components.html">UI/UX</a>
+                <a href="tech-concepts.html">技术概念</a>
+                <a href="product-flow.html" class="active">产品流程</a>
+                <a href="data-analysis.html">数据分析</a>
+                <a href="case-study.html">综合案例</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <a href="index.html" class="back-link">← 返回首页</a>
+            <h1>🔄 产品流程教学</h1>
+            <p>掌握从需求分析到产品上线的完整流程，建立产品思维</p>
+            <p style="margin-top: 10px; font-size: 14px; opacity: 0.8;">💡 提示：点击各阶段展开详细内容，每个阶段包含真实案例</p>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>产品生命周期全景</h2>
+                <span class="badge">完整流程</span>
+            </div>
+            
+            <div class="process-diagram">
+                <div class="process-steps">
+                    <div class="process-step highlight">需求分析</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">产品设计</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">开发实现</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">测试验收</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">上线发布</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">运营迭代</div>
+                </div>
+                <p style="margin-top: 15px; font-size: 13px; color: var(--text-light);">⚠️ 真实流程并非单向，各阶段可能存在反复沟通和修改</p>
+            </div>
+            
+            <div class="flow-timeline">
+                <div class="flow-item expanded" onclick="toggleFlow(this)">
+                    <div class="flow-header">
+                        <div class="flow-header-left">
+                            <div class="flow-number">1</div>
+                            <div class="flow-title">
+                                <h3>需求分析阶段</h3>
+                                <p>理解用户需求，定义产品方向</p>
+                            </div>
+                        </div>
+                        <div class="flow-toggle">▼</div>
+                    </div>
+                    <div class="flow-content">
+                        <h4>📋 核心工作内容</h4>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">1️⃣ 需求收集</div>
+                            <div class="sub-step-content">用户反馈、数据分析、竞品调研、业务目标、老板需求</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">2️⃣ 需求分析</div>
+                            <div class="sub-step-content">真伪需求辨别、优先级排序、可行性评估、成本收益分析</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">3️⃣ 需求评审会 ⭐ 关键环节</div>
+                            <div class="sub-step-content">召集技术、设计、运营等相关方，讲解需求背景和方案，收集反馈，确定是否进入开发</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">4️⃣ 需求文档输出</div>
+                            <div class="sub-step-content">BRD商业需求文档、MRD市场需求文档、需求池维护</div>
+                        </div>
+                        
+                        <div class="deliverable-box">
+                            <h5>📦 产出物</h5>
+                            <div class="deliverable-list">
+                                <span class="deliverable-tag">需求池</span>
+                                <span class="deliverable-tag">用户画像</span>
+                                <span class="deliverable-tag">竞品分析报告</span>
+                                <span class="deliverable-tag">需求优先级列表</span>
+                                <span class="deliverable-tag">BRD文档</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tool-box">
+                            <h5>🛠️ 常用工具</h5>
+                            <div class="tool-list">
+                                <span class="tool-tag">问卷星</span>
+                                <span class="tool-tag">用户访谈</span>
+                                <span class="tool-tag">七麦数据</span>
+                                <span class="tool-tag">艾瑞咨询</span>
+                                <span class="tool-tag">Excel</span>
+                                <span class="tool-tag">XMind</span>
+                                <span class="tool-tag">飞书/钉钉</span>
+                            </div>
+                        </div>
+                        
+                        <div class="case-box expanded">
+                            <div class="case-header" onclick="event.stopPropagation(); toggleCase(this.parentElement)">
+                                <h5>🎯 真实案例：微信"拍一拍"功能需求分析</h5>
+                                <span class="case-toggle"></span>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-section">
+                                    <div class="case-section-title">📌 需求背景</div>
+                                    <div class="case-section-content">
+                                        微信团队发现用户在群聊中有"轻量级互动"的需求。现有的@功能太正式，需要一种更轻松、不打扰的方式引起对方注意。
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">🔍 用户调研发现</div>
+                                    <div class="case-section-content">
+                                        • 群聊中想提醒某人但不想用@（太正式）<br>
+                                        • 有时候只是想打个招呼，不需要对方回复<br>
+                                        • 现有方案：发表情包、发"在吗"——都显得刻意
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">📊 竞品分析</div>
+                                    <div class="case-section-content">
+                                        • QQ：有"戳一戳"功能，但动画较夸张<br>
+                                        • 钉钉：有"DING"功能，偏工作场景<br>
+                                        • Slack：有emoji反应，但需要点击选择
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">📝 需求定义</div>
+                                    <div class="case-section-content">
+                                        <strong>核心需求：</strong>一种轻量级的群聊互动方式<br>
+                                        <strong>设计原则：</strong><br>
+                                        • 操作简单：双击头像即可<br>
+                                        • 不打扰：无强提醒，不会震动<br>
+                                        • 有趣味：文案可自定义<br>
+                                        <strong>优先级：</strong>P1（用户痛点明确，实现成本低）
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">📄 需求文档片段</div>
+                                    <div class="prd-preview">
+<span class="comment">/* 微信拍一拍功能需求文档 */</span>
+
+<span class="title">功能名称：</span><span class="highlight">拍一拍</span>
+<span class="title">需求来源：</span><span class="highlight">用户调研 + 产品洞察</span>
+<span class="title">目标用户：</span><span class="highlight">微信全体用户</span>
+
+<span class="title">功能描述：</span>
+在群聊和个人聊天中，双击对方头像，
+系统提示"你拍了拍XXX"，对方收到
+轻量级提示。
+
+<span class="title">交互方式：</span>
+1. 双击对方头像 → 触发拍一拍
+2. 长按拍一拍提示 → 可设置后缀
+
+<span class="title">验收标准：</span>
+- 双击响应时间 < 300ms
+- 不产生强提醒（无震动、无声音）
+- 支持自定义后缀（最多8个字）
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">💡 产品经理视角</div>
+                                    <div class="case-section-content">
+                                        这个需求的核心洞察是：<strong>不是所有互动都需要对方回应</strong>。拍一拍填补了"想打招呼但不想打扰"这个空白场景。需求分析时要善于发现用户"没说出口"的需求。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 产品经理视角：</strong>需求评审会是需求分析阶段的关键节点。会上可能遇到：技术说"做不了"、运营说"没价值"、老板说"优先级不够"。产品经理需要准备好数据支撑、用户调研结果，有理有据地推动需求落地。
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-item" onclick="toggleFlow(this)">
+                    <div class="flow-header">
+                        <div class="flow-header-left">
+                            <div class="flow-number">2</div>
+                            <div class="flow-title">
+                                <h3>产品设计阶段</h3>
+                                <p>将需求转化为可执行的设计方案</p>
+                            </div>
+                        </div>
+                        <div class="flow-toggle">▼</div>
+                    </div>
+                    <div class="flow-content">
+                        <h4>📋 核心工作内容</h4>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">1️⃣ 原型设计</div>
+                            <div class="sub-step-content">低保真原型（快速验证想法）→ 高保真原型（接近真实效果）</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">2️⃣ 原型评审会 ⭐ 关键环节</div>
+                            <div class="sub-step-content">向设计、开发、测试展示原型，收集反馈，可能需要多轮修改</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">3️⃣ PRD文档编写</div>
+                            <div class="sub-step-content">功能描述、交互说明、异常处理、数据埋点、验收标准</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">4️⃣ UI设计与评审</div>
+                            <div class="sub-step-content">设计师输出视觉稿 → 设计评审会 → 修改定稿</div>
+                        </div>
+                        
+                        <div class="process-diagram">
+                            <div class="process-steps">
+                                <div class="process-step">低保真原型</div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step warning">原型评审</div>
+                                <div class="process-arrow back">←可能打回</div>
+                                <div class="process-step">高保真原型</div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">UI设计</div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step warning">设计评审</div>
+                            </div>
+                        </div>
+                        
+                        <div class="deliverable-box">
+                            <h5>📦 产出物</h5>
+                            <div class="deliverable-list">
+                                <span class="deliverable-tag">PRD文档</span>
+                                <span class="deliverable-tag">原型图</span>
+                                <span class="deliverable-tag">流程图</span>
+                                <span class="deliverable-tag">交互说明</span>
+                                <span class="deliverable-tag">UI设计稿</span>
+                                <span class="deliverable-tag">设计规范</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tool-box">
+                            <h5>🛠️ 常用工具</h5>
+                            <div class="tool-list">
+                                <span class="tool-tag">Axure</span>
+                                <span class="tool-tag">Figma</span>
+                                <span class="tool-tag">墨刀</span>
+                                <span class="tool-tag">ProcessOn</span>
+                                <span class="tool-tag">语雀</span>
+                                <span class="tool-tag">飞书文档</span>
+                                <span class="tool-tag">蓝湖</span>
+                            </div>
+                        </div>
+                        
+                        <div class="case-box">
+                            <div class="case-header" onclick="event.stopPropagation(); toggleCase(this.parentElement)">
+                                <h5>🎯 真实案例：淘宝"购物车"功能设计</h5>
+                                <span class="case-toggle"></span>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-section">
+                                    <div class="case-section-title">📌 设计背景</div>
+                                    <div class="case-section-content">
+                                        购物车是电商转化的关键环节。淘宝购物车需要承载：商品管理、优惠计算、店铺活动、凑单推荐等复杂功能，同时保持简洁易用。
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">🎨 原型设计要点</div>
+                                    <div class="case-section-content">
+                                        <strong>信息架构：</strong><br>
+                                        • 店铺分组：同一店铺商品聚合<br>
+                                        • 商品信息：图片、标题、规格、价格<br>
+                                        • 操作区：数量调整、删除、移入收藏<br>
+                                        • 底部栏：全选、合计、结算按钮<br><br>
+                                        <strong>交互设计：</strong><br>
+                                        • 左滑删除（符合用户习惯）<br>
+                                        • 数量调整即时更新价格<br>
+                                        • 失效商品单独分组，一键清理<br>
+                                        • 优惠信息折叠展示，点击展开
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">⚠️ 异常流程处理</div>
+                                    <div class="case-section-content">
+                                        • 商品下架：显示"商品已下架"，置灰，不可结算<br>
+                                        • 库存不足：显示"库存不足"，数量变红<br>
+                                        • 价格变动：显示"价格已变动"，提示最新价格<br>
+                                        • 优惠券失效：提示"优惠券已失效"，重新选择<br>
+                                        • 网络异常：本地缓存，恢复后同步
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">📄 PRD文档片段</div>
+                                    <div class="prd-preview">
+<span class="comment">/* 淘宝购物车PRD文档 */</span>
+
+<span class="title">功能模块：</span><span class="highlight">购物车</span>
+
+<span class="title">一、商品展示</span>
+1. 按店铺分组，店铺名可点击进入店铺
+2. 商品信息：图片(80x80)、标题(最多2行)、
+   规格、单价、数量
+3. 优惠标签：满减、折扣、限时价
+
+<span class="title">二、操作功能</span>
+1. 数量调整：+-按钮，最小1，最大库存
+2. 删除：左滑删除/编辑模式批量删除
+3. 移入收藏：保留商品但不参与结算
+4. 选择：单选/全选，未选中不参与结算
+
+<span class="title">三、价格计算</span>
+合计金额 = Σ(选中商品单价 × 数量)
+          - 店铺优惠
+          - 平台优惠
+          - 优惠券
+
+<span class="title">四、数据埋点</span>
+- 购物车曝光PV/UV
+- 商品点击率
+- 删除操作次数
+- 结算按钮点击率
+- 转化漏斗各环节数据
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">🔄 评审会反馈与修改</div>
+                                    <div class="case-section-content">
+                                        <strong>第一轮评审反馈：</strong><br>
+                                        • 设计师：店铺活动入口不明显<br>
+                                        • 开发：实时价格计算性能有问题<br>
+                                        • 运营：缺少凑单推荐入口<br><br>
+                                        <strong>修改方案：</strong><br>
+                                        • 店铺名下方增加活动标签<br>
+                                        • 价格计算改为前端计算+后端校验<br>
+                                        • 底部增加"凑单神器"入口
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">💡 产品经理视角</div>
+                                    <div class="case-section-content">
+                                        设计阶段最容易被忽视的是<strong>异常流程</strong>。新手产品经理只设计"正常情况"，但用户会遇到网络断开、商品下架、库存不足等各种问题。好的设计文档要覆盖80%的异常场景。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 产品经理视角：</strong>原型评审会可能需要开2-3轮。第一轮被打回很正常，关键是收集反馈后快速修改。评审前要准备好：用户场景、竞品对比、数据支撑，这样更容易说服团队。
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-item" onclick="toggleFlow(this)">
+                    <div class="flow-header">
+                        <div class="flow-header-left">
+                            <div class="flow-number">3</div>
+                            <div class="flow-title">
+                                <h3>开发实现阶段</h3>
+                                <p>将设计方案转化为可运行的代码</p>
+                            </div>
+                        </div>
+                        <div class="flow-toggle">▼</div>
+                    </div>
+                    <div class="flow-content">
+                        <h4>📋 核心工作内容</h4>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">1️⃣ 技术方案评审 ⭐ 关键环节</div>
+                            <div class="sub-step-content">开发讲解技术实现方案，产品经理确认是否符合需求预期</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">2️⃣ 排期规划</div>
+                            <div class="sub-step-content">工作量评估、里程碑设定、资源协调、风险识别</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">3️⃣ 开发跟进</div>
+                            <div class="sub-step-content">每日站会、解答疑问、处理需求变更、进度跟踪</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">4️⃣ 前后端联调</div>
+                            <div class="sub-step-content">接口对接、数据格式确认、功能联调</div>
+                        </div>
+                        
+                        <div class="stakeholder-grid">
+                            <div class="stakeholder-card">
+                                <div class="stakeholder-icon">👨‍💻</div>
+                                <div class="stakeholder-name">前端开发</div>
+                                <div class="stakeholder-role">实现界面和交互</div>
+                            </div>
+                            <div class="stakeholder-card">
+                                <div class="stakeholder-icon">👩‍💻</div>
+                                <div class="stakeholder-name">后端开发</div>
+                                <div class="stakeholder-role">实现业务逻辑和数据</div>
+                            </div>
+                            <div class="stakeholder-card">
+                                <div class="stakeholder-icon">🎨</div>
+                                <div class="stakeholder-name">UI设计师</div>
+                                <div class="stakeholder-role">输出视觉设计稿</div>
+                            </div>
+                            <div class="stakeholder-card">
+                                <div class="stakeholder-icon">🧪</div>
+                                <div class="stakeholder-name">测试工程师</div>
+                                <div class="stakeholder-role">编写测试用例</div>
+                            </div>
+                        </div>
+                        
+                        <div class="real-scenario">
+                            <h4>⚠️ 真实场景：需求变更怎么办？</h4>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景1：老板临时加需求</div>
+                                <div class="scenario-desc">开发进行中，老板说"能不能加个分享功能？"</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>评估工作量 → 如果影响上线时间，与老板沟通取舍 → 能延后的放入下一版本 → 必须加的调整排期并通知相关方
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景2：技术实现与预期不符</div>
+                                <div class="scenario-desc">开发说"这个动画效果实现不了"</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>了解技术限制原因 → 讨论替代方案 → 如果是核心体验，寻找技术突破点 → 如果非核心，接受替代方案
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景3：发现设计遗漏</div>
+                                <div class="scenario-desc">开发问"网络失败时怎么显示？"</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>快速补充设计 → 更新PRD文档 → 评估是否影响排期 → 记录教训，下次避免
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="deliverable-box">
+                            <h5>📦 产出物</h5>
+                            <div class="deliverable-list">
+                                <span class="deliverable-tag">开发排期表</span>
+                                <span class="deliverable-tag">接口文档</span>
+                                <span class="deliverable-tag">测试用例</span>
+                                <span class="deliverable-tag">可演示版本</span>
+                                <span class="deliverable-tag">变更记录</span>
+                            </div>
+                        </div>
+                        
+                        <div class="case-box">
+                            <div class="case-header" onclick="event.stopPropagation(); toggleCase(this.parentElement)">
+                                <h5>🎯 真实案例：美团外卖"准时达"功能开发</h5>
+                                <span class="case-toggle"></span>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-section">
+                                    <div class="case-section-title">📌 功能背景</div>
+                                    <div class="case-section-content">
+                                        用户对外卖配送时间准确性有强烈需求。美团推出"准时达"服务，承诺超时赔付，需要精确预测配送时间。
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">💻 技术方案评审</div>
+                                    <div class="case-section-content">
+                                        <strong>前端工作：</strong><br>
+                                        • 订单页面显示预计送达时间<br>
+                                        • 准时达标签展示<br>
+                                        • 超时状态提示<br><br>
+                                        <strong>后端工作：</strong><br>
+                                        • 配送时间预测算法（机器学习模型）<br>
+                                        • 骑手位置实时追踪<br>
+                                        • 超时自动赔付逻辑<br><br>
+                                        <strong>产品经理关注点：</strong><br>
+                                        • 预测准确率要达到多少才能上线？<br>
+                                        • 什么情况下不显示准时达？<br>
+                                        • 赔付金额如何计算？
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">📅 排期规划</div>
+                                    <div class="case-section-content">
+                                        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+                                            <tr style="background:#f5f5f5;">
+                                                <th style="padding:8px; text-align:left; border:1px solid #eee;">阶段</th>
+                                                <th style="padding:8px; text-align:left; border:1px solid #eee;">时间</th>
+                                                <th style="padding:8px; text-align:left; border:1px solid #eee;">负责人</th>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:8px; border:1px solid #eee;">接口设计</td>
+                                                <td style="padding:8px; border:1px solid #eee;">3天</td>
+                                                <td style="padding:8px; border:1px solid #eee;">后端</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:8px; border:1px solid #eee;">前端开发</td>
+                                                <td style="padding:8px; border:1px solid #eee;">5天</td>
+                                                <td style="padding:8px; border:1px solid #eee;">前端</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:8px; border:1px solid #eee;">后端开发</td>
+                                                <td style="padding:8px; border:1px solid #eee;">7天</td>
+                                                <td style="padding:8px; border:1px solid #eee;">后端</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:8px; border:1px solid #eee;">联调测试</td>
+                                                <td style="padding:8px; border:1px solid #eee;">3天</td>
+                                                <td style="padding:8px; border:1px solid #eee;">全员</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">🔄 开发过程中的需求变更</div>
+                                    <div class="case-section-content">
+                                        <strong>变更内容：</strong>运营提出需要在高峰期关闭准时达入口<br>
+                                        <strong>处理方式：</strong><br>
+                                        • 评估工作量：增加后台开关配置，约0.5人天<br>
+                                        • 影响评估：不影响主流程，可接受<br>
+                                        • 决策：同意加入，排期顺延0.5天<br>
+                                        • 记录：更新PRD，通知测试补充用例
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">💡 产品经理视角</div>
+                                    <div class="case-section-content">
+                                        开发阶段产品经理要当好"翻译官"和"协调者"。开发看不懂文档时，要用他们能理解的方式解释；遇到技术难点时，要和开发一起讨论替代方案。记住：<strong>好的产品经理不是"提需求的人"，而是"帮助团队把需求落地的人"</strong>。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 产品经理视角：</strong>开发阶段最怕"需求蔓延"（Scope Creep）。每个小变更看起来都很简单，但累积起来会严重影响进度。要学会说"不"，或者把新需求放入下一版本。变更要有记录，影响要有评估。
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-item" onclick="toggleFlow(this)">
+                    <div class="flow-header">
+                        <div class="flow-header-left">
+                            <div class="flow-number">4</div>
+                            <div class="flow-title">
+                                <h3>测试验收阶段</h3>
+                                <p>确保产品质量，发现并修复问题</p>
+                            </div>
+                        </div>
+                        <div class="flow-toggle">▼</div>
+                    </div>
+                    <div class="flow-content">
+                        <h4>📋 核心工作内容</h4>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">1️⃣ 测试用例评审 ⭐ 关键环节</div>
+                            <div class="sub-step-content">测试讲解测试用例，产品经理确认是否覆盖所有场景</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">2️⃣ 功能测试</div>
+                            <div class="sub-step-content">功能测试、边界测试、兼容性测试、性能测试</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">3️⃣ 产品验收 ⭐ 关键环节</div>
+                            <div class="sub-step-content">产品经理亲自验收功能、体验、设计还原度，可能打回重做</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">4️⃣ Bug修复与回归</div>
+                            <div class="sub-step-content">发现Bug → 开发修复 → 验证通过 → 回归测试</div>
+                        </div>
+                        
+                        <div class="process-diagram">
+                            <div class="process-steps">
+                                <div class="process-step">测试用例评审</div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step">功能测试</div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step warning">产品验收</div>
+                                <div class="process-arrow back">←可能打回</div>
+                                <div class="process-step">Bug修复</div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step highlight">验收通过</div>
+                            </div>
+                        </div>
+                        
+                        <div class="real-scenario">
+                            <h4>⚠️ 真实场景：产品验收不通过怎么办？</h4>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景1：功能实现与设计不符</div>
+                                <div class="scenario-desc">验收时发现交互效果和设计稿有差异</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>截图对比 → 明确差异点 → 判断是否影响体验 → 小问题记录后修复，大问题打回重做
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景2：发现严重Bug</div>
+                                <div class="scenario-desc">验收时发现一个必现的崩溃问题</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>立即阻断上线 → 开发紧急修复 → 重新测试 → 全量回归 → 确认无问题后才能上线
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景3：体验问题</div>
+                                <div class="scenario-desc">功能没问题，但用起来"感觉不对"</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>具体描述问题（如"动画太快"）→ 与设计确认 → 评估修改成本 → 如果成本低则修改，成本高则记录为优化项
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="deliverable-box">
+                            <h5>📦 产出物</h5>
+                            <div class="deliverable-list">
+                                <span class="deliverable-tag">测试用例</span>
+                                <span class="deliverable-tag">Bug列表</span>
+                                <span class="deliverable-tag">测试报告</span>
+                                <span class="deliverable-tag">验收报告</span>
+                                <span class="deliverable-tag">上线清单</span>
+                            </div>
+                        </div>
+                        
+                        <div class="case-box">
+                            <div class="case-header" onclick="event.stopPropagation(); toggleCase(this.parentElement)">
+                                <h5>🎯 真实案例：抖音"直播"功能测试验收</h5>
+                                <span class="case-toggle"></span>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-section">
+                                    <div class="case-section-title">📌 测试范围</div>
+                                    <div class="case-section-content">
+                                        • 直播推流稳定性<br>
+                                        • 观众端播放流畅度<br>
+                                        • 礼物、弹幕互动功能<br>
+                                        • 多机型兼容性<br>
+                                        • 弱网环境表现
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">📝 测试用例示例</div>
+                                    <div class="case-section-content">
+                                        <table style="width:100%; border-collapse:collapse; font-size:12px;">
+                                            <tr style="background:#f5f5f5;">
+                                                <th style="padding:6px; text-align:left; border:1px solid #eee;">用例ID</th>
+                                                <th style="padding:6px; text-align:left; border:1px solid #eee;">测试场景</th>
+                                                <th style="padding:6px; text-align:left; border:1px solid #eee;">预期结果</th>
+                                                <th style="padding:6px; text-align:left; border:1px solid #eee;">优先级</th>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">TC001</td>
+                                                <td style="padding:6px; border:1px solid #eee;">正常开播</td>
+                                                <td style="padding:6px; border:1px solid #eee;">推流成功，观众可观看</td>
+                                                <td style="padding:6px; border:1px solid #eee;">P0</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">TC002</td>
+                                                <td style="padding:6px; border:1px solid #eee;">弱网开播</td>
+                                                <td style="padding:6px; border:1px solid #eee;">提示网络不佳，自动降画质</td>
+                                                <td style="padding:6px; border:1px solid #eee;">P0</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">TC003</td>
+                                                <td style="padding:6px; border:1px solid #eee;">发送礼物</td>
+                                                <td style="padding:6px; border:1px solid #eee;">主播收到，观众看到动画</td>
+                                                <td style="padding:6px; border:1px solid #eee;">P1</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">TC004</td>
+                                                <td style="padding:6px; border:1px solid #eee;">断网重连</td>
+                                                <td style="padding:6px; border:1px solid #eee;">自动重连，不退出直播间</td>
+                                                <td style="padding:6px; border:1px solid #eee;">P0</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">🐛 发现的典型Bug</div>
+                                    <div class="case-section-content">
+                                        <strong>Bug1：礼物动画卡顿</strong><br>
+                                        • 现象：连续发送多个礼物时，动画卡顿<br>
+                                        • 原因：动画资源未预加载<br>
+                                        • 修复：增加预加载机制<br><br>
+                                        
+                                        <strong>Bug2：弱网下崩溃</strong><br>
+                                        • 现象：网络切换时App崩溃<br>
+                                        • 原因：网络状态监听空指针<br>
+                                        • 修复：增加空判断<br><br>
+                                        
+                                        <strong>Bug3：弹幕重叠</strong><br>
+                                        • 现象：弹幕量大时文字重叠<br>
+                                        • 原因：弹幕轨道计算错误<br>
+                                        • 修复：优化轨道分配算法
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">✅ 产品验收要点</div>
+                                    <div class="case-section-content">
+                                        • 直播画质是否清晰流畅<br>
+                                        • 礼物动画是否精美<br>
+                                        • 弹幕滚动是否自然<br>
+                                        • 弱网提示是否友好<br>
+                                        • 整体体验是否符合预期<br><br>
+                                        <strong>验收结果：</strong>发现3个体验问题，修复后通过验收
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">💡 产品经理视角</div>
+                                    <div class="case-section-content">
+                                        测试阶段是产品经理的"守门员"时刻。要站在用户角度验收产品，不要只测试"正常情况"，要专门测试<strong>"用户会怎么乱操作"</strong>。发现的问题要及时记录、跟踪修复进度。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 产品经理视角：</strong>产品验收时不要怕"找茬"。现在发现问题总比上线后被用户发现好。验收时要模拟真实用户场景，用"小白"的心态去操作，而不是用"专家"的思维。
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-item" onclick="toggleFlow(this)">
+                    <div class="flow-header">
+                        <div class="flow-header-left">
+                            <div class="flow-number">5</div>
+                            <div class="flow-title">
+                                <h3>上线发布阶段</h3>
+                                <p>将产品交付给用户使用</p>
+                            </div>
+                        </div>
+                        <div class="flow-toggle">▼</div>
+                    </div>
+                    <div class="flow-content">
+                        <h4>📋 核心工作内容</h4>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">1️⃣ 上线准备</div>
+                            <div class="sub-step-content">上线清单检查、配置确认、数据准备、应急预案</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">2️⃣ 灰度发布 ⭐ 关键环节</div>
+                            <div class="sub-step-content">先开放小比例用户（如5%），观察数据稳定后逐步扩大</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">3️⃣ 全量发布</div>
+                            <div class="sub-step-content">应用市场提交、审核跟进、全量开放</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">4️⃣ 发布后监控</div>
+                            <div class="sub-step-content">数据监控、用户反馈、问题响应、回滚准备</div>
+                        </div>
+                        
+                        <div class="process-diagram">
+                            <div class="process-steps">
+                                <div class="process-step">上线检查</div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step warning">灰度5%</div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step warning">灰度20%</div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step warning">灰度50%</div>
+                                <div class="process-arrow">→</div>
+                                <div class="process-step highlight">全量</div>
+                            </div>
+                        </div>
+                        
+                        <div class="real-scenario">
+                            <h4>⚠️ 真实场景：上线出问题怎么办？</h4>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景1：灰度期间发现严重Bug</div>
+                                <div class="scenario-desc">灰度5%时发现支付功能异常</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>立即停止灰度 → 定位问题 → 紧急修复 → 重新测试 → 重新灰度
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景2：应用市场审核被拒</div>
+                                <div class="scenario-desc">App Store审核说违反了某条规定</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>仔细阅读拒绝原因 → 修改问题 → 重新提交 → 必要时申诉沟通
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景3：上线后用户投诉</div>
+                                <div class="scenario-desc">大量用户反馈新版本不好用</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>收集具体反馈 → 分析问题原因 → 如果严重则回滚版本 → 如果不严重则快速迭代修复
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="deliverable-box">
+                            <h5>📦 产出物</h5>
+                            <div class="deliverable-list">
+                                <span class="deliverable-tag">上线清单</span>
+                                <span class="deliverable-tag">更新日志</span>
+                                <span class="deliverable-tag">运营素材</span>
+                                <span class="deliverable-tag">发布通知</span>
+                                <span class="deliverable-tag">应急预案</span>
+                            </div>
+                        </div>
+                        
+                        <div class="case-box">
+                            <div class="case-header" onclick="event.stopPropagation(); toggleCase(this.parentElement)">
+                                <h5>🎯 真实案例：支付宝"集五福"活动上线</h5>
+                                <span class="case-toggle"></span>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-section">
+                                    <div class="case-section-title">📌 活动背景</div>
+                                    <div class="case-section-content">
+                                        春节集五福是支付宝年度S级活动，涉及数亿用户参与，对系统稳定性要求极高。
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">📋 上线清单（部分）</div>
+                                    <div class="case-section-content">
+                                        <table style="width:100%; border-collapse:collapse; font-size:12px;">
+                                            <tr style="background:#f5f5f5;">
+                                                <th style="padding:6px; text-align:left; border:1px solid #eee;">检查项</th>
+                                                <th style="padding:6px; text-align:left; border:1px solid #eee;">负责人</th>
+                                                <th style="padding:6px; text-align:left; border:1px solid #eee;">状态</th>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">功能测试通过</td>
+                                                <td style="padding:6px; border:1px solid #eee;">测试组</td>
+                                                <td style="padding:6px; border:1px solid #eee;">✅</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">性能压测通过</td>
+                                                <td style="padding:6px; border:1px solid #eee;">运维组</td>
+                                                <td style="padding:6px; border:1px solid #eee;">✅</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">安全审计通过</td>
+                                                <td style="padding:6px; border:1px solid #eee;">安全组</td>
+                                                <td style="padding:6px; border:1px solid #eee;">✅</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">应急预案准备</td>
+                                                <td style="padding:6px; border:1px solid #eee;">产品组</td>
+                                                <td style="padding:6px; border:1px solid #eee;">✅</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">客服培训完成</td>
+                                                <td style="padding:6px; border:1px solid #eee;">运营组</td>
+                                                <td style="padding:6px; border:1px solid #eee;">✅</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">🚀 灰度发布策略</div>
+                                    <div class="case-section-content">
+                                        <strong>Day 1：</strong>内部员工测试（100人）<br>
+                                        <strong>Day 2：</strong>灰度1%（约100万用户）<br>
+                                        <strong>Day 3：</strong>灰度5%（约500万用户）<br>
+                                        <strong>Day 4：</strong>灰度20%（约2000万用户）<br>
+                                        <strong>Day 5：</strong>全量发布<br><br>
+                                        <strong>灰度期间监控指标：</strong><br>
+                                        • 服务器CPU/内存使用率<br>
+                                        • 接口响应时间<br>
+                                        • 错误率<br>
+                                        • 用户反馈量
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">⚠️ 灰度期间遇到的问题</div>
+                                    <div class="case-section-content">
+                                        <strong>问题：</strong>灰度5%时，部分用户反馈"福卡加载慢"<br><br>
+                                        <strong>排查：</strong><br>
+                                        • CDN节点缓存未命中<br>
+                                        • 图片资源过大<br><br>
+                                        <strong>解决：</strong><br>
+                                        • 紧急扩容CDN节点<br>
+                                        • 压缩图片资源<br>
+                                        • 继续观察，确认问题解决后扩大灰度
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">💡 产品经理视角</div>
+                                    <div class="case-section-content">
+                                        大型活动上线要<strong>宁可慢，不要错</strong>。灰度发布是发现问题的最后一道防线。灰度期间要密切监控数据，任何异常都要停下来排查。同时要准备好回滚方案，万一出问题能快速恢复。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 产品经理视角：</strong>上线不是终点，而是新的起点。上线后要密切关注用户反馈和数据表现，准备好应急预案。如果出现严重问题，要知道如何快速回滚或发布修复版本。记住：<strong>上线只是开始，运营才是长跑</strong>。
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-item" onclick="toggleFlow(this)">
+                    <div class="flow-header">
+                        <div class="flow-header-left">
+                            <div class="flow-number">6</div>
+                            <div class="flow-title">
+                                <h3>运营迭代阶段</h3>
+                                <p>持续优化产品，提升用户体验</p>
+                            </div>
+                        </div>
+                        <div class="flow-toggle">▼</div>
+                    </div>
+                    <div class="flow-content">
+                        <h4>📋 核心工作内容</h4>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">1️⃣ 数据监控与分析</div>
+                            <div class="sub-step-content">用户行为分析、功能使用数据、转化漏斗、留存分析</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">2️⃣ 用户反馈收集</div>
+                            <div class="sub-step-content">应用商店评论、客服反馈、用户访谈、问卷调查</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">3️⃣ 迭代规划</div>
+                            <div class="sub-step-content">需求池维护、优先级排序、版本规划、迭代计划</div>
+                        </div>
+                        
+                        <div class="sub-step">
+                            <div class="sub-step-title">4️⃣ 持续优化</div>
+                            <div class="sub-step-content">A/B测试、功能优化、体验提升、Bug修复</div>
+                        </div>
+                        
+                        <div class="real-scenario">
+                            <h4>⚠️ 真实场景：数据不达预期怎么办？</h4>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景1：新功能使用率低</div>
+                                <div class="scenario-desc">上线的新功能，用户使用率只有5%</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>分析原因（入口太深？价值不清晰？）→ 优化入口位置 → 增加引导提示 → 观察数据变化 → 如果仍无改善则考虑下线
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景2：用户流失增加</div>
+                                <div class="scenario-desc">新版本上线后，次日留存下降5%</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>定位流失用户群体 → 分析流失原因 → 是否新版本体验问题 → 如果是则快速修复 → 如果不是则分析竞品动态
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <div class="scenario-title">场景3：转化率下降</div>
+                                <div class="scenario-desc">购买转化率比上线前低了10%</div>
+                                <div class="scenario-solution">
+                                    <strong>处理方案：</strong>分析漏斗各环节 → 找到流失增加的环节 → 定位原因（流程变长？页面加载慢？）→ 针对性优化
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="deliverable-box">
+                            <h5>📦 产出物</h5>
+                            <div class="deliverable-list">
+                                <span class="deliverable-tag">数据分析报告</span>
+                                <span class="deliverable-tag">用户反馈分析</span>
+                                <span class="deliverable-tag">迭代计划</span>
+                                <span class="deliverable-tag">运营方案</span>
+                                <span class="deliverable-tag">复盘报告</span>
+                            </div>
+                        </div>
+                        
+                        <div class="case-box">
+                            <div class="case-header" onclick="event.stopPropagation(); toggleCase(this.parentElement)">
+                                <h5>🎯 真实案例：小红书"笔记发布"功能迭代</h5>
+                                <span class="case-toggle"></span>
+                            </div>
+                            <div class="case-content">
+                                <div class="case-section">
+                                    <div class="case-section-title">📊 上线后数据观察</div>
+                                    <div class="case-section-content">
+                                        <table style="width:100%; border-collapse:collapse; font-size:12px;">
+                                            <tr style="background:#f5f5f5;">
+                                                <th style="padding:6px; text-align:left; border:1px solid #eee;">指标</th>
+                                                <th style="padding:6px; text-align:left; border:1px solid #eee;">上线前</th>
+                                                <th style="padding:6px; text-align:left; border:1px solid #eee;">上线后</th>
+                                                <th style="padding:6px; text-align:left; border:1px solid #eee;">变化</th>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">发布转化率</td>
+                                                <td style="padding:6px; border:1px solid #eee;">12%</td>
+                                                <td style="padding:6px; border:1px solid #eee;">15%</td>
+                                                <td style="padding:6px; border:1px solid #eee; color:#52C41A;">↑25%</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">人均发布数</td>
+                                                <td style="padding:6px; border:1px solid #eee;">2.1条/周</td>
+                                                <td style="padding:6px; border:1px solid #eee;">2.8条/周</td>
+                                                <td style="padding:6px; border:1px solid #eee; color:#52C41A;">↑33%</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:6px; border:1px solid #eee;">发布放弃率</td>
+                                                <td style="padding:6px; border:1px solid #eee;">35%</td>
+                                                <td style="padding:6px; border:1px solid #eee;">28%</td>
+                                                <td style="padding:6px; border:1px solid #eee; color:#52C41A;">↓20%</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">💬 用户反馈分析</div>
+                                    <div class="case-section-content">
+                                        <strong>正面反馈：</strong><br>
+                                        • "发布流程变简单了"<br>
+                                        • "滤镜效果很好看"<br><br>
+                                        
+                                        <strong>负面反馈：</strong><br>
+                                        • "图片压缩太厉害，不清晰"<br>
+                                        • "希望能批量添加标签"<br>
+                                        • "视频发布还是太慢"
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">📋 迭代计划</div>
+                                    <div class="case-section-content">
+                                        <strong>V2.1（下个版本）：</strong><br>
+                                        • 优化图片压缩算法，提升清晰度<br>
+                                        • 增加批量添加标签功能<br><br>
+                                        
+                                        <strong>V2.2（未来版本）：</strong><br>
+                                        • 视频发布流程优化<br>
+                                        • 增加草稿箱功能<br>
+                                        • 支持定时发布
+                                    </div>
+                                </div>
+                                
+                                <div class="case-section">
+                                    <div class="case-section-title">💡 产品经理视角</div>
+                                    <div class="case-section-content">
+                                        产品是<strong>"长"出来的，不是"做"出来的</strong>。上线后要根据数据和反馈持续优化。建立数据监控体系，定期复盘，形成"上线-观察-优化-再上线"的良性循环。记住：没有完美的产品，只有不断进化的产品。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 产品经理视角：</strong>运营迭代阶段要建立"数据驱动"的习惯。不要凭感觉做决策，要用数据说话。同时要平衡"用户想要的"和"产品应该做的"，有时候用户反馈只是表象，真正的问题需要深入分析。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>🎓 产品经理教学案例网站 | 专为初学者打造的交互式学习平台</p>
+            <p style="margin-top: 10px; font-size: 12px;">建议使用Chrome浏览器访问，获得最佳体验</p>
+        </div>
+    </footer>
+    
+    <button onclick="scrollToTop()" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; font-size: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4); z-index: 999; transition: all 0.3s;">↑</button>
+    
+    <script>
+        function toggleFlow(item) {
+            const isExpanded = item.classList.contains('expanded');
+            
+            if (isExpanded) {
+                item.classList.remove('expanded');
+            } else {
+                item.classList.add('expanded');
+            }
+        }
+        
+        function toggleCase(caseBox) {
+            const isExpanded = caseBox.classList.contains('expanded');
+            
+            if (isExpanded) {
+                caseBox.classList.remove('expanded');
+            } else {
+                caseBox.classList.add('expanded');
+            }
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
