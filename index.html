@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学长的综合网站</title>
+    <link rel="stylesheet" href="css/shared.css">
+    <style id="theme-style"></style>
+</head>
+<body>
+    <div id="app">
+        <div id="loading-screen">
+            <div class="loader"></div>
+            <p>加载中...</p>
+        </div>
+    </div>
+
+    <script>
+        const themes = {
+            dark: {
+                name: '深色科技风',
+                primary: '#00f5ff',
+                secondary: '#ff00ff',
+                background: '#0a0a0f',
+                cardBg: 'rgba(20, 20, 30, 0.9)',
+                text: '#ffffff',
+                textSecondary: '#888888'
+            },
+            gradient: {
+                name: '渐变紫蓝风',
+                primary: '#667eea',
+                secondary: '#764ba2',
+                background: '#f0f2f5',
+                cardBg: '#ffffff',
+                text: '#333333',
+                textSecondary: '#666666'
+            },
+            light: {
+                name: '简约现代风',
+                primary: '#4A90E2',
+                secondary: '#7B68EE',
+                background: '#ffffff',
+                cardBg: '#f8f9fa',
+                text: '#333333',
+                textSecondary: '#666666'
+            }
+        };
+
+        let currentTheme = localStorage.getItem('theme') || 'gradient';
+        let currentView = 'ai';
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function setTheme(themeName) {
+            currentTheme = themeName;
+            localStorage.setItem('theme', themeName);
+            applyTheme(themes[themeName]);
+        }
+
+        function applyTheme(theme) {
+            const root = document.documentElement;
+            root.style.setProperty('--primary-color', theme.primary);
+            root.style.setProperty('--secondary-color', theme.secondary);
+            root.style.setProperty('--bg-color', theme.background);
+            root.style.setProperty('--card-bg', theme.cardBg);
+            root.style.setProperty('--text-color', theme.text);
+            root.style.setProperty('--text-secondary', theme.textSecondary);
+            
+            const themeStyle = document.getElementById('theme-style');
+            themeStyle.textContent = `
+                body { background: ${theme.background}; color: ${theme.text}; }
+                .nav-bar { background: linear-gradient(135deg, ${theme.primary}, ${theme.secondary}); }
+                .hero-section { background: linear-gradient(135deg, ${theme.primary}, ${theme.secondary}); }
+                .card { background: ${theme.cardBg}; }
+                .card:hover { border-color: ${theme.primary}; box-shadow: 0 0 20px ${theme.primary}44; }
+                .theme-btn.active { border-color: ${theme.primary}; background: ${theme.primary}22; }
+                .content-iframe { border-color: ${theme.primary}22; }
+            `;
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.theme === currentTheme);
+            });
+        }
+
+        function renderApp() {
+            const view = getQueryParam('view') || 'ai';
+            currentView = view;
+
+            const app = document.getElementById('app');
+            
+            let content = '';
+            
+            content += renderNavBar();
+            
+            if (view === 'allpage') {
+                content += renderHomePage();
+                content += `<div class="sections-container">`;
+                content += renderIframeSection('AI能力演示', 'ai-section', 'components/ai-content.html');
+                content += renderIframeSection('产品学习案例', 'product-section', 'components/product-content.html');
+                content += renderIframeSection('关于我', 'personal-section', 'components/personal-content.html');
+                content += `</div>`;
+            } else if (view === 'ai') {
+                content += renderFullIframe('components/ai-content.html');
+            } else if (view === 'chanpin') {
+                content += renderFullIframe('components/product-content.html');
+            } else if (view === 'personal') {
+                content += renderFullIframe('components/personal-content.html');
+            }
+
+            content += renderThemeSwitcher();
+            content += renderFooter();
+
+            app.innerHTML = content;
+            applyTheme(themes[currentTheme]);
+
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        function renderNavBar() {
+            return `
+                <nav class="nav-bar">
+                    <div class="nav-container">
+                        <a href="?view=allpage" class="nav-logo" style="text-decoration: none;">
+                            <span class="logo-icon">🎓</span>
+                            <span class="logo-text">学长的综合网站</span>
+                        </a>
+                        <div class="nav-links">
+                            <a href="?view=allpage" class="nav-link ${currentView === 'allpage' ? 'active' : ''}">首页</a>
+                            <a href="?view=ai" class="nav-link ${currentView === 'ai' ? 'active' : ''}">AI能力</a>
+                            <a href="?view=chanpin" class="nav-link ${currentView === 'chanpin' ? 'active' : ''}">产品学习</a>
+                            <a href="?view=personal" class="nav-link ${currentView === 'personal' ? 'active' : ''}">关于我</a>
+                        </div>
+                    </div>
+                </nav>
+            `;
+        }
+
+        function renderHomePage() {
+            return `
+                <section class="hero-section">
+                    <div class="hero-content">
+                        <h1 class="hero-title">欢迎来到学长的综合网站</h1>
+                        <p class="hero-subtitle">AI能力演示 · 产品案例学习 · 求职规划指导</p>
+                    </div>
+                </section>
+
+                <section class="cards-section">
+                    <div class="cards-container">
+                        <div class="card" onclick="navigateTo('ai')">
+                            <div class="card-icon">🤖</div>
+                            <h3 class="card-title">AI能力演示</h3>
+                            <p class="card-desc">11个AI能力交互演示</p>
+                            <ul class="card-features">
+                                <li>意图识别</li>
+                                <li>槽位填充</li>
+                                <li>图像生成</li>
+                                <li>Agent智能体</li>
+                            </ul>
+                        </div>
+
+                        <div class="card" onclick="navigateTo('chanpin')">
+                            <div class="card-icon">📚</div>
+                            <h3 class="card-title">产品学习案例</h3>
+                            <p class="card-desc">专为初学者打造</p>
+                            <ul class="card-features">
+                                <li>案例研究</li>
+                                <li>数据分析</li>
+                                <li>产品流程</li>
+                                <li>UI组件库</li>
+                            </ul>
+                        </div>
+
+                        <div class="card card-coming-soon">
+                            <div class="card-icon">🚀</div>
+                            <h3 class="card-title">更多</h3>
+                            <p class="card-desc">即将上线</p>
+                            <ul class="card-features">
+                                <li>AI面试助手</li>
+                                <li>AI项目展示</li>
+                                <li>更多精彩...</li>
+                            </ul>
+                            <div class="coming-soon-badge">敬请期待</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="scroll-hint">
+                    <p>向下滚动查看全部内容 ↓</p>
+                </section>
+            `;
+        }
+
+        function renderIframeSection(title, id, src) {
+            return `
+                <div class="iframe-section" id="${id}">
+                    <div class="section-header">
+                        <h2 class="section-title">${title}</h2>
+                        <a href="${src}" target="_blank" class="open-new-btn">新窗口打开 ↗</a>
+                    </div>
+                    <iframe src="${src}" class="content-iframe" frameborder="0" loading="lazy"></iframe>
+                </div>
+            `;
+        }
+
+        function renderFullIframe(src) {
+            return `
+                <div class="full-iframe-container">
+                    <iframe src="${src}" class="full-iframe" frameborder="0"></iframe>
+                </div>
+            `;
+        }
+
+        function renderThemeSwitcher() {
+            return `
+                <div class="theme-switcher">
+                    <span class="theme-label">皮肤：</span>
+                    ${Object.entries(themes).map(([key, theme]) => `
+                        <button class="theme-btn ${currentTheme === key ? 'active' : ''}" 
+                                data-theme="${key}"
+                                onclick="setTheme('${key}')"
+                                title="${theme.name}">
+                            <span class="theme-preview" style="background: linear-gradient(135deg, ${theme.primary}, ${theme.secondary})"></span>
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderFooter() {
+            return `
+                <footer class="footer">
+                    <p>© 2024 学长的综合网站 | 让学习更简单</p>
+                </footer>
+            `;
+        }
+
+        function navigateTo(view) {
+            window.location.href = `?view=${view}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', renderApp);
+    </script>
+</body>
+</html>
