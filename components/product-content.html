@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品经理教学案例 - 专为初学者打造的交互式学习平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #7B68EE;
+            --success-color: #52C41A;
+            --warning-color: #FAAD14;
+            --error-color: #FF4D4F;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --bg-light: #F5F7FA;
+            --bg-white: #FFFFFF;
+            --border-color: #E8E8E8;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 40px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        
+        .section-title p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+        
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+        
+        @media (max-width: 1024px) {
+            .module-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        .module-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .module-header {
+            padding: 30px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .module-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+        }
+        
+        .module-header.ui { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .module-header.tech { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .module-header.flow { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .module-header.data { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .module-header.case { background: linear-gradient(135deg, #fa709a, #fee140); }
+        
+        .module-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .module-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .module-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .module-body {
+            padding: 25px;
+        }
+        
+        .module-desc {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .module-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .topic-tag {
+            background: var(--bg-light);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+        
+        .learning-path {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+        
+        .path-title {
+            font-size: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--text-primary);
+        }
+        
+        .path-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .path-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .path-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: var(--text-light);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 auto 10px;
+        }
+        
+        .step-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+        
+        .step-desc {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .tips-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .tip-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        
+        .tip-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+        
+        .tip-content h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+        
+        .tip-content p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        footer {
+            background: #2C3E50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+            z-index: 999;
+            transition: all 0.3s;
+            display: none;
+        }
+        
+        .scroll-top.visible {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">📱</div>
+                <span>产品经理教学案例</span>
+            </div>
+            <nav>
+                <a href="index.html" class="active">首页</a>
+                <a href="ui-components.html">UI/UX</a>
+                <a href="tech-concepts.html">技术概念</a>
+                <a href="product-flow.html">产品流程</a>
+                <a href="data-analysis.html">数据分析</a>
+                <a href="case-study.html">综合案例</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>🎓 产品经理教学案例</h1>
+            <p>专为初学者打造的交互式学习平台，从零开始掌握产品经理核心技能</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">学习模块</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">知识点</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">20+</span>
+                    <span class="stat-label">真实案例</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">免费学习</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>📚 学习模块</h2>
+                <p>系统化的课程体系，帮助你全面掌握产品经理技能</p>
+            </div>
+            
+            <div class="module-grid">
+                <a href="ui-components.html" class="module-card">
+                    <div class="module-header ui">
+                        <div class="module-icon">🎨</div>
+                        <div class="module-title">UI/UX教学</div>
+                        <div class="module-subtitle">界面设计与用户体验</div>
+                    </div>
+                    <div class="module-body">
+                        <p class="module-desc">学习常用UI组件的设计规范和UX交互原则，理解设计背后的产品思维。</p>
+                        <div class="module-topics">
+                            <span class="topic-tag">导航组件</span>
+                            <span class="topic-tag">表单设计</span>
+                            <span class="topic-tag">反馈提示</span>
+                            <span class="topic-tag">交互模式</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="tech-concepts.html" class="module-card">
+                    <div class="module-header tech">
+                        <div class="module-icon">⚙️</div>
+                        <div class="module-title">技术概念</div>
+                        <div class="module-subtitle">产品经理必备技术知识</div>
+                    </div>
+                    <div class="module-body">
+                        <p class="module-desc">掌握API、数据库、前端后端等核心技术概念，与开发团队高效沟通。</p>
+                        <div class="module-topics">
+                            <span class="topic-tag">API接口</span>
+                            <span class="topic-tag">数据库</span>
+                            <span class="topic-tag">前后端</span>
+                            <span class="topic-tag">Git工作流</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="product-flow.html" class="module-card">
+                    <div class="module-header flow">
+                        <div class="module-icon">🔄</div>
+                        <div class="module-title">产品流程</div>
+                        <div class="module-subtitle">完整的产品开发流程</div>
+                    </div>
+                    <div class="module-body">
+                        <p class="module-desc">了解从需求分析到产品上线的完整流程，掌握每个阶段的核心工作内容。</p>
+                        <div class="module-topics">
+                            <span class="topic-tag">需求分析</span>
+                            <span class="topic-tag">产品设计</span>
+                            <span class="topic-tag">开发测试</span>
+                            <span class="topic-tag">上线运营</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="data-analysis.html" class="module-card">
+                    <div class="module-header data">
+                        <div class="module-icon">📊</div>
+                        <div class="module-title">数据分析</div>
+                        <div class="module-subtitle">数据驱动的产品决策</div>
+                    </div>
+                    <div class="module-body">
+                        <p class="module-desc">学习核心数据指标和分析方法，用数据驱动产品决策和迭代优化。</p>
+                        <div class="module-topics">
+                            <span class="topic-tag">核心指标</span>
+                            <span class="topic-tag">漏斗分析</span>
+                            <span class="topic-tag">用户画像</span>
+                            <span class="topic-tag">A/B测试</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="case-study.html" class="module-card">
+                    <div class="module-header case">
+                        <div class="module-icon">💡</div>
+                        <div class="module-title">综合案例</div>
+                        <div class="module-subtitle">知名产品真实案例</div>
+                    </div>
+                    <div class="module-body">
+                        <p class="module-desc">通过微信、淘宝、抖音等知名产品的真实案例，深入理解产品经理工作。</p>
+                        <div class="module-topics">
+                            <span class="topic-tag">微信</span>
+                            <span class="topic-tag">淘宝</span>
+                            <span class="topic-tag">抖音</span>
+                            <span class="topic-tag">美团</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="learning-path">
+                <h3 class="path-title">🗺️ 推荐学习路径</h3>
+                <div class="path-steps">
+                    <div class="path-step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">UI/UX教学</div>
+                        <div class="step-desc">理解界面设计</div>
+                    </div>
+                    <div class="path-step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">技术概念</div>
+                        <div class="step-desc">掌握技术基础</div>
+                    </div>
+                    <div class="path-step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">产品流程</div>
+                        <div class="step-desc">了解工作流程</div>
+                    </div>
+                    <div class="path-step">
+                        <div class="step-number">4</div>
+                        <div class="step-title">数据分析</div>
+                        <div class="step-desc">学习数据思维</div>
+                    </div>
+                    <div class="path-step">
+                        <div class="step-number">5</div>
+                        <div class="step-title">综合案例</div>
+                        <div class="step-desc">实战案例学习</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="section-title">
+                <h2>💡 学习建议</h2>
+                <p>帮助你更高效地学习产品经理知识</p>
+            </div>
+            
+            <div class="tips-section">
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">📖</div>
+                        <div class="tip-content">
+                            <h4>循序渐进</h4>
+                            <p>按照推荐路径学习，先掌握基础概念，再深入实战案例</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🔍</div>
+                        <div class="tip-content">
+                            <h4>多观察多思考</h4>
+                            <p>下载常用APP，分析它们的设计逻辑，培养产品思维</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">✍️</div>
+                        <div class="tip-content">
+                            <h4>动手实践</h4>
+                            <p>尝试写需求文档、画原型图，将理论转化为实践能力</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🤝</div>
+                        <div class="tip-content">
+                            <h4>交流讨论</h4>
+                            <p>与同学讨论案例，分享观点，碰撞出更多思考</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>🎓 产品经理教学案例网站 | 专为初学者打造的交互式学习平台</p>
+            <p style="margin-top: 10px; font-size: 12px;">建议使用Chrome浏览器访问，获得最佳体验</p>
+        </div>
+    </footer>
+    
+    <button class="scroll-top" onclick="scrollToTop()">↑</button>
+    
+    <script>
+        window.addEventListener('scroll', function() {
+            const btn = document.querySelector('.scroll-top');
+            if (window.scrollY > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
