@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="qrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a6fa5"/>
+      <stop offset="100%" style="stop-color:#6b8cce"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="200" height="200" fill="#fff"/>
+  
+  <!-- 二维码边框 -->
+  <rect x="10" y="10" width="180" height="180" rx="8" fill="none" stroke="url(#qrGrad)" stroke-width="2"/>
+  
+  <!-- 模拟二维码图案 -->
+  <!-- 左上角定位点 -->
+  <rect x="25" y="25" width="40" height="40" fill="#333"/>
+  <rect x="30" y="30" width="30" height="30" fill="#fff"/>
+  <rect x="35" y="35" width="20" height="20" fill="#333"/>
+  
+  <!-- 右上角定位点 -->
+  <rect x="135" y="25" width="40" height="40" fill="#333"/>
+  <rect x="140" y="30" width="30" height="30" fill="#fff"/>
+  <rect x="145" y="35" width="20" height="20" fill="#333"/>
+  
+  <!-- 左下角定位点 -->
+  <rect x="25" y="135" width="40" height="40" fill="#333"/>
+  <rect x="30" y="140" width="30" height="30" fill="#fff"/>
+  <rect x="35" y="145" width="20" height="20" fill="#333"/>
+  
+  <!-- 模拟数据区域 -->
+  <rect x="75" y="25" width="10" height="10" fill="#333"/>
+  <rect x="95" y="25" width="10" height="10" fill="#333"/>
+  <rect x="115" y="25" width="10" height="10" fill="#333"/>
+  
+  <rect x="75" y="45" width="10" height="10" fill="#333"/>
+  <rect x="95" y="45" width="10" height="10" fill="#333"/>
+  <rect x="115" y="45" width="10" height="10" fill="#333"/>
+  
+  <rect x="25" y="75" width="10" height="10" fill="#333"/>
+  <rect x="45" y="75" width="10" height="10" fill="#333"/>
+  <rect x="75" y="75" width="10" height="10" fill="#333"/>
+  <rect x="95" y="75" width="10" height="10" fill="#333"/>
+  <rect x="115" y="75" width="10" height="10" fill="#333"/>
+  <rect x="135" y="75" width="10" height="10" fill="#333"/>
+  <rect x="155" y="75" width="10" height="10" fill="#333"/>
+  
+  <rect x="25" y="95" width="10" height="10" fill="#333"/>
+  <rect x="45" y="95" width="10" height="10" fill="#333"/>
+  <rect x="75" y="95" width="10" height="10" fill="#333"/>
+  <rect x="95" y="95" width="10" height="10" fill="#333"/>
+  <rect x="115" y="95" width="10" height="10" fill="#333"/>
+  <rect x="135" y="95" width="10" height="10" fill="#333"/>
+  <rect x="155" y="95" width="10" height="10" fill="#333"/>
+  
+  <rect x="75" y="115" width="10" height="10" fill="#333"/>
+  <rect x="95" y="115" width="10" height="10" fill="#333"/>
+  <rect x="115" y="115" width="10" height="10" fill="#333"/>
+  <rect x="135" y="115" width="10" height="10" fill="#333"/>
+  <rect x="155" y="115" width="10" height="10" fill="#333"/>
+  
+  <rect x="75" y="135" width="10" height="10" fill="#333"/>
+  <rect x="95" y="135" width="10" height="10" fill="#333"/>
+  <rect x="115" y="135" width="10" height="10" fill="#333"/>
+  <rect x="135" y="135" width="10" height="10" fill="#333"/>
+  <rect x="155" y="135" width="10" height="10" fill="#333"/>
+  
+  <rect x="75" y="155" width="10" height="10" fill="#333"/>
+  <rect x="95" y="155" width="10" height="10" fill="#333"/>
+  <rect x="115" y="155" width="10" height="10" fill="#333"/>
+  <rect x="135" y="155" width="10" height="10" fill="#333"/>
+  <rect x="155" y="155" width="10" height="10" fill="#333"/>
+  
+  <!-- 中心Logo区域 -->
+  <rect x="80" y="80" width="40" height="40" rx="6" fill="#fff"/>
+  <text x="100" y="108" text-anchor="middle" fill="#4a6fa5" font-size="12" font-weight="bold">学长</text>
+</svg>
