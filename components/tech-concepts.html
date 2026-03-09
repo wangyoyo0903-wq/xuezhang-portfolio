@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术概念 - 产品经理教学案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #7B68EE;
+            --success-color: #52C41A;
+            --warning-color: #FAAD14;
+            --error-color: #FF4D4F;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --bg-light: #F5F7FA;
+            --bg-white: #FFFFFF;
+            --border-color: #E8E8E8;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title h2 {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+        
+        .badge {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 1200px) {
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .tech-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .tech-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+        }
+        
+        .tech-header {
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .tech-header.purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .tech-header.green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .tech-header.pink { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .tech-header.blue { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .tech-header.orange { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .tech-header.teal { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; }
+        
+        .tech-icon {
+            font-size: 28px;
+        }
+        
+        .tech-header h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+        
+        .tech-header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 13px;
+        }
+        
+        .tech-content {
+            padding: 20px 25px;
+        }
+        
+        .tech-content > p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .tech-example {
+            background: var(--bg-light);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        
+        .tech-example h4 {
+            color: var(--primary-color);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .tech-example p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin: 5px 0;
+        }
+        
+        .tech-example code {
+            background: rgba(74, 144, 226, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--primary-color);
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-left: 10px;
+        }
+        
+        .difficulty-easy { background: rgba(255,255,255,0.2); }
+        .difficulty-medium { background: rgba(255,255,255,0.3); }
+        .difficulty-hard { background: rgba(255,255,255,0.4); }
+        
+        .expand-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+        }
+        
+        .expanded-content {
+            display: none;
+            padding: 20px 25px;
+            background: var(--bg-light);
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .expanded-content.visible {
+            display: block;
+        }
+        
+        .expanded-content h4 {
+            font-size: 15px;
+            color: var(--primary-color);
+            margin: 15px 0 10px;
+        }
+        
+        .expanded-content h4:first-child {
+            margin-top: 0;
+        }
+        
+        .expanded-content ul {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+        
+        .expanded-content li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .expanded-content li:last-child {
+            border-bottom: none;
+        }
+        
+        .expanded-content li strong {
+            color: var(--text-primary);
+        }
+        
+        .tech-image {
+            width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .related-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .related-tag {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .knowledge-tip {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.1), rgba(245, 87, 108, 0.1));
+            border-left: 4px solid #f093fb;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .knowledge-tip strong {
+            color: #f093fb;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+        }
+        
+        footer {
+            background: #2C3E50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+        }
+        
+        .learning-path {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .learning-path h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .learning-path ol {
+            margin-left: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .learning-path li {
+            margin: 10px 0;
+        }
+        
+        .learning-path li strong {
+            color: var(--text-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">📱</div>
+                <span>产品经理教学案例</span>
+            </div>
+            <nav>
+                <a href="index.html">首页</a>
+                <a href="ui-components.html">UI/UX</a>
+                <a href="tech-concepts.html" class="active">技术概念</a>
+                <a href="product-flow.html">产品流程</a>
+                <a href="data-analysis.html">数据分析</a>
+                <a href="case-study.html">综合案例</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <a href="index.html" class="back-link">← 返回首页</a>
+            <h1>⚙️ 技术概念教学</h1>
+            <p>理解产品经理需要了解的技术概念，更好地与技术团队沟通协作</p>
+            <p style="margin-top: 10px; font-size: 14px; opacity: 0.8;">💡 提示：点击"展开详情"可以查看详细内容</p>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>网络与接口</h2>
+                <span class="badge">基础概念</span>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-header purple">
+                        <span class="tech-icon">🔌</span>
+                        <div>
+                            <h3>API 接口 <span class="difficulty-badge difficulty-easy">入门</span></h3>
+                            <p>Application Programming Interface</p>
+                        </div>
+                    </div>
+                    <div class="tech-content">
+                        <p><strong>什么是API？</strong></p>
+                        <p>API就像是餐厅的服务员。你（用户/前端）告诉服务员（API）你想要什么，服务员去厨房（后端/数据库）取回你想要的东西，然后交给你。</p>
+                        
+                        <div class="tech-example">
+                            <h4>📌 生活类比</h4>
+                            <p>想象你在餐厅点餐：你不需要知道厨房怎么做饭，只需要告诉服务员你要什么菜。API就是这个"服务员"，让不同的系统之间能够交流。</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <img src="images/api_flow.png" alt="API概念示意图" class="tech-image" onerror="this.style.display='none'">
+                            
+                            <h4>📋 API在产品中的常见应用</h4>
+                            <ul>
+                                <li><strong>登录功能：</strong>前端调用登录API，验证用户身份</li>
+                                <li><strong>获取数据：</strong>调用API获取商品列表、用户信息等</li>
+                                <li><strong>第三方集成：</strong>微信登录、支付宝支付、地图服务等</li>
+                            </ul>
+                            
+                            <div class="tech-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. API文档是产品经理和开发沟通的重要工具</p>
+                                <p>2. 每个API调用都需要时间，影响用户体验</p>
+                                <p>3. API可能有调用限制（如每天10000次）</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">HTTP请求</span>
+                                <span class="related-tag">JSON格式</span>
+                                <span class="related-tag">接口文档</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-header green">
+                        <span class="tech-icon">🔄</span>
+                        <div>
+                            <h3>HTTP 协议 <span class="difficulty-badge difficulty-easy">入门</span></h3>
+                            <p>HyperText Transfer Protocol</p>
+                        </div>
+                    </div>
+                    <div class="tech-content">
+                        <p><strong>什么是HTTP？</strong></p>
+                        <p>HTTP是互联网上传输数据的"语言规则"。就像寄快递需要填写收件人地址、选择快递类型一样，网络请求也需要遵循一定的格式。</p>
+                        
+                        <div class="tech-example">
+                            <h4>📌 常见的HTTP方法</h4>
+                            <p><code>GET</code> - 获取数据（如：查看商品详情）</p>
+                            <p><code>POST</code> - 提交数据（如：发布评论）</p>
+                            <p><code>PUT</code> - 更新数据（如：修改个人信息）</p>
+                            <p><code>DELETE</code> - 删除数据（如：取消订单）</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <img src="images/http_request.png" alt="HTTP协议示意图" class="tech-image" onerror="this.style.display='none'">
+                            
+                            <h4>📋 HTTP状态码（产品经理必知）</h4>
+                            <ul>
+                                <li><strong>200：</strong>成功 - 请求正常处理完成</li>
+                                <li><strong>301/302：</strong>重定向 - 页面被移动</li>
+                                <li><strong>400：</strong>请求错误 - 客户端发送了错误请求</li>
+                                <li><strong>401：</strong>未授权 - 需要登录</li>
+                                <li><strong>403：</strong>禁止访问 - 没有权限</li>
+                                <li><strong>404：</strong>未找到 - 页面不存在</li>
+                                <li><strong>500：</strong>服务器错误 - 后端出问题了</li>
+                            </ul>
+                            
+                            <div class="tech-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 看到404错误，可能是链接失效或页面被删除</p>
+                                <p>2. 看到500错误，需要联系开发团队排查</p>
+                                <p>3. HTTPS比HTTP更安全，现在网站都应该使用HTTPS</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">HTTPS</span>
+                                <span class="related-tag">状态码</span>
+                                <span class="related-tag">请求头</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="section-title">
+                <h2>数据存储</h2>
+                <span class="badge">核心概念</span>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-header pink">
+                        <span class="tech-icon">🗄️</span>
+                        <div>
+                            <h3>数据库 <span class="difficulty-badge difficulty-medium">进阶</span></h3>
+                            <p>Database</p>
+                        </div>
+                    </div>
+                    <div class="tech-content">
+                        <p><strong>什么是数据库？</strong></p>
+                        <p>数据库就像一个超级强大的电子文件柜，可以存储、查找、更新海量数据。你每天使用的App，数据都存储在数据库中。</p>
+                        
+                        <div class="tech-example">
+                            <h4>📌 常见数据库类型</h4>
+                            <p><strong>MySQL：</strong>最常用的关系型数据库，适合存储结构化数据</p>
+                            <p><strong>MongoDB：</strong>文档型数据库，灵活存储JSON格式数据</p>
+                            <p><strong>Redis：</strong>缓存数据库，速度极快，用于临时存储</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <img src="images/database_concept.png" alt="数据库概念示意图" class="tech-image" onerror="this.style.display='none'">
+                            
+                            <h4>📋 数据库的基本操作（CRUD）</h4>
+                            <ul>
+                                <li><strong>C - Create（创建）：</strong>添加新数据，如新用户注册</li>
+                                <li><strong>R - Read（读取）：</strong>查询数据，如查看商品列表</li>
+                                <li><strong>U - Update（更新）：</strong>修改数据，如更新用户头像</li>
+                                <li><strong>D - Delete（删除）：</strong>删除数据，如删除购物车商品</li>
+                            </ul>
+                            
+                            <div class="tech-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 数据库设计影响产品功能的实现方式</p>
+                                <p>2. 大量数据查询可能影响性能，需要考虑分页</p>
+                                <p>3. 数据安全非常重要，用户隐私需要保护</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">SQL</span>
+                                <span class="related-tag">数据表</span>
+                                <span class="related-tag">数据备份</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-header blue">
+                        <span class="tech-icon">⚡</span>
+                        <div>
+                            <h3>缓存 <span class="difficulty-badge difficulty-medium">进阶</span></h3>
+                            <p>Cache</p>
+                        </div>
+                    </div>
+                    <div class="tech-content">
+                        <p><strong>什么是缓存？</strong></p>
+                        <p>缓存就像你的书桌，把常用的书放在手边，不用每次都去图书馆找。在技术中，缓存用于存储常用数据，加快访问速度。</p>
+                        
+                        <div class="tech-example">
+                            <h4>📌 生活中的缓存</h4>
+                            <p><strong>浏览器缓存：</strong>再次访问网站时，图片不用重新下载</p>
+                            <p><strong>App缓存：</strong>之前看过的内容，离线也能查看</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 缓存的应用场景</h4>
+                            <ul>
+                                <li><strong>热点数据：</strong>热门商品信息、排行榜</li>
+                                <li><strong>用户会话：</strong>登录状态、购物车</li>
+                                <li><strong>静态资源：</strong>图片、CSS、JS文件</li>
+                            </ul>
+                            
+                            <div class="tech-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 缓存可以显著提升用户体验</p>
+                                <p>2. 缓存数据可能不是最新的，需要考虑更新策略</p>
+                                <p>3. 清除缓存可以解决一些显示异常问题</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">Redis</span>
+                                <span class="related-tag">CDN缓存</span>
+                                <span class="related-tag">浏览器缓存</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>前端技术</h2>
+                <span class="badge">必学知识</span>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-header orange">
+                        <span class="tech-icon">💻</span>
+                        <div>
+                            <h3>前端与后端 <span class="difficulty-badge difficulty-easy">入门</span></h3>
+                            <p>Frontend & Backend</p>
+                        </div>
+                    </div>
+                    <div class="tech-content">
+                        <p><strong>前端和后端的区别</strong></p>
+                        <p>前端是用户能看到、点击、交互的部分（界面）。后端是用户看不到，但负责处理逻辑、存储数据的部分（服务器）。</p>
+                        
+                        <div class="tech-example">
+                            <h4>📌 简单理解</h4>
+                            <p><strong>前端</strong> = 餐厅的装修、菜单、服务员（用户直接接触的）</p>
+                            <p><strong>后端</strong> = 餐厅的厨房、仓库、厨师（幕后工作的）</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <img src="images/frontend_stack.png" alt="前端技术栈示意图" class="tech-image" onerror="this.style.display='none'">
+                            
+                            <h4>📋 前端技术栈</h4>
+                            <ul>
+                                <li><strong>HTML：</strong>网页的骨架结构</li>
+                                <li><strong>CSS：</strong>网页的样式外观</li>
+                                <li><strong>JavaScript：</strong>网页的交互逻辑</li>
+                                <li><strong>框架：</strong>React、Vue、Angular等</li>
+                            </ul>
+                            
+                            <h4>📋 后端技术栈</h4>
+                            <ul>
+                                <li><strong>编程语言：</strong>Java、Python、Node.js、Go等</li>
+                                <li><strong>框架：</strong>Spring Boot、Django、Express等</li>
+                                <li><strong>服务器：</strong>Nginx、Apache等</li>
+                            </ul>
+                            
+                            <div class="tech-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 前端改动通常比后端改动更快</p>
+                                <p>2. 界面调整找前端，功能逻辑找后端</p>
+                                <p>3. 前后端联调是开发中的重要环节</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">全栈开发</span>
+                                <span class="related-tag">服务器</span>
+                                <span class="related-tag">部署</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-header teal">
+                        <span class="tech-icon">📱</span>
+                        <div>
+                            <h3>移动端开发 <span class="difficulty-badge difficulty-medium">进阶</span></h3>
+                            <p>Mobile Development</p>
+                        </div>
+                    </div>
+                    <div class="tech-content">
+                        <p><strong>移动端开发方式</strong></p>
+                        <p>移动应用有三种主要开发方式：原生开发、混合开发和Web应用。各有优缺点，需要根据产品需求选择。</p>
+                        
+                        <div class="tech-example">
+                            <h4>📌 三种开发方式对比</h4>
+                            <p><strong>原生App：</strong>性能最好，但开发成本高</p>
+                            <p><strong>混合App：</strong>开发效率高，性能适中</p>
+                            <p><strong>Web App：</strong>开发最快，但功能受限</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 开发方式详解</h4>
+                            <ul>
+                                <li><strong>原生App（Native）：</strong>使用iOS（Swift）和Android（Kotlin）分别开发，性能最优，体验最好，但需要两套代码</li>
+                                <li><strong>混合App（Hybrid）：</strong>使用React Native、Flutter等框架，一套代码多端运行，性价比高</li>
+                                <li><strong>Web App：</strong>就是网页，通过浏览器访问，无需安装，但功能受限</li>
+                                <li><strong>小程序：</strong>微信/支付宝小程序，无需下载，即用即走</li>
+                            </ul>
+                            
+                            <div class="tech-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 原生App用户体验最好，但成本最高</p>
+                                <p>2. 混合开发适合大多数场景</p>
+                                <p>3. 小程序适合轻量级应用和获客</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">React Native</span>
+                                <span class="related-tag">Flutter</span>
+                                <span class="related-tag">小程序</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="section-title">
+                <h2>开发流程概念</h2>
+                <span class="badge">协作必备</span>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-header purple">
+                        <span class="tech-icon">📝</span>
+                        <div>
+                            <h3>接口文档 <span class="difficulty-badge difficulty-easy">入门</span></h3>
+                            <p>API Documentation</p>
+                        </div>
+                    </div>
+                    <div class="tech-content">
+                        <p><strong>什么是接口文档？</strong></p>
+                        <p>接口文档是前后端沟通的"说明书"，详细描述了每个API的功能、参数、返回值。产品经理需要会看接口文档来理解技术实现。</p>
+                        
+                        <div class="tech-example">
+                            <h4>📌 接口文档包含的内容</h4>
+                            <p><strong>接口地址：</strong>API的URL路径</p>
+                            <p><strong>请求方式：</strong>GET/POST/PUT/DELETE</p>
+                            <p><strong>请求参数：</strong>需要传递的数据</p>
+                            <p><strong>返回数据：</strong>接口返回的结果格式</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 接口文档示例</h4>
+                            <div class="tech-example">
+                                <h4>获取用户信息接口</h4>
+                                <p><strong>URL：</strong><code>/api/user/info</code></p>
+                                <p><strong>方式：</strong><code>GET</code></p>
+                                <p><strong>参数：</strong><code>user_id</code>（用户ID）</p>
+                                <p><strong>返回：</strong>用户昵称、头像、注册时间等</p>
+                            </div>
+                            
+                            <div class="tech-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 接口文档是前后端协作的基础</p>
+                                <p>2. 接口定义需要在开发前确定</p>
+                                <p>3. 常用工具：Swagger、Postman、YApi</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">Swagger</span>
+                                <span class="related-tag">Postman</span>
+                                <span class="related-tag">Mock数据</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-header green">
+                        <span class="tech-icon">🔀</span>
+                        <div>
+                            <h3>版本控制 <span class="difficulty-badge difficulty-medium">进阶</span></h3>
+                            <p>Git & Version Control</p>
+                        </div>
+                    </div>
+                    <div class="tech-content">
+                        <p><strong>什么是版本控制？</strong></p>
+                        <p>版本控制就像游戏的存档功能。每次修改代码都可以"存档"，如果出问题可以回到之前的版本。Git是最流行的版本控制工具。</p>
+                        
+                        <div class="tech-example">
+                            <h4>📌 Git的基本概念</h4>
+                            <p><strong>仓库（Repository）：</strong>存放代码的地方</p>
+                            <p><strong>提交（Commit）：</strong>保存一次修改</p>
+                            <p><strong>分支（Branch）：</strong>独立开发线，互不影响</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <img src="images/git_workflow.png" alt="版本控制示意图" class="tech-image" onerror="this.style.display='none'">
+                            
+                            <h4>📋 Git工作流程</h4>
+                            <ul>
+                                <li><strong>主分支（main/master）：</strong>稳定的生产版本</li>
+                                <li><strong>开发分支（develop）：</strong>日常开发</li>
+                                <li><strong>功能分支（feature）：</strong>开发新功能</li>
+                                <li><strong>合并（Merge）：</strong>将分支代码合并到主分支</li>
+                            </ul>
+                            
+                            <div class="tech-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 版本控制让多人协作开发成为可能</p>
+                                <p>2. 可以追溯每个功能的开发历史</p>
+                                <p>3. 出问题可以快速回滚到上一个版本</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">GitHub</span>
+                                <span class="related-tag">GitLab</span>
+                                <span class="related-tag">代码审查</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-header pink">
+                        <span class="tech-icon">🔒</span>
+                        <div>
+                            <h3>安全基础 <span class="difficulty-badge difficulty-hard">高级</span></h3>
+                            <p>Security Basics</p>
+                        </div>
+                    </div>
+                    <div class="tech-content">
+                        <p><strong>为什么安全很重要？</strong></p>
+                        <p>用户数据泄露会造成严重后果。作为产品经理，需要了解基本的安全概念，在设计功能时考虑安全性。</p>
+                        
+                        <div class="tech-example">
+                            <h4>📌 常见安全问题</h4>
+                            <p><strong>密码安全：</strong>密码加密存储，不明文显示</p>
+                            <p><strong>数据传输：</strong>使用HTTPS加密传输</p>
+                            <p><strong>权限控制：</strong>用户只能访问自己的数据</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 产品经理需要关注的安全点</h4>
+                            <ul>
+                                <li><strong>用户隐私：</strong>收集最小必要信息，明确告知用途</li>
+                                <li><strong>登录安全：</strong>支持复杂密码、验证码、双重认证</li>
+                                <li><strong>数据保护：</strong>敏感信息脱敏显示（如手机号中间四位）</li>
+                                <li><strong>操作日志：</strong>重要操作需要记录，便于追溯</li>
+                            </ul>
+                            
+                            <div class="tech-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 安全和用户体验需要平衡</p>
+                                <p>2. 遵守相关法律法规（如《个人信息保护法》）</p>
+                                <p>3. 安全问题要在产品设计阶段就考虑</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">加密</span>
+                                <span class="related-tag">鉴权</span>
+                                <span class="related-tag">隐私政策</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-card">
+                    <div class="tech-header blue">
+                        <span class="tech-icon">🚀</span>
+                        <div>
+                            <h3>性能优化 <span class="difficulty-badge difficulty-hard">高级</span></h3>
+                            <p>Performance Optimization</p>
+                        </div>
+                    </div>
+                    <div class="tech-content">
+                        <p><strong>为什么性能很重要？</strong></p>
+                        <p>研究表明，网页加载时间超过3秒，50%的用户会离开。性能直接影响用户体验和业务指标。</p>
+                        
+                        <div class="tech-example">
+                            <h4>📌 性能指标</h4>
+                            <p><strong>首屏时间：</strong>页面首次显示内容的时间</p>
+                            <p><strong>白屏时间：</strong>页面开始加载到显示内容的时间</p>
+                            <p><strong>响应时间：</strong>用户操作到系统响应的时间</p>
+                        </div>
+                        
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 常见的性能优化方法</h4>
+                            <ul>
+                                <li><strong>图片优化：</strong>压缩图片、使用WebP格式、懒加载</li>
+                                <li><strong>代码优化：</strong>压缩CSS/JS、减少HTTP请求</li>
+                                <li><strong>缓存策略：</strong>合理使用缓存减少重复请求</li>
+                                <li><strong>CDN加速：</strong>就近获取资源，减少延迟</li>
+                                <li><strong>分页加载：</strong>数据分批加载，避免一次加载过多</li>
+                            </ul>
+                            
+                            <div class="tech-example">
+                                <h4>💡 产品经理需要知道的</h4>
+                                <p>1. 性能问题是用户流失的重要原因之一</p>
+                                <p>2. 图片通常是影响性能的最大因素</p>
+                                <p>3. 性能优化是持续的过程，不是一次性工作</p>
+                            </div>
+                            
+                            <div class="related-tags">
+                                <span class="related-tag">CDN</span>
+                                <span class="related-tag">懒加载</span>
+                                <span class="related-tag">压缩</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="learning-path">
+                <h3>📚 学习建议</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 15px;">产品经理的技术学习路径：</p>
+                <ol>
+                    <li><strong>第一阶段：</strong>理解前端、后端、数据库的基本概念</li>
+                    <li><strong>第二阶段：</strong>学会看接口文档，理解API调用流程</li>
+                    <li><strong>第三阶段：</strong>了解性能、安全等进阶概念</li>
+                    <li><strong>第四阶段：</strong>能够与开发团队进行技术讨论</li>
+                </ol>
+                <div class="knowledge-tip" style="margin-top: 20px;">
+                    <strong>💡 记住：</strong>产品经理不需要会写代码，但需要理解技术原理，这样才能更好地与开发团队沟通，做出合理的产品决策。
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>🎓 产品经理教学案例网站 | 专为初学者打造的交互式学习平台</p>
+            <p style="margin-top: 10px; font-size: 12px;">建议使用Chrome浏览器访问，获得最佳体验</p>
+        </div>
+    </footer>
+    
+    <button onclick="scrollToTop()" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; font-size: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4); z-index: 999; transition: all 0.3s;">↑</button>
+    
+    <script>
+        function toggleExpand(btn) {
+            const content = btn.nextElementSibling;
+            const isVisible = content.classList.contains('visible');
+            
+            if (isVisible) {
+                content.classList.remove('visible');
+                btn.textContent = '展开详情 ↓';
+            } else {
+                content.classList.add('visible');
+                btn.textContent = '收起详情 ↑';
+            }
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
