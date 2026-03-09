@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>综合案例 - 产品经理教学案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #7B68EE;
+            --success-color: #52C41A;
+            --warning-color: #FAAD14;
+            --error-color: #FF4D4F;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --bg-light: #F5F7FA;
+            --bg-white: #FFFFFF;
+            --border-color: #E8E8E8;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .section {
+            padding: 40px 0;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .section-title h2 {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+        
+        .section-title .badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .case-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .case-card-header {
+            padding: 25px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .case-card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+        }
+        
+        .case-card-header.wechat {
+            background: linear-gradient(135deg, #07C160, #00a854);
+        }
+        
+        .case-card-header.taobao {
+            background: linear-gradient(135deg, #FF5000, #FF7A00);
+        }
+        
+        .case-card-header.meituan {
+            background: linear-gradient(135deg, #FFD000, #FFB300);
+        }
+        
+        .case-card-header.douyin {
+            background: linear-gradient(135deg, #000000, #333333);
+        }
+        
+        .case-card-header.xiaohongshu {
+            background: linear-gradient(135deg, #FF2442, #FF6B6B);
+        }
+        
+        .case-card-header.alipay {
+            background: linear-gradient(135deg, #1677FF, #4096FF);
+        }
+        
+        .case-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .case-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .case-slogan {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .case-card-body {
+            padding: 20px;
+        }
+        
+        .case-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .case-tag {
+            background: var(--bg-light);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .case-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .case-stats {
+            display: flex;
+            gap: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .case-stat {
+            text-align: center;
+        }
+        
+        .case-stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+        
+        .case-stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .case-expand-hint {
+            text-align: center;
+            padding: 10px;
+            color: var(--text-light);
+            font-size: 12px;
+            background: var(--bg-light);
+        }
+        
+        .case-detail {
+            display: none;
+            background: var(--bg-white);
+            border-radius: 20px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .case-detail.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .detail-header {
+            background: linear-gradient(135deg, #f5f7fa, #e8ecf1);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .detail-title {
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .detail-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .detail-close:hover {
+            background: var(--error-color);
+            color: white;
+        }
+        
+        .detail-tabs {
+            display: flex;
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+        
+        .detail-tab {
+            padding: 15px 25px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .detail-tab:hover {
+            color: var(--text-primary);
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .detail-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+        
+        .detail-content {
+            padding: 30px;
+        }
+        
+        .detail-panel {
+            display: none;
+        }
+        
+        .detail-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .detail-section {
+            margin-bottom: 30px;
+        }
+        
+        .detail-section h4 {
+            font-size: 16px;
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .detail-section ul {
+            list-style: none;
+        }
+        
+        .detail-section li {
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .detail-section li:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-section li strong {
+            color: var(--text-primary);
+        }
+        
+        .doc-box {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .doc-box h5 {
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        
+        .doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        
+        .doc-table th,
+        .doc-table td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+        
+        .doc-table th {
+            background: white;
+            font-weight: 600;
+        }
+        
+        .doc-table tr:nth-child(even) {
+            background: white;
+        }
+        
+        .flow-diagram {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .flow-steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .flow-step {
+            background: linear-gradient(135deg, #f5f7fa, #e8ecf1);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .flow-step.highlight {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .flow-arrow {
+            font-size: 16px;
+            color: var(--text-light);
+        }
+        
+        .knowledge-tip {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .knowledge-tip strong {
+            color: #667eea;
+        }
+        
+        .prd-preview {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+        
+        .prd-preview .comment {
+            color: #6a9955;
+        }
+        
+        .prd-preview .keyword {
+            color: #569cd6;
+        }
+        
+        .prd-preview .string {
+            color: #ce9178;
+        }
+        
+        .prd-preview .number {
+            color: #b5cea8;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+        }
+        
+        footer {
+            background: #2C3E50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+        }
+        
+        .summary-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .summary-box h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .summary-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .summary-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .summary-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .summary-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .priority-p0 {
+            color: #ff4d4f;
+            font-weight: bold;
+        }
+        
+        .priority-p1 {
+            color: #faad14;
+            font-weight: bold;
+        }
+        
+        .priority-p2 {
+            color: #52c41a;
+            font-weight: bold;
+        }
+        
+        .method-get {
+            background: #61affe;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        
+        .method-post {
+            background: #49cc90;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .case-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flow-steps {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+            
+            .detail-tabs {
+                flex-wrap: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">📱</div>
+                <span>产品经理教学案例</span>
+            </div>
+            <nav>
+                <a href="../index.html?view=chanpin">首页</a>
+                <a href="ui-components.html">UI/UX</a>
+                <a href="tech-concepts.html">技术概念</a>
+                <a href="product-flow.html">产品流程</a>
+                <a href="data-analysis.html">数据分析</a>
+                <a href="case-study.html" class="active">综合案例</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <a href="../index.html?view=chanpin" class="back-link">← 返回首页</a>
+            <h1>💡 综合案例</h1>
+            <p>通过知名产品真实案例，深入理解产品经理工作全流程</p>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>知名产品案例</h2>
+                <span class="badge">完整案例</span>
+            </div>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 15px;">
+                以下案例均基于真实产品功能进行分析，展示产品经理在不同场景下的工作内容。点击卡片查看完整案例详情。
+            </p>
+            
+            <div class="case-grid">
+                <div class="case-card" onclick="showCaseDetail('wechat')">
+                    <div class="case-card-header wechat">
+                        <div class="case-icon">💬</div>
+                        <div class="case-name">微信</div>
+                        <div class="case-slogan">"拍一拍"功能需求分析</div>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-tags">
+                            <span class="case-tag">社交</span>
+                            <span class="case-tag">轻互动</span>
+                            <span class="case-tag">需求分析</span>
+                        </div>
+                        <div class="case-desc">
+                            分析微信"拍一拍"功能从需求发现到上线的完整过程，学习如何挖掘用户隐性需求并设计轻量级互动功能。
+                        </div>
+                        <div class="case-stats">
+                            <div class="case-stat">
+                                <div class="case-stat-value">12亿+</div>
+                                <div class="case-stat-label">月活用户</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">0门槛</div>
+                                <div class="case-stat-label">使用成本</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">爆款</div>
+                                <div class="case-stat-label">传播效果</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-expand-hint">点击查看完整案例 →</div>
+                </div>
+                
+                <div class="case-card" onclick="showCaseDetail('taobao')">
+                    <div class="case-card-header taobao">
+                        <div class="case-icon">🛒</div>
+                        <div class="case-name">淘宝</div>
+                        <div class="case-slogan">"购物车"功能设计</div>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-tags">
+                            <span class="case-tag">电商</span>
+                            <span class="case-tag">核心功能</span>
+                            <span class="case-tag">产品设计</span>
+                        </div>
+                        <div class="case-desc">
+                            深入分析淘宝购物车功能的产品设计，学习电商核心功能的需求拆解、流程设计和迭代优化方法。
+                        </div>
+                        <div class="case-stats">
+                            <div class="case-stat">
+                                <div class="case-stat-value">9亿+</div>
+                                <div class="case-stat-label">月活用户</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">70%+</div>
+                                <div class="case-stat-label">转化贡献</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">10年+</div>
+                                <div class="case-stat-label">持续迭代</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-expand-hint">点击查看完整案例 →</div>
+                </div>
+                
+                <div class="case-card" onclick="showCaseDetail('meituan')">
+                    <div class="case-card-header meituan">
+                        <div class="case-icon">🍜</div>
+                        <div class="case-name">美团外卖</div>
+                        <div class="case-slogan">"准时达"功能开发</div>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-tags">
+                            <span class="case-tag">O2O</span>
+                            <span class="case-tag">履约</span>
+                            <span class="case-tag">技术方案</span>
+                        </div>
+                        <div class="case-desc">
+                            分析美团外卖"准时达"功能的技术方案设计，学习如何平衡用户体验、技术可行性和商业成本。
+                        </div>
+                        <div class="case-stats">
+                            <div class="case-stat">
+                                <div class="case-stat-value">5亿+</div>
+                                <div class="case-stat-label">年订单量</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">95%+</div>
+                                <div class="case-stat-label">准时率</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">降低30%</div>
+                                <div class="case-stat-label">投诉率</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-expand-hint">点击查看完整案例 →</div>
+                </div>
+                
+                <div class="case-card" onclick="showCaseDetail('douyin')">
+                    <div class="case-card-header douyin">
+                        <div class="case-icon">🎵</div>
+                        <div class="case-name">抖音</div>
+                        <div class="case-slogan">"直播"功能测试验收</div>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-tags">
+                            <span class="case-tag">短视频</span>
+                            <span class="case-tag">直播</span>
+                            <span class="case-tag">测试验收</span>
+                        </div>
+                        <div class="case-desc">
+                            学习抖音直播功能的测试验收流程，掌握产品经理在测试阶段的工作要点和验收标准制定方法。
+                        </div>
+                        <div class="case-stats">
+                            <div class="case-stat">
+                                <div class="case-stat-value">7亿+</div>
+                                <div class="case-stat-label">日活用户</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">100+</div>
+                                <div class="case-stat-label">测试用例</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">0重大</div>
+                                <div class="case-stat-label">线上事故</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-expand-hint">点击查看完整案例 →</div>
+                </div>
+                
+                <div class="case-card" onclick="showCaseDetail('xiaohongshu')">
+                    <div class="case-card-header xiaohongshu">
+                        <div class="case-icon">📕</div>
+                        <div class="case-name">小红书</div>
+                        <div class="case-slogan">"笔记发布"功能迭代</div>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-tags">
+                            <span class="case-tag">内容社区</span>
+                            <span class="case-tag">UGC</span>
+                            <span class="case-tag">迭代优化</span>
+                        </div>
+                        <div class="case-desc">
+                            分析小红书笔记发布功能的迭代历程，学习如何通过数据驱动和用户反馈持续优化核心功能。
+                        </div>
+                        <div class="case-stats">
+                            <div class="case-stat">
+                                <div class="case-stat-value">2亿+</div>
+                                <div class="case-stat-label">月活用户</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">提升40%</div>
+                                <div class="case-stat-label">发布转化</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">20+版本</div>
+                                <div class="case-stat-label">迭代次数</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-expand-hint">点击查看完整案例 →</div>
+                </div>
+                
+                <div class="case-card" onclick="showCaseDetail('alipay')">
+                    <div class="case-card-header alipay">
+                        <div class="case-icon">💳</div>
+                        <div class="case-name">支付宝</div>
+                        <div class="case-slogan">"集五福"活动上线</div>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-tags">
+                            <span class="case-tag">支付</span>
+                            <span class="case-tag">活动运营</span>
+                            <span class="case-tag">灰度发布</span>
+                        </div>
+                        <div class="case-desc">
+                            学习支付宝"集五福"春节活动的上线流程，掌握大型运营活动的灰度发布和应急预案制定方法。
+                        </div>
+                        <div class="case-stats">
+                            <div class="case-stat">
+                                <div class="case-stat-value">10亿+</div>
+                                <div class="case-stat-label">月活用户</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">7亿+</div>
+                                <div class="case-stat-label">活动参与</div>
+                            </div>
+                            <div class="case-stat">
+                                <div class="case-stat-value">99.99%</div>
+                                <div class="case-stat-label">系统可用</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-expand-hint">点击查看完整案例 →</div>
+                </div>
+            </div>
+            
+            <div class="case-detail" id="detail-wechat">
+                <div class="detail-header">
+                    <div class="detail-title">
+                        <span>💬</span>
+                        <span>微信"拍一拍"功能需求分析</span>
+                    </div>
+                    <button class="detail-close" onclick="closeCaseDetail()">×</button>
+                </div>
+                <div class="detail-tabs">
+                    <div class="detail-tab active" onclick="showDetailPanel(this, 'wechat-requirement')">需求背景</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'wechat-design')">产品设计</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'wechat-doc')">需求文档</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'wechat-insight')">产品思考</div>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-panel active" id="wechat-requirement">
+                        <div class="detail-section">
+                            <h4>🎯 需求来源</h4>
+                            <ul>
+                                <li><strong>发现场景：</strong>产品经理观察到用户在群聊中经常使用"戳一戳"等第三方表情包，但缺乏原生的轻量级互动方式</li>
+                                <li><strong>用户痛点：</strong>想引起某人注意但不想发消息，或者想活跃群气氛但不知道说什么</li>
+                                <li><strong>竞品参考：</strong>QQ的"抖动窗口"、钉钉的"钉一下"、Telegram的"nudge"</li>
+                                <li><strong>需求类型：</strong>用户隐性需求，用户不会主动提，但功能上线后使用率极高</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>👥 用户画像分析</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>用户类型</th>
+                                        <th>使用场景</th>
+                                        <th>需求特点</th>
+                                    </tr>
+                                    <tr>
+                                        <td>年轻用户（18-25岁）</td>
+                                        <td>群聊互动、朋友间玩耍</td>
+                                        <td>追求趣味性、喜欢新功能</td>
+                                    </tr>
+                                    <tr>
+                                        <td>职场用户（25-35岁）</td>
+                                        <td>提醒同事、工作群活跃</td>
+                                        <td>需要得体的提醒方式</td>
+                                    </tr>
+                                    <tr>
+                                        <td>家庭用户（35岁+）</td>
+                                        <td>家庭群互动、提醒家人</td>
+                                        <td>操作简单、不会打扰</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📊 需求价值评估</h4>
+                            <ul>
+                                <li><strong>用户价值：</strong>提供一种低门槛、不打扰的互动方式，满足"想引起注意但不想发消息"的需求</li>
+                                <li><strong>产品价值：</strong>增强社交粘性，提升群聊活跃度，增加产品趣味性</li>
+                                <li><strong>商业价值：</strong>间接提升用户活跃度和留存，为后续功能迭代积累数据</li>
+                                <li><strong>开发成本：</strong>低，主要是客户端改动，不涉及复杂后端逻辑</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>好需求往往来自对用户行为的深度观察，而不是用户直接告诉你。产品经理要有"洞察力"，发现用户自己都没意识到的需求。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="wechat-design">
+                        <div class="detail-section">
+                            <h4>🔄 核心流程设计</h4>
+                            <div class="flow-diagram">
+                                <div class="flow-steps">
+                                    <div class="flow-step">群聊界面</div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step">双击头像</div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step highlight">触发拍一拍</div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step">群内提示</div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step">对方收到震动</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📱 交互设计要点</h4>
+                            <ul>
+                                <li><strong>触发方式：</strong>双击用户头像，符合用户直觉，学习成本低</li>
+                                <li><strong>视觉反馈：</strong>"你拍了拍XXX"文字提示，头像抖动动画</li>
+                                <li><strong>触觉反馈：</strong>被拍者手机轻微震动，不打扰但能感知</li>
+                                <li><strong>后缀功能：</strong>可自定义"拍了拍XXX的XXX"，增加趣味性</li>
+                                <li><strong>隐私设计：</strong>所有人可见，但不强提醒，不会产生未读</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>⚙️ 功能规格说明</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>功能点</th>
+                                        <th>规格说明</th>
+                                    </tr>
+                                    <tr>
+                                        <td>触发条件</td>
+                                        <td>双击群成员头像，两次点击间隔<500ms</td>
+                                    </tr>
+                                    <tr>
+                                        <td>频率限制</td>
+                                        <td>同一对象10秒内只能拍一次，防止骚扰</td>
+                                    </tr>
+                                    <tr>
+                                        <td>后缀设置</td>
+                                        <td>最多8个汉字，支持emoji，审核敏感词</td>
+                                    </tr>
+                                    <tr>
+                                        <td>消息存储</td>
+                                        <td>不入库存储，仅本地展示，退出群聊后消失</td>
+                                    </tr>
+                                    <tr>
+                                        <td>兼容性</td>
+                                        <td>旧版本显示为普通文本消息</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>功能设计要考虑"边界情况"：频率限制防骚扰、旧版本兼容、敏感词过滤等。好的设计不仅是"能用"，更要"好用且安全"。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="wechat-doc">
+                        <h4>📄 需求文档片段</h4>
+                        <div class="prd-preview">
+<span class="comment">/* 微信"拍一拍"功能需求文档 */</span>
+
+<span class="keyword">功能名称：</span>拍一拍
+<span class="keyword">需求类型：</span>新功能
+<span class="keyword">优先级：</span>P1
+<span class="keyword">负责人：</span>微信产品团队
+
+<span class="comment">// 一、需求背景</span>
+用户在群聊场景中，经常需要引起某人注意，但直接发消息可能过于正式或打扰。
+现有方案：@提醒（过于正式）、私聊（切换成本高）、发表情包（需要找图）。
+需要一个轻量级、有趣的互动方式。
+
+<span class="comment">// 二、功能描述</span>
+<span class="keyword">入口：</span>群聊界面，双击群成员头像
+<span class="keyword">行为：</span>
+  - 触发者：看到"你拍了拍XXX"提示
+  - 被拍者：手机震动，看到"XXX拍了拍你"提示
+  - 群成员：看到"XXX拍了拍XXX"提示
+
+<span class="comment">// 三、后缀功能（V2迭代）</span>
+用户可设置自己的拍一拍后缀：
+  - 路径：我 → 设置 → 个人信息 → 拍一拍
+  - 示例：设置后缀"的脑袋"
+  - 效果：显示"XXX拍了拍我的脑袋"
+
+<span class="comment">// 四、边界条件</span>
+<span class="keyword">防骚扰：</span>
+  - 同一对象10秒内只能拍一次
+  - 被拍者可设置"不接受拍一拍"（暂未上线）
+
+<span class="keyword">敏感词：</span>
+  - 后缀内容需经过敏感词过滤
+  - 触发敏感词时提示"后缀包含敏感词，请修改"
+
+<span class="comment">// 五、数据埋点</span>
+<span class="keyword">核心指标：</span>
+  - 日均拍一拍次数
+  - 拍一拍用户渗透率
+  - 后缀设置率
+  - 功能使用留存
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="wechat-insight">
+                        <div class="detail-section">
+                            <h4>🧠 产品经理视角</h4>
+                            <ul>
+                                <li><strong>为什么是"双击"而不是"长按"？</strong>双击更轻量，长按容易误触，且双击有"敲击"的隐喻，符合"拍"的语义</li>
+                                <li><strong>为什么群内所有人可见？</strong>增加社交趣味性，让"拍一拍"成为一种公开的互动仪式，而非私密提醒</li>
+                                <li><strong>后缀功能的设计巧思：</strong>让用户可以自定义，产生"拍了拍我的肚子"、"拍了拍我的钱包"等趣味玩法，自发传播</li>
+                                <li><strong>为什么不上线"关闭拍一拍"？</strong>保持功能的纯粹性，如果允许关闭会降低社交互动的完整性</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📈 上线效果</h4>
+                            <ul>
+                                <li><strong>传播效果：</strong>上线当天刷屏朋友圈，"拍了拍XXX的XXX"成为热门话题</li>
+                                <li><strong>使用数据：</strong>上线一周内，超过50%的用户尝试过拍一拍功能</li>
+                                <li><strong>用户反馈：</strong>整体正面，认为功能有趣、无压力；少数反馈希望增加关闭选项</li>
+                                <li><strong>后续迭代：</strong>增加了后缀设置、拍了拍提示音等增强功能</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>小功能也能产生大影响。"拍一拍"开发成本很低，但通过巧妙的设计，成为微信的标志性功能之一。产品经理要善于发现"小而美"的机会。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="case-detail" id="detail-taobao">
+                <div class="detail-header">
+                    <div class="detail-title">
+                        <span>🛒</span>
+                        <span>淘宝"购物车"功能设计</span>
+                    </div>
+                    <button class="detail-close" onclick="closeCaseDetail()">×</button>
+                </div>
+                <div class="detail-tabs">
+                    <div class="detail-tab active" onclick="showDetailPanel(this, 'taobao-requirement')">需求背景</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'taobao-design')">产品设计</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'taobao-doc')">需求文档</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'taobao-insight')">产品思考</div>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-panel active" id="taobao-requirement">
+                        <div class="detail-section">
+                            <h4>🎯 功能定位</h4>
+                            <ul>
+                                <li><strong>核心价值：</strong>帮助用户暂存心仪商品，方便对比和批量结算</li>
+                                <li><strong>用户场景：</strong>浏览时先加入购物车，决策后批量购买；多店铺商品合并结算</li>
+                                <li><strong>商业价值：</strong>购物车是电商转化的核心环节，直接影响GMV</li>
+                                <li><strong>数据表现：</strong>购物车用户转化率是非购物车用户的3-5倍</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>👥 用户需求分析</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>需求类型</th>
+                                        <th>具体需求</th>
+                                        <th>优先级</th>
+                                    </tr>
+                                    <tr>
+                                        <td>基础需求</td>
+                                        <td>添加商品、查看商品、删除商品、结算</td>
+                                        <td><span class="priority-p0">P0</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>期望需求</td>
+                                        <td>批量操作、店铺分组、降价提醒</td>
+                                        <td><span class="priority-p1">P1</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>兴奋需求</td>
+                                        <td>智能推荐、凑单计算、历史价格</td>
+                                        <td><span class="priority-p2">P2</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📊 竞品分析</h4>
+                            <ul>
+                                <li><strong>京东购物车：</strong>支持跨店铺合并结算，有"降价提醒"功能</li>
+                                <li><strong>拼多多购物车：</strong>简化版，强调"拼单"属性，没有复杂功能</li>
+                                <li><strong>差异化策略：</strong>淘宝购物车强调"发现"属性，增加推荐位，提升客单价</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>核心功能的需求分析要深入，不能只看表面。购物车不只是"暂存"，还承担着"决策辅助"、"促销触达"、"转化提升"等多重角色。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="taobao-design">
+                        <div class="detail-section">
+                            <h4>📱 页面结构设计</h4>
+                            <div class="flow-diagram">
+                                <div class="flow-steps">
+                                    <div class="flow-step">顶部：搜索+筛选</div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step highlight">商品列表（按店铺分组）</div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step">底部：全选+合计+结算</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>🔄 核心交互流程</h4>
+                            <ul>
+                                <li><strong>添加商品：</strong>商品详情页点击"加入购物车"，toast提示"已加入"，支持选择规格</li>
+                                <li><strong>编辑商品：</strong>左滑删除，点击规格修改，数量加减</li>
+                                <li><strong>批量操作：</strong>长按进入编辑模式，支持全选、删除、移入收藏夹</li>
+                                <li><strong>结算流程：</strong>勾选商品 → 点击结算 → 确认订单 → 支付</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>⚙️ 功能规格说明</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>功能点</th>
+                                        <th>规格说明</th>
+                                    </tr>
+                                    <tr>
+                                        <td>商品上限</td>
+                                        <td>最多120个商品，超出提示清理</td>
+                                    </tr>
+                                    <tr>
+                                        <td>失效商品</td>
+                                        <td>置灰显示，支持一键清理</td>
+                                    </tr>
+                                    <tr>
+                                        <td>降价提醒</td>
+                                        <td>商品降价时红点提示，push通知</td>
+                                    </tr>
+                                    <tr>
+                                        <td>库存预警</td>
+                                        <td>库存<5件时提示"仅剩X件"</td>
+                                    </tr>
+                                    <tr>
+                                        <td>优惠展示</td>
+                                        <td>显示店铺优惠、跨店满减、优惠券</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>电商产品要特别关注"转化漏斗"。购物车的每个设计细节都可能影响转化率：失效商品处理、优惠信息展示、结算按钮位置等。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="taobao-doc">
+                        <h4>📄 需求文档片段</h4>
+                        <div class="prd-preview">
+<span class="comment">/* 淘宝购物车功能需求文档 */</span>
+
+<span class="keyword">功能名称：</span>购物车
+<span class="keyword">需求类型：</span>核心功能迭代
+<span class="keyword">优先级：</span>P0
+<span class="keyword">版本：</span>V10.5.0
+
+<span class="comment">// 一、功能概述</span>
+购物车是用户购买决策的重要环节，本次迭代目标：
+  - 提升购物车到结算的转化率（目标+5%）
+  - 降低购物车放弃率（目标-10%）
+  - 提升客单价（目标+8%）
+
+<span class="comment">// 二、页面结构</span>
+
+<span class="keyword">【顶部区域】</span>
+  - 搜索框：支持搜索购物车内商品
+  - 筛选：按店铺、降价、失效筛选
+  - 管理按钮：进入编辑模式
+
+<span class="keyword">【商品列表】</span>
+  - 按店铺分组展示
+  - 店铺头部：店铺名、店铺优惠、全选本店
+  - 商品项：图片、标题、规格、价格、数量
+  - 促销标签：限时折扣、满减、优惠券
+
+<span class="keyword">【底部区域】</span>
+  - 全选复选框
+  - 合计金额（已选X件，合计￥XXX）
+  - 结算按钮（红色高亮）
+
+<span class="comment">// 三、核心功能规则</span>
+
+<span class="keyword">【商品排序】</span>
+  - 默认按加入时间倒序
+  - 失效商品置底
+  - 降价商品可置顶（用户设置）
+
+<span class="keyword">【价格计算】</span>
+  - 实时计算选中商品总价
+  - 自动匹配最优优惠组合
+  - 显示已省金额
+
+<span class="keyword">【失效商品】</span>
+  - 商品下架/无货时置灰
+  - 显示"宝贝已失效"
+  - 提供"清理失效宝贝"按钮
+
+<span class="comment">// 四、数据埋点</span>
+<span class="keyword">核心指标：</span>
+  - 购物车添加率（商品详情页→加入购物车）
+  - 购物车转化率（购物车→结算→支付）
+  - 平均购物车商品数
+  - 失效商品占比
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="taobao-insight">
+                        <div class="detail-section">
+                            <h4>🧠 产品经理视角</h4>
+                            <ul>
+                                <li><strong>为什么按店铺分组？</strong>方便用户理解订单结构，也便于展示店铺级优惠，提升客单价</li>
+                                <li><strong>为什么有商品上限？</strong>性能考虑，也引导用户及时决策，避免"囤积"行为</li>
+                                <li><strong>失效商品怎么处理？</strong>不自动删除，因为可能恢复上架；提供一键清理，减少用户操作成本</li>
+                                <li><strong>优惠信息如何展示？</strong>自动计算最优组合，让用户"省钱看得见"，促进转化</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📈 迭代历程</h4>
+                            <ul>
+                                <li><strong>V1.0：</strong>基础购物车功能，添加、删除、结算</li>
+                                <li><strong>V2.0：</strong>店铺分组、批量操作、降价提醒</li>
+                                <li><strong>V3.0：</strong>优惠自动计算、凑单推荐</li>
+                                <li><strong>V4.0：</strong>智能推荐、历史价格、库存预警</li>
+                                <li><strong>持续迭代：</strong>根据数据反馈优化细节，如结算按钮位置、优惠信息展示方式等</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>核心功能需要持续迭代。淘宝购物车经历了10多年的演进，每个细节都经过数据验证。产品经理要有"长期主义"思维，不断优化核心体验。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="case-detail" id="detail-meituan">
+                <div class="detail-header">
+                    <div class="detail-title">
+                        <span>🍜</span>
+                        <span>美团外卖"准时达"功能开发</span>
+                    </div>
+                    <button class="detail-close" onclick="closeCaseDetail()">×</button>
+                </div>
+                <div class="detail-tabs">
+                    <div class="detail-tab active" onclick="showDetailPanel(this, 'meituan-requirement')">需求背景</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'meituan-tech')">技术方案</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'meituan-doc')">需求文档</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'meituan-insight')">产品思考</div>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-panel active" id="meituan-requirement">
+                        <div class="detail-section">
+                            <h4>🎯 业务背景</h4>
+                            <ul>
+                                <li><strong>用户痛点：</strong>外卖配送时间不确定，用户焦虑等待，投诉率高</li>
+                                <li><strong>商家痛点：</strong>配送超时影响评分，骑手调度不合理</li>
+                                <li><strong>平台痛点：</strong>超时投诉成本高，用户信任度下降</li>
+                                <li><strong>市场机会：</strong>差异化服务，提升用户体验和平台竞争力</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📊 问题分析</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>问题类型</th>
+                                        <th>具体表现</th>
+                                        <th>影响</th>
+                                    </tr>
+                                    <tr>
+                                        <td>时间预估不准</td>
+                                        <td>预计30分钟，实际45分钟</td>
+                                        <td>用户焦虑、投诉</td>
+                                    </tr>
+                                    <tr>
+                                        <td>信息不透明</td>
+                                        <td>不知道骑手位置、进度</td>
+                                        <td>用户不确定、重复催单</td>
+                                    </tr>
+                                    <tr>
+                                        <td>异常处理差</td>
+                                        <td>超时无补偿、无解释</td>
+                                        <td>用户流失、差评</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>💡 解决方案</h4>
+                            <ul>
+                                <li><strong>精准预估：</strong>基于历史数据和实时路况，预估配送时间误差<5分钟</li>
+                                <li><strong>实时追踪：</strong>骑手位置实时展示，关键节点推送通知</li>
+                                <li><strong>准时承诺：</strong>超时自动赔付，建立用户信任</li>
+                                <li><strong>异常预警：</strong>提前识别可能超时的订单，主动沟通</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>O2O产品的核心是"履约"。用户下单只是开始，如何保证服务按时、按质交付，才是真正考验产品经理能力的地方。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="meituan-tech">
+                        <div class="detail-section">
+                            <h4>🏗️ 系统架构</h4>
+                            <div class="flow-diagram">
+                                <div class="flow-steps">
+                                    <div class="flow-step">用户下单</div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step highlight">ETA预测引擎</div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step">骑手调度系统</div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step">实时追踪</div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step">超时赔付</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📡 核心接口设计</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>接口名称</th>
+                                        <th>方法</th>
+                                        <th>路径</th>
+                                        <th>说明</th>
+                                    </tr>
+                                    <tr>
+                                        <td>预估送达时间</td>
+                                        <td><span class="method-get">GET</span></td>
+                                        <td>/api/v1/eta/predict</td>
+                                        <td>基于地址和商品预估送达时间</td>
+                                    </tr>
+                                    <tr>
+                                        <td>骑手位置</td>
+                                        <td><span class="method-get">GET</span></td>
+                                        <td>/api/v1/rider/location</td>
+                                        <td>获取骑手实时位置</td>
+                                    </tr>
+                                    <tr>
+                                        <td>订单状态推送</td>
+                                        <td><span class="method-post">POST</span></td>
+                                        <td>/api/v1/order/push</td>
+                                        <td>推送订单状态变更</td>
+                                    </tr>
+                                    <tr>
+                                        <td>超时赔付</td>
+                                        <td><span class="method-post">POST</span></td>
+                                        <td>/api/v1/compensation/timeout</td>
+                                        <td>超时自动赔付</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>🧮 ETA预测算法</h4>
+                            <ul>
+                                <li><strong>数据输入：</strong>商家备餐时间、骑手配送距离、实时路况、天气、历史数据</li>
+                                <li><strong>算法模型：</strong>机器学习模型（XGBoost），持续学习优化</li>
+                                <li><strong>准确率：</strong>预测误差<5分钟的订单占比>90%</li>
+                                <li><strong>兜底策略：</strong>算法异常时使用历史平均值+安全余量</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>产品经理不需要会写算法，但要理解算法的输入、输出和边界。知道什么数据能帮助算法更准确，知道算法可能出错的地方并设计兜底方案。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="meituan-doc">
+                        <h4>📄 需求文档片段</h4>
+                        <div class="prd-preview">
+<span class="comment">/* 美团外卖"准时达"功能需求文档 */</span>
+
+<span class="keyword">功能名称：</span>准时达
+<span class="keyword">需求类型：</span>新功能
+<span class="keyword">优先级：</span>P0
+<span class="keyword">版本：</span>V7.0.0
+
+<span class="comment">// 一、功能概述</span>
+为用户提供精准的配送时间预估和超时赔付服务，
+提升用户对外卖配送的信任度和满意度。
+
+<span class="comment">// 二、核心功能</span>
+
+<span class="keyword">【精准预估】</span>
+  - 下单时展示预计送达时间
+  - 时间格式："预计XX:XX送达"
+  - 误差范围：±5分钟
+  - 实时更新：遇到异常情况自动更新预估时间
+
+<span class="keyword">【实时追踪】</span>
+  - 地图展示骑手位置
+  - 关键节点推送：
+    - 骑手已接单
+    - 骑手已到店
+    - 骑手已取餐
+    - 骑手距您X米
+    - 订单已送达
+
+<span class="keyword">【准时承诺】</span>
+  - 超时10分钟：赔付5元红包
+  - 超时20分钟：赔付10元红包
+  - 超时30分钟：全额退款+20元红包
+  - 自动赔付，无需用户申请
+
+<span class="comment">// 三、异常处理</span>
+
+<span class="keyword">【恶劣天气】</span>
+  - 自动延长预估时间
+  - 暂停准时承诺
+  - 提示"天气原因可能延迟"
+
+<span class="keyword">【商家出餐慢】</span>
+  - 识别异常商家
+  - 自动延长预估时间
+  - 推送"商家正在备餐，请耐心等待"
+
+<span class="keyword">【骑手异常】</span>
+  - 骑手事故/故障
+  - 自动改派其他骑手
+  - 推送通知用户
+
+<span class="comment">// 四、数据指标</span>
+<span class="keyword">核心指标：</span>
+  - ETA准确率（误差<5分钟）
+  - 准时送达率
+  - 超时投诉率
+  - 赔付成本占比
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="meituan-insight">
+                        <div class="detail-section">
+                            <h4>🧠 产品经理视角</h4>
+                            <ul>
+                                <li><strong>为什么敢承诺准时？</strong>基于数据和技术能力，准确率足够高，赔付成本可控</li>
+                                <li><strong>赔付会不会被薅羊毛？</strong>设置合理门槛，监控异常订单，恶意用户风控处理</li>
+                                <li><strong>恶劣天气怎么办？</strong>自动识别并暂停承诺，保护骑手安全，管理用户预期</li>
+                                <li><strong>如何平衡效率和体验？</strong>不是一味追求快，而是"准"，让用户可预期</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📈 上线效果</h4>
+                            <ul>
+                                <li><strong>用户满意度：</strong>准时达订单满意度提升15%</li>
+                                <li><strong>投诉率：</strong>配送相关投诉下降30%</li>
+                                <li><strong>复购率：</strong>准时达用户复购率提升10%</li>
+                                <li><strong>赔付成本：</strong>占订单金额0.5%，在可控范围内</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>好的产品功能要平衡用户价值、技术可行性和商业成本。"准时达"之所以能做成，是因为技术能力到位、赔付成本可控、用户价值明确。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="case-detail" id="detail-douyin">
+                <div class="detail-header">
+                    <div class="detail-title">
+                        <span>🎵</span>
+                        <span>抖音"直播"功能测试验收</span>
+                    </div>
+                    <button class="detail-close" onclick="closeCaseDetail()">×</button>
+                </div>
+                <div class="detail-tabs">
+                    <div class="detail-tab active" onclick="showDetailPanel(this, 'douyin-requirement')">功能背景</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'douyin-test')">测试方案</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'douyin-accept')">验收标准</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'douyin-insight')">产品思考</div>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-panel active" id="douyin-requirement">
+                        <div class="detail-section">
+                            <h4>🎯 功能背景</h4>
+                            <ul>
+                                <li><strong>业务目标：</strong>拓展直播业务，提升用户停留时长和变现能力</li>
+                                <li><strong>功能范围：</strong>直播开播、观看、互动（点赞/评论/送礼）、连麦、带货</li>
+                                <li><strong>技术挑战：</strong>高并发、低延迟、音视频同步、弱网适配</li>
+                                <li><strong>质量要求：</strong>重大功能，上线后不能有重大Bug</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📋 测试范围</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>模块</th>
+                                        <th>测试重点</th>
+                                        <th>风险等级</th>
+                                    </tr>
+                                    <tr>
+                                        <td>开播流程</td>
+                                        <td>开播成功、封面设置、美颜滤镜</td>
+                                        <td><span style="color: #ff4d4f;">高</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>观看体验</td>
+                                        <td>延迟、卡顿、清晰度切换</td>
+                                        <td><span style="color: #ff4d4f;">高</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>互动功能</td>
+                                        <td>点赞、评论、送礼、连麦</td>
+                                        <td><span style="color: #faad14;">中</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>异常处理</td>
+                                        <td>断网重连、弱网、内存泄漏</td>
+                                        <td><span style="color: #ff4d4f;">高</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>测试验收是产品上线前的最后一道关卡。产品经理要参与测试用例评审，确保测试覆盖所有核心场景和边界情况。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="douyin-test">
+                        <div class="detail-section">
+                            <h4>📝 测试用例设计</h4>
+                            <div class="doc-box">
+                                <h5>开播功能测试用例</h5>
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>用例ID</th>
+                                        <th>测试场景</th>
+                                        <th>预期结果</th>
+                                        <th>优先级</th>
+                                    </tr>
+                                    <tr>
+                                        <td>TC001</td>
+                                        <td>正常开播（有权限用户）</td>
+                                        <td>开播成功，进入直播页面</td>
+                                        <td>P0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TC002</td>
+                                        <td>无权限用户开播</td>
+                                        <td>提示"暂无开播权限"</td>
+                                        <td>P0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TC003</td>
+                                        <td>开播时网络异常</td>
+                                        <td>提示网络错误，支持重试</td>
+                                        <td>P0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TC004</td>
+                                        <td>设置直播封面</td>
+                                        <td>封面正常显示</td>
+                                        <td>P1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TC005</td>
+                                        <td>开启美颜滤镜</td>
+                                        <td>美颜效果生效</td>
+                                        <td>P1</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>🔬 性能测试</h4>
+                            <ul>
+                                <li><strong>延迟测试：</strong>端到端延迟<3秒（正常网络）</li>
+                                <li><strong>卡顿测试：</strong>10分钟直播卡顿次数<3次</li>
+                                <li><strong>内存测试：</strong>直播1小时内存增长<100MB</li>
+                                <li><strong>电量测试：</strong>直播1小时耗电<15%</li>
+                                <li><strong>发热测试：</strong>直播30分钟温度升高<10℃</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>🌐 兼容性测试</h4>
+                            <ul>
+                                <li><strong>iOS：</strong>iOS 12.0以上，iPhone 6s以上机型</li>
+                                <li><strong>Android：</strong>Android 5.0以上，主流品牌TOP 20机型</li>
+                                <li><strong>弱网测试：</strong>2G/3G/4G/WiFi切换，丢包率5%/10%/20%</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>直播类功能对性能要求极高。产品经理要关注延迟、卡顿、耗电等用户体验指标，这些直接影响用户留存。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="douyin-accept">
+                        <div class="detail-section">
+                            <h4>✅ 验收标准</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>验收项</th>
+                                        <th>标准</th>
+                                        <th>验收方式</th>
+                                    </tr>
+                                    <tr>
+                                        <td>功能完整性</td>
+                                        <td>所有P0用例100%通过</td>
+                                        <td>测试报告</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bug修复</td>
+                                        <td>无P0/P1级Bug，P2级Bug<5个</td>
+                                        <td>Bug列表</td>
+                                    </tr>
+                                    <tr>
+                                        <td>性能指标</td>
+                                        <td>延迟<3秒，卡顿率<1%</td>
+                                        <td>性能报告</td>
+                                    </tr>
+                                    <tr>
+                                        <td>兼容性</td>
+                                        <td>TOP 20机型100%通过</td>
+                                        <td>兼容报告</td>
+                                    </tr>
+                                    <tr>
+                                        <td>安全合规</td>
+                                        <td>内容审核、隐私合规</td>
+                                        <td>安全报告</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>🔍 产品经理验收清单</h4>
+                            <ul>
+                                <li><strong>核心流程走查：</strong>从用户视角完整走一遍开播-观看-互动流程</li>
+                                <li><strong>边界场景验证：</strong>断网、弱网、后台切换、来电中断等</li>
+                                <li><strong>文案检查：</strong>所有文案无错别字，符合产品调性</li>
+                                <li><strong>埋点验证：</strong>核心埋点数据正常上报</li>
+                                <li><strong>竞品对比：</strong>与竞品对比体验，无明显差距</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>验收不只是"看功能能不能用"，而是要站在用户角度，验证"体验是否达标"。产品经理要有"吹毛求疵"的精神。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="douyin-insight">
+                        <div class="detail-section">
+                            <h4>🧠 产品经理视角</h4>
+                            <ul>
+                                <li><strong>为什么要参与测试？</strong>测试人员关注"功能是否正常"，产品经理要关注"体验是否达标"</li>
+                                <li><strong>Bug优先级怎么定？</strong>影响核心流程的P0，影响次要功能的P1，体验问题的P2</li>
+                                <li><strong>什么Bug可以带病上线？</strong>非核心功能、影响面小、有规避方案的Bug，但要评估风险</li>
+                                <li><strong>上线后怎么监控？</strong>核心指标实时监控，异常告警，准备好回滚方案</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📊 上线后数据</h4>
+                            <ul>
+                                <li><strong>线上Bug：</strong>0个P0/P1 Bug，3个P2 Bug（后续版本修复）</li>
+                                <li><strong>用户反馈：</strong>正面评价占比95%</li>
+                                <li><strong>性能数据：</strong>平均延迟2.1秒，卡顿率0.3%</li>
+                                <li><strong>业务数据：</strong>首日开播用户10万+</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>测试验收是产品经理的重要工作。不要完全依赖测试人员，产品经理要亲自验收核心流程，对产品质量负责。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="case-detail" id="detail-xiaohongshu">
+                <div class="detail-header">
+                    <div class="detail-title">
+                        <span>📕</span>
+                        <span>小红书"笔记发布"功能迭代</span>
+                    </div>
+                    <button class="detail-close" onclick="closeCaseDetail()">×</button>
+                </div>
+                <div class="detail-tabs">
+                    <div class="detail-tab active" onclick="showDetailPanel(this, 'xiaohongshu-requirement')">迭代背景</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'xiaohongshu-data')">数据分析</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'xiaohongshu-iteration')">迭代方案</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'xiaohongshu-insight')">产品思考</div>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-panel active" id="xiaohongshu-requirement">
+                        <div class="detail-section">
+                            <h4>🎯 迭代背景</h4>
+                            <ul>
+                                <li><strong>核心问题：</strong>笔记发布转化率低，很多用户在发布流程中流失</li>
+                                <li><strong>数据表现：</strong>从"开始发布"到"发布成功"转化率仅35%</li>
+                                <li><strong>用户反馈：</strong>发布流程复杂、不知道写什么、图片编辑功能弱</li>
+                                <li><strong>业务影响：</strong>UGC内容供给不足，影响社区活跃度</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📊 漏斗分析</h4>
+                            <div class="flow-diagram">
+                                <div style="width: 100%; max-width: 500px; margin: 0 auto;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                        <div style="width: 80px; font-size: 13px; color: var(--text-secondary);">点击发布</div>
+                                        <div style="flex: 1; height: 35px; background: linear-gradient(90deg, #FF2442, #FF6B6B); border-radius: 4px; display: flex; align-items: center; padding: 0 15px; color: white; font-size: 13px;">100% (10000人)</div>
+                                    </div>
+                                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                        <div style="width: 80px; font-size: 13px; color: var(--text-secondary);">选择图片</div>
+                                        <div style="flex: 1; height: 35px; background: linear-gradient(90deg, #FF6B6B, #FFA07A); border-radius: 4px; display: flex; align-items: center; padding: 0 15px; color: white; font-size: 13px; width: 75%;">75% (7500人)</div>
+                                    </div>
+                                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                        <div style="width: 80px; font-size: 13px; color: var(--text-secondary);">编辑图片</div>
+                                        <div style="flex: 1; height: 35px; background: linear-gradient(90deg, #FFA07A, #FFD700); border-radius: 4px; display: flex; align-items: center; padding: 0 15px; color: white; font-size: 13px; width: 55%;">55% (5500人)</div>
+                                    </div>
+                                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                        <div style="width: 80px; font-size: 13px; color: var(--text-secondary);">填写内容</div>
+                                        <div style="flex: 1; height: 35px; background: linear-gradient(90deg, #FFD700, #98FB98); border-radius: 4px; display: flex; align-items: center; padding: 0 15px; color: white; font-size: 13px; width: 45%;">45% (4500人)</div>
+                                    </div>
+                                    <div style="display: flex; align-items: center;">
+                                        <div style="width: 80px; font-size: 13px; color: var(--text-secondary);">发布成功</div>
+                                        <div style="flex: 1; height: 35px; background: linear-gradient(90deg, #98FB98, #00CED1); border-radius: 4px; display: flex; align-items: center; padding: 0 15px; color: white; font-size: 13px; width: 35%;">35% (3500人)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>迭代优化要从数据出发。通过漏斗分析找到流失最严重的环节，针对性优化，比"拍脑袋"决策更有效。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="xiaohongshu-data">
+                        <div class="detail-section">
+                            <h4>📈 数据分析</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>流失环节</th>
+                                        <th>流失率</th>
+                                        <th>用户反馈</th>
+                                        <th>优化方向</th>
+                                    </tr>
+                                    <tr>
+                                        <td>选择图片</td>
+                                        <td>25%</td>
+                                        <td>不知道选什么图、相册太乱</td>
+                                        <td>智能推荐、相册优化</td>
+                                    </tr>
+                                    <tr>
+                                        <td>编辑图片</td>
+                                        <td>20%</td>
+                                        <td>滤镜少、贴纸不好看</td>
+                                        <td>丰富编辑工具</td>
+                                    </tr>
+                                    <tr>
+                                        <td>填写内容</td>
+                                        <td>10%</td>
+                                        <td>不知道写什么、标题难起</td>
+                                        <td>内容引导、智能标题</td>
+                                    </tr>
+                                    <tr>
+                                        <td>发布提交</td>
+                                        <td>10%</td>
+                                        <td>标签太多、话题难选</td>
+                                        <td>简化标签、智能推荐</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>🔍 用户调研</h4>
+                            <ul>
+                                <li><strong>新手用户：</strong>"不知道发什么内容，怕没人看"</li>
+                                <li><strong>活跃用户：</strong>"编辑功能太基础，想要更多滤镜和贴纸"</li>
+                                <li><strong>创作者用户：</strong>"标签选择太繁琐，希望能智能推荐"</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>数据分析+用户调研，才能找到真正的问题。数据告诉你"哪里流失"，用户调研告诉你"为什么流失"。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="xiaohongshu-iteration">
+                        <div class="detail-section">
+                            <h4>📋 迭代方案</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>版本</th>
+                                        <th>优化内容</th>
+                                        <th>预期效果</th>
+                                    </tr>
+                                    <tr>
+                                        <td>V1</td>
+                                        <td>简化发布流程，减少必填项</td>
+                                        <td>转化率+5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>V2</td>
+                                        <td>新增内容引导、模板推荐</td>
+                                        <td>转化率+8%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>V3</td>
+                                        <td>丰富图片编辑工具</td>
+                                        <td>编辑完成率+10%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>V4</td>
+                                        <td>智能标签推荐、话题推荐</td>
+                                        <td>发布成功率+7%</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>🔄 V2版本详细设计</h4>
+                            <ul>
+                                <li><strong>内容引导：</strong>根据图片内容推荐话题和文案模板</li>
+                                <li><strong>智能标题：</strong>AI生成标题建议，用户可选择使用</li>
+                                <li><strong>模板推荐：</strong>热门笔记模板，一键套用</li>
+                                <li><strong>草稿保存：</strong>自动保存草稿，防止意外退出丢失</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>迭代要小步快跑。不要一次改太多，分版本逐步优化，每个版本都要有明确的数据目标，上线后验证效果。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="xiaohongshu-insight">
+                        <div class="detail-section">
+                            <h4>🧠 产品经理视角</h4>
+                            <ul>
+                                <li><strong>为什么从发布流程入手？</strong>UGC是社区的核心，发布转化率直接影响内容供给</li>
+                                <li><strong>如何平衡简化与功能？</strong>核心功能保留，高级功能折叠，让新手用户无压力</li>
+                                <li><strong>AI功能会不会降低内容质量？</strong>AI是辅助，不是替代，用户可选择是否使用</li>
+                                <li><strong>如何衡量迭代效果？</strong>核心指标是发布转化率，也要关注内容质量、用户满意度</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📈 迭代效果</h4>
+                            <ul>
+                                <li><strong>发布转化率：</strong>从35%提升到55%（+57%）</li>
+                                <li><strong>日均发布量：</strong>提升40%</li>
+                                <li><strong>新用户发布率：</strong>提升30%</li>
+                                <li><strong>用户满意度：</strong>NPS提升15分</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>产品迭代是持续优化的过程。没有一劳永逸的方案，要根据数据和用户反馈不断调整，让产品越来越好用。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="case-detail" id="detail-alipay">
+                <div class="detail-header">
+                    <div class="detail-title">
+                        <span>💳</span>
+                        <span>支付宝"集五福"活动上线</span>
+                    </div>
+                    <button class="detail-close" onclick="closeCaseDetail()">×</button>
+                </div>
+                <div class="detail-tabs">
+                    <div class="detail-tab active" onclick="showDetailPanel(this, 'alipay-requirement')">活动背景</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'alipay-release')">灰度发布</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'alipay-emergency')">应急预案</div>
+                    <div class="detail-tab" onclick="showDetailPanel(this, 'alipay-insight')">产品思考</div>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-panel active" id="alipay-requirement">
+                        <div class="detail-section">
+                            <h4>🎯 活动背景</h4>
+                            <ul>
+                                <li><strong>活动目标：</strong>春节营销，提升用户活跃度和品牌认知</li>
+                                <li><strong>活动形式：</strong>集齐五福卡，除夕夜瓜分红包</li>
+                                <li><strong>参与规模：</strong>预计7亿+用户参与</li>
+                                <li><strong>技术挑战：</strong>高并发、高可用、资金安全</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📊 活动数据预估</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>指标</th>
+                                        <th>预估数据</th>
+                                        <th>峰值预估</th>
+                                    </tr>
+                                    <tr>
+                                        <td>参与用户</td>
+                                        <td>7亿+</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>日活用户</td>
+                                        <td>3亿+</td>
+                                        <td>除夕夜5亿+</td>
+                                    </tr>
+                                    <tr>
+                                        <td>福卡交换QPS</td>
+                                        <td>10万/秒</td>
+                                        <td>100万/秒</td>
+                                    </tr>
+                                    <tr>
+                                        <td>红包发放</td>
+                                        <td>7亿笔</td>
+                                        <td>除夕夜10分钟内</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>大型运营活动的产品经理，要有"大促思维"：高并发、高可用、应急预案。一个小Bug可能影响上亿用户。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="alipay-release">
+                        <div class="detail-section">
+                            <h4>🚀 灰度发布策略</h4>
+                            <div class="flow-diagram">
+                                <div class="flow-steps">
+                                    <div class="flow-step">内部测试</div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step">小范围灰度<br><small>1%用户</small></div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step highlight">扩大灰度<br><small>10%用户</small></div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step">全量发布</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📋 灰度发布计划</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>阶段</th>
+                                        <th>时间</th>
+                                        <th>范围</th>
+                                        <th>监控重点</th>
+                                    </tr>
+                                    <tr>
+                                        <td>内部测试</td>
+                                        <td>D-7</td>
+                                        <td>内部员工</td>
+                                        <td>功能正确性</td>
+                                    </tr>
+                                    <tr>
+                                        <td>小范围灰度</td>
+                                        <td>D-5</td>
+                                        <td>1%用户</td>
+                                        <td>性能、异常率</td>
+                                    </tr>
+                                    <tr>
+                                        <td>扩大灰度</td>
+                                        <td>D-3</td>
+                                        <td>10%用户</td>
+                                        <td>系统稳定性</td>
+                                    </tr>
+                                    <tr>
+                                        <td>全量发布</td>
+                                        <td>D-1</td>
+                                        <td>100%用户</td>
+                                        <td>全量监控</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>🔍 灰度监控指标</h4>
+                            <ul>
+                                <li><strong>业务指标：</strong>参与人数、福卡发放量、交换成功率</li>
+                                <li><strong>技术指标：</strong>QPS、响应时间、错误率、服务器负载</li>
+                                <li><strong>资金指标：</strong>红包发放金额、异常交易监控</li>
+                                <li><strong>用户反馈：</strong>客服投诉量、应用商店评分</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>灰度发布是降低风险的关键。从小范围开始，逐步扩大，每个阶段都要有明确的监控指标和回滚标准。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="alipay-emergency">
+                        <div class="detail-section">
+                            <h4>🚨 应急预案</h4>
+                            <div class="doc-box">
+                                <table class="doc-table">
+                                    <tr>
+                                        <th>风险场景</th>
+                                        <th>应对措施</th>
+                                        <th>触发条件</th>
+                                    </tr>
+                                    <tr>
+                                        <td>系统崩溃</td>
+                                        <td>自动降级、熔断、快速扩容</td>
+                                        <td>错误率>1%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>流量超预期</td>
+                                        <td>限流、排队、引导错峰</td>
+                                        <td>QPS>预估150%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>资金异常</td>
+                                        <td>自动冻结、人工审核</td>
+                                        <td>异常交易检测</td>
+                                    </tr>
+                                    <tr>
+                                        <td>舆情危机</td>
+                                        <td>快速响应、官方声明</td>
+                                        <td>负面舆情监测</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📞 应急响应流程</h4>
+                            <ul>
+                                <li><strong>发现：</strong>监控告警、用户反馈、舆情监测</li>
+                                <li><strong>响应：</strong>15分钟内响应，30分钟内定位问题</li>
+                                <li><strong>处理：</strong>技术修复、降级方案、回滚</li>
+                                <li><strong>复盘：</strong>事后复盘，沉淀经验</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>👥 值班安排</h4>
+                            <ul>
+                                <li><strong>产品值班：</strong>除夕夜全员值班，随时响应</li>
+                                <li><strong>技术值班：</strong>核心团队现场保障，备用团队远程待命</li>
+                                <li><strong>客服值班：</strong>增加客服人力，快速处理用户问题</li>
+                                <li><strong>公关值班：</strong>监测舆情，准备公关话术</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>应急预案不是"出了问题再想"，而是提前规划好的。每个风险场景都要有对应的处理方案，并提前演练。
+                        </div>
+                    </div>
+                    
+                    <div class="detail-panel" id="alipay-insight">
+                        <div class="detail-section">
+                            <h4>🧠 产品经理视角</h4>
+                            <ul>
+                                <li><strong>为什么需要灰度发布？</strong>直接全量风险太大，灰度可以在小范围内发现问题，及时修复</li>
+                                <li><strong>灰度比例怎么定？</strong>从1%开始，观察24小时无异常再扩大，逐步到10%、50%、100%</li>
+                                <li><strong>什么情况需要回滚？</strong>核心功能异常、错误率超标、资金安全问题，宁可回滚也不能带病运行</li>
+                                <li><strong>如何平衡体验和稳定性？</strong>稳定性优先，必要时可以降级非核心功能，保核心功能可用</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4>📈 活动效果</h4>
+                            <ul>
+                                <li><strong>参与人数：</strong>7.8亿用户参与，超预期</li>
+                                <li><strong>系统稳定性：</strong>99.99%可用性，无重大事故</li>
+                                <li><strong>峰值QPS：</strong>达到120万/秒，系统稳定运行</li>
+                                <li><strong>用户满意度：</strong>活动好评率95%</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="knowledge-tip">
+                            <strong>💡 学习要点：</strong>大型活动的产品经理，要有"危机意识"。提前想好可能出什么问题，准备好应对方案。宁可备而不用，不可用而无备。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="summary-box">
+                <h3>🎓 学习总结</h3>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 25px;">
+                    通过知名产品案例，我们学习了产品经理在不同阶段的核心工作内容
+                </p>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-icon">🎯</div>
+                        <div class="summary-title">需求分析</div>
+                        <div class="summary-desc">发现需求、用户调研、价值评估</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-icon">🎨</div>
+                        <div class="summary-title">产品设计</div>
+                        <div class="summary-desc">流程设计、功能规格、交互细节</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-icon">⚙️</div>
+                        <div class="summary-title">技术方案</div>
+                        <div class="summary-desc">接口设计、性能优化、安全合规</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-icon">✅</div>
+                        <div class="summary-title">测试验收</div>
+                        <div class="summary-desc">用例评审、功能验收、性能测试</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-icon">🚀</div>
+                        <div class="summary-title">灰度发布</div>
+                        <div class="summary-desc">灰度策略、监控告警、应急预案</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-icon">📊</div>
+                        <div class="summary-title">迭代优化</div>
+                        <div class="summary-desc">数据分析、用户反馈、持续改进</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>🎓 产品经理教学案例网站 | 专为初学者打造的交互式学习平台</p>
+            <p style="margin-top: 10px; font-size: 12px;">建议使用Chrome浏览器访问，获得最佳体验</p>
+        </div>
+    </footer>
+    
+    <button onclick="scrollToTop()" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; font-size: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4); z-index: 999; transition: all 0.3s;">↑</button>
+    
+    <script>
+        function showCaseDetail(id) {
+            document.querySelectorAll('.case-detail').forEach(detail => {
+                detail.classList.remove('active');
+            });
+            
+            const targetDetail = document.getElementById('detail-' + id);
+            if (targetDetail) {
+                targetDetail.classList.add('active');
+                targetDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        function closeCaseDetail() {
+            document.querySelectorAll('.case-detail').forEach(detail => {
+                detail.classList.remove('active');
+            });
+        }
+        
+        function showDetailPanel(tab, panelId) {
+            const parent = tab.closest('.case-detail');
+            
+            parent.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+            parent.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('active'));
+            
+            tab.classList.add('active');
+            document.getElementById(panelId).classList.add('active');
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
+
