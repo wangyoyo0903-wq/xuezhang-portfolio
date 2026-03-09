@@ -1,0 +1,2358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX教学 - 产品经理教学案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #7B68EE;
+            --success-color: #52C41A;
+            --warning-color: #FAAD14;
+            --error-color: #FF4D4F;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --bg-light: #F5F7FA;
+            --bg-white: #FFFFFF;
+            --border-color: #E8E8E8;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title h2 {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+        
+        .badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 1200px) {
+            .component-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .component-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .component-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .component-preview {
+            padding: 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+            position: relative;
+        }
+        
+        .component-info {
+            padding: 20px;
+        }
+        
+        .component-info h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .component-info p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .component-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            background: var(--bg-light);
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .tag.primary {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .expand-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+        }
+        
+        .expanded-content {
+            display: none;
+            padding: 20px;
+            background: var(--bg-light);
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .expanded-content.visible {
+            display: block;
+        }
+        
+        .expanded-content h4 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+        
+        .expanded-content ul {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+        
+        .expanded-content li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .expanded-content li:last-child {
+            border-bottom: none;
+        }
+        
+        .expanded-content li strong {
+            color: var(--text-primary);
+        }
+        
+        .case-study {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .case-study-title {
+            font-size: 14px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .case-study-content {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        
+        .real-example-image {
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-light);
+        }
+        
+        .real-example-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+        
+        .real-example-image .image-caption {
+            padding: 8px 12px;
+            font-size: 12px;
+            color: var(--text-light);
+            text-align: center;
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .knowledge-tip {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(123, 104, 238, 0.1));
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .knowledge-tip strong {
+            color: var(--primary-color);
+        }
+        
+        .phone-frame {
+            width: 180px;
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .phone-screen {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            min-height: 200px;
+        }
+        
+        .phone-nav {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .phone-nav-title {
+            font-weight: 600;
+        }
+        
+        .phone-content {
+            padding: 15px;
+            min-height: 150px;
+        }
+        
+        .phone-list-item {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .phone-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .phone-text {
+            flex: 1;
+        }
+        
+        .phone-text-title {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .phone-text-desc {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .phone-tabbar {
+            display: flex;
+            background: white;
+            border-top: 1px solid var(--border-color);
+            padding: 8px 0;
+        }
+        
+        .phone-tab {
+            flex: 1;
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-light);
+        }
+        
+        .phone-tab-icon {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .phone-tab.active {
+            color: var(--primary-color);
+        }
+        
+        .btn-demo {
+            padding: 10px 24px;
+            border-radius: 20px;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .btn-text {
+            background: transparent;
+            color: var(--primary-color);
+            padding: 10px 12px;
+        }
+        
+        .btn-demo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 20px;
+            padding: 8px 15px;
+            width: 250px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+        
+        .card-demo {
+            background: white;
+            border-radius: 12px;
+            width: 200px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-demo-img {
+            height: 100px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .card-demo-content {
+            padding: 12px;
+        }
+        
+        .card-demo-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .card-demo-desc {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .modal-demo {
+            background: white;
+            border-radius: 12px;
+            width: 220px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-demo-header {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .modal-demo-body {
+            padding: 20px 15px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .modal-demo-footer {
+            display: flex;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .modal-demo-btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .modal-demo-btn:first-child {
+            border-right: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        .modal-demo-btn:last-child {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .form-demo {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            width: 250px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .form-input::placeholder {
+            color: var(--text-light);
+        }
+        
+        .badge-demo {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .badge-item {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-red { background: #FF4D4F; color: white; }
+        .badge-blue { background: var(--primary-color); color: white; }
+        .badge-green { background: var(--success-color); color: white; }
+        .badge-orange { background: var(--warning-color); color: white; }
+        .badge-gray { background: var(--bg-light); color: var(--text-secondary); }
+        
+        .progress-demo {
+            width: 200px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+        
+        .progress-fill.blue { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); }
+        .progress-fill.green { background: var(--success-color); }
+        .progress-fill.orange { background: var(--warning-color); }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .switch-demo {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .switch-item {
+            width: 50px;
+            height: 28px;
+            border-radius: 14px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .switch-item.on {
+            background: var(--primary-color);
+        }
+        
+        .switch-item.off {
+            background: var(--border-color);
+        }
+        
+        .switch-item::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            top: 2px;
+            transition: left 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .switch-item.on::after {
+            left: 24px;
+        }
+        
+        .switch-item.off::after {
+            left: 2px;
+        }
+        
+        .skeleton-demo {
+            width: 200px;
+        }
+        
+        .skeleton-item {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 4px;
+        }
+        
+        .skeleton-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        
+        .skeleton-text {
+            height: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .skeleton-text.short { width: 60%; }
+        .skeleton-text.long { width: 100%; }
+        
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .empty-demo {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        .empty-text {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+        }
+        
+        footer {
+            background: #2C3E50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+        }
+        
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip-box {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            max-width: 280px;
+            min-width: 200px;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .tooltip-container:hover .tooltip-box {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .tooltip-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .tooltip-box::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 8px 8px 0;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.9) transparent transparent;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">📱</div>
+                <span>产品经理教学案例</span>
+            </div>
+            <nav>
+                <a href="index.html">首页</a>
+                <a href="ui-components.html" class="active">UI/UX</a>
+                <a href="tech-concepts.html">技术概念</a>
+                <a href="product-flow.html">产品流程</a>
+                <a href="data-analysis.html">数据分析</a>
+                <a href="case-study.html">综合案例</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <a href="index.html" class="back-link">← 返回首页</a>
+            <h1>🎨 UI/UX教学</h1>
+            <p>学习UI组件和UX交互设计，理解设计规范和用户体验原则</p>
+            <p style="margin-top: 10px; font-size: 14px; opacity: 0.8;">💡 提示：点击"展开详情"可以查看详细内容</p>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="knowledge-tip" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15)); border-left: 4px solid #667eea; margin-bottom: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 15px; font-size: 18px;">🤔 UI和UX有什么区别？</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                    <div>
+                        <strong style="color: #667eea; font-size: 16px;">🎨 UI (User Interface) 用户界面</strong>
+                        <p style="margin-top: 8px; color: var(--text-secondary); font-size: 14px;">UI是用户看到的"样子"，包括：</p>
+                        <ul style="margin-left: 20px; color: var(--text-secondary); font-size: 13px; margin-top: 5px;">
+                            <li>按钮、图标、颜色、字体</li>
+                            <li>页面布局和视觉层次</li>
+                            <li>动画效果和过渡</li>
+                        </ul>
+                        <p style="margin-top: 8px; color: var(--text-light); font-size: 12px;">简单说：UI = 产品长什么样</p>
+                    </div>
+                    <div>
+                        <strong style="color: #764ba2; font-size: 16px;">💭 UX (User Experience) 用户体验</strong>
+                        <p style="margin-top: 8px; color: var(--text-secondary); font-size: 14px;">UX是用户感受到的"体验"，包括：</p>
+                        <ul style="margin-left: 20px; color: var(--text-secondary); font-size: 13px; margin-top: 5px;">
+                            <li>操作流程是否顺畅</li>
+                            <li>功能是否容易理解</li>
+                            <li>错误提示是否友好</li>
+                        </ul>
+                        <p style="margin-top: 8px; color: var(--text-light); font-size: 12px;">简单说：UX = 产品好不好用</p>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; font-size: 13px; color: var(--text-secondary);"><strong>💡 举个例子：</strong>一个漂亮的登录按钮是UI设计；但点击后能快速、顺畅地完成登录，这就是UX设计。好的产品需要UI和UX相辅相成。</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="section-title">
+                <h2>导航类组件</h2>
+                <span class="badge">核心组件</span>
+            </div>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/nav_bar.png" alt="导航栏UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>📍 导航栏 Navigation Bar</h3>
+                        <p>页面顶部的导航区域，显示标题和操作按钮</p>
+                        <div class="component-tags">
+                            <span class="tag primary">必备组件</span>
+                            <span class="tag">定位</span>
+                            <span class="tag">操作入口</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>高度规范：</strong>iOS建议44pt，Android建议56dp</li>
+                                <li><strong>标题居中：</strong>清晰显示当前页面名称</li>
+                                <li><strong>返回按钮：</strong>统一放在左侧，符合用户习惯</li>
+                                <li><strong>操作按钮：</strong>主要操作放右侧，不超过3个</li>
+                                <li><strong>滚动效果：</strong>可配合滚动改变背景透明度</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/nav_bar.png" alt="导航栏UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">导航栏UI设计示例</div>
+                            </div>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>微信：</strong>导航栏简洁，标题居中，右侧仅保留必要操作<br>
+                                    <strong>淘宝：</strong>搜索场景下导航栏变为搜索框，提高效率<br>
+                                    <strong>支付宝：</strong>首页导航栏集成扫一扫等高频功能
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>导航栏设计要考虑页面层级关系。一级页面可能不需要返回按钮，二级页面必须提供明确的返回路径。同时要平衡功能入口数量，避免导航栏过于拥挤。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/tab_bar.png" alt="底部标签栏UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>📍 底部标签栏 Tab Bar</h3>
+                        <p>固定在底部的导航栏，用于主要功能模块切换</p>
+                        <div class="component-tags">
+                            <span class="tag primary">核心导航</span>
+                            <span class="tag">一级入口</span>
+                            <span class="tag">固定位置</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>数量控制：</strong>建议3-5个，最多不超过5个</li>
+                                <li><strong>图标+文字：</strong>确保用户能快速识别</li>
+                                <li><strong>选中状态：</strong>明确的视觉反馈（颜色变化）</li>
+                                <li><strong>中间凸起：</strong>核心功能可突出设计</li>
+                                <li><strong>固定底部：</strong>滚动时保持可见</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/tab_bar.png" alt="底部标签栏UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">底部标签栏UI设计示例</div>
+                            </div>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>微信：</strong>4个标签（微信、通讯录、发现、我），简洁高效<br>
+                                    <strong>抖音：</strong>5个标签，中间"+"号突出，引导内容创作<br>
+                                    <strong>小红书：</strong>中间发布按钮特别设计，突出UGC属性
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>底部标签栏的排序很有讲究。通常把最高频的功能放两侧（拇指热区），把需要推广的功能放中间。同时要考虑业务优先级和用户习惯。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="section-title">
+                <h2>内容展示组件</h2>
+                <span class="badge">常用组件</span>
+            </div>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/card_component.png" alt="卡片组件UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>📦 卡片 Card</h3>
+                        <p>信息容器组件，将相关内容组织在一起</p>
+                        <div class="component-tags">
+                            <span class="tag primary">信息容器</span>
+                            <span class="tag">模块化</span>
+                            <span class="tag">层次感</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>圆角设计：</strong>通常8-12px圆角，营造柔和感</li>
+                                <li><strong>阴影层次：</strong>轻微阴影区分层级关系</li>
+                                <li><strong>内边距：</strong>内容与边界保持适当间距</li>
+                                <li><strong>点击反馈：</strong>可点击卡片要有交互反馈</li>
+                                <li><strong>信息层次：</strong>标题、图片、描述要有主次</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/card_component.png" alt="卡片组件UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">卡片组件UI设计示例</div>
+                            </div>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>小红书：</strong>瀑布流卡片布局，图片+标题+用户信息<br>
+                                    <strong>淘宝商品：</strong>商品图片+价格+标题+标签的卡片组合<br>
+                                    <strong>微信朋友圈：</strong>用户头像+内容+图片+互动的卡片
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>卡片设计要考虑信息密度和可读性的平衡。卡片内信息过少会显得空洞，过多则会让用户疲劳。同时要考虑卡片的点击热区设计。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/list_component.png" alt="列表组件UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>📋 列表 List</h3>
+                        <p>垂直排列的同类型内容集合</p>
+                        <div class="component-tags">
+                            <span class="tag primary">内容展示</span>
+                            <span class="tag">结构化</span>
+                            <span class="tag">可滚动</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>统一结构：</strong>每项布局保持一致</li>
+                                <li><strong>分隔线：</strong>清晰区分各项内容</li>
+                                <li><strong>右侧箭头：</strong>暗示可点击进入详情</li>
+                                <li><strong>分组标题：</strong>大量列表需要分组索引</li>
+                                <li><strong>加载更多：</strong>配合分页或无限滚动</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/list_component.png" alt="列表组件UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">列表组件UI设计示例</div>
+                            </div>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>微信通讯录：</strong>字母索引+头像+昵称的标准列表<br>
+                                    <strong>设置页面：</strong>图标+标题+描述+箭头的标准列表项<br>
+                                    <strong>订单列表：</strong>订单信息+状态+操作按钮的组合
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>列表设计要考虑信息优先级。最重要的信息放左侧（用户视线从左到右），操作按钮放右侧。同时要设计好空状态和加载状态。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/search_bar.png" alt="搜索框UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>🔍 搜索框 Search Bar</h3>
+                        <p>内容搜索的输入入口</p>
+                        <div class="component-tags">
+                            <span class="tag primary">检索入口</span>
+                            <span class="tag">输入组件</span>
+                            <span class="tag">快捷操作</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>占位文字：</strong>提示用户可搜索的内容类型</li>
+                                <li><strong>搜索历史：</strong>记录并展示历史搜索词</li>
+                                <li><strong>热门推荐：</strong>展示热门搜索内容</li>
+                                <li><strong>实时搜索：</strong>输入时即时显示结果</li>
+                                <li><strong>语音搜索：</strong>提供语音输入选项</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/search_bar.png" alt="搜索框UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">搜索框UI设计示例</div>
+                            </div>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>淘宝：</strong>搜索框+扫码+语音，功能丰富<br>
+                                    <strong>美团：</strong>搜索框内直接显示定位信息<br>
+                                    <strong>知乎：</strong>搜索框+热门话题推荐
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>搜索功能要考虑搜索前、搜索中、搜索后三个阶段。搜索前提供热门推荐和历史记录，搜索中提供联想词，搜索后提供筛选和排序功能。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/badge_indicator.png" alt="徽章UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>🏷️ 标签/徽章 Badge</h3>
+                        <p>状态标识和内容分类的小型标签</p>
+                        <div class="component-tags">
+                            <span class="tag primary">状态标识</span>
+                            <span class="tag">分类标记</span>
+                            <span class="tag">信息提示</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>颜色语义：</strong>红色=警告/热门，绿色=成功，橙色=待处理</li>
+                                <li><strong>数字徽章：</strong>未读消息数量等提示</li>
+                                <li><strong>位置规范：</strong>通常在右上角或内容前</li>
+                                <li><strong>文字简短：</strong>控制在2-4个字</li>
+                                <li><strong>可点击：</strong>标签可作为筛选条件</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/badge_indicator.png" alt="徽章UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">徽章UI设计示例</div>
+                            </div>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>微信：</strong>未读消息红点数字徽章<br>
+                                    <strong>淘宝：</strong>商品标签（包邮、新品、热卖）<br>
+                                    <strong>外卖APP：</strong>订单状态标签（待支付、配送中）
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>标签设计要有统一的颜色规范，让用户形成颜色认知。同时要控制标签数量，避免标签过多影响信息阅读。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>交互操作组件</h2>
+                <span class="badge">核心交互</span>
+            </div>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/button_group.png" alt="按钮组件UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>🔘 按钮 Button</h3>
+                        <p>触发操作的核心交互组件</p>
+                        <div class="component-tags">
+                            <span class="tag primary">操作触发</span>
+                            <span class="tag">交互核心</span>
+                            <span class="tag">视觉层级</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>主要按钮：</strong>填充色+白字，引导主要操作</li>
+                                <li><strong>次要按钮：</strong>描边+主题色，辅助操作</li>
+                                <li><strong>文字按钮：</strong>无背景，低优先级操作</li>
+                                <li><strong>禁用状态：</strong>灰色显示，不可点击</li>
+                                <li><strong>加载状态：</strong>显示loading动画</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/button_group.png" alt="按钮组件UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">按钮组件UI设计示例</div>
+                            </div>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>购买页面：</strong>加入购物车（次要）+立即购买（主要）<br>
+                                    <strong>登录页面：</strong>登录（主要）+忘记密码（文字）<br>
+                                    <strong>分享弹窗：</strong>取消（次要）+确认分享（主要）
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>一个页面通常只有一个主要按钮，引导用户完成核心操作。按钮文案要具体明确（如"立即购买"而非"确定"），让用户清楚操作结果。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/modal_dialog.png" alt="弹窗对话框UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>💬 弹窗/对话框 Modal</h3>
+                        <p>覆盖在页面上的重要信息提示或确认操作</p>
+                        <div class="component-tags">
+                            <span class="tag primary">模态交互</span>
+                            <span class="tag">信息确认</span>
+                            <span class="tag">中断操作</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>模态遮罩：</strong>背景变暗，聚焦用户注意力</li>
+                                <li><strong>关闭方式：</strong>点击遮罩/取消按钮/关闭图标</li>
+                                <li><strong>按钮设计：</strong>取消在左/下，确认在右/上</li>
+                                <li><strong>内容精简：</strong>标题+描述+操作按钮</li>
+                                <li><strong>避免嵌套：</strong>弹窗上不要再弹弹窗</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/modal_dialog.png" alt="弹窗对话框UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">弹窗对话框UI设计示例</div>
+                            </div>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>删除确认：</strong>"确定删除吗？删除后无法恢复"<br>
+                                    <strong>退出登录：</strong>"确定要退出登录吗？"<br>
+                                    <strong>权限申请：</strong>"允许访问您的位置信息？"
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>弹窗是打断用户操作的强交互，要谨慎使用。只在真正需要用户确认或注意时使用，避免滥用弹窗导致用户疲劳。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/form_input.png" alt="表单输入UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>📝 表单 Form</h3>
+                        <p>用户输入信息的组件集合</p>
+                        <div class="component-tags">
+                            <span class="tag primary">数据收集</span>
+                            <span class="tag">输入交互</span>
+                            <span class="tag">验证反馈</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>标签位置：</strong>顶部标签或左对齐标签</li>
+                                <li><strong>输入提示：</strong>placeholder提示输入格式</li>
+                                <li><strong>实时验证：</strong>输入时即时反馈错误</li>
+                                <li><strong>必填标识：</strong>星号标记必填项</li>
+                                <li><strong>键盘类型：</strong>根据内容调起对应键盘</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/form_input.png" alt="表单输入UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">表单输入UI设计示例</div>
+                            </div>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>注册表单：</strong>手机号+验证码+密码<br>
+                                    <strong>收货地址：</strong>姓名+电话+省市区+详细地址<br>
+                                    <strong>反馈表单：</strong>问题类型+描述+联系方式
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>表单设计要尽量简化，只收集必要信息。每个输入项都要有明确的目的，避免用户产生"为什么要填这个"的疑问。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="section-title">
+                <h2>反馈提示组件</h2>
+                <span class="badge">用户体验</span>
+            </div>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/progress_loading.png" alt="进度加载UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>📊 进度条 Progress</h3>
+                        <p>展示操作进度的可视化组件</p>
+                        <div class="component-tags">
+                            <span class="tag primary">进度反馈</span>
+                            <span class="tag">状态展示</span>
+                            <span class="tag">等待提示</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>百分比显示：</strong>数字+进度条双重展示</li>
+                                <li><strong>颜色语义：</strong>蓝色=正常，绿色=完成，橙色=警告</li>
+                                <li><strong>环形进度：</strong>适合小空间展示</li>
+                                <li><strong>分段进度：</strong>多步骤流程展示</li>
+                                <li><strong>动态效果：</strong>进度变化要有动画过渡</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/progress_loading.png" alt="进度加载UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">进度加载UI设计示例</div>
+                            </div>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>下载进度：</strong>文件下载百分比+剩余时间<br>
+                                    <strong>上传进度：</strong>图片/视频上传进度条<br>
+                                    <strong>任务进度：</strong>多步骤任务的完成进度
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>进度反馈能降低用户等待焦虑。对于不确定时间的等待，使用加载动画；对于可预估时间的，使用进度条并显示剩余时间。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/empty_state.png" alt="空状态UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>📭 空状态 Empty State</h3>
+                        <p>无数据时的友好提示页面</p>
+                        <div class="component-tags">
+                            <span class="tag primary">空数据处理</span>
+                            <span class="tag">引导操作</span>
+                            <span class="tag">情感化设计</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>插图+文字：</strong>友好的视觉表达</li>
+                                <li><strong>说明原因：</strong>解释为什么没有数据</li>
+                                <li><strong>引导操作：</strong>提供下一步行动按钮</li>
+                                <li><strong>情感化设计：</strong>减轻用户失落感</li>
+                                <li><strong>避免技术术语：</strong>用用户能理解的语言</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/empty_state.png" alt="空状态UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">空状态UI设计示例</div>
+                            </div>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>购物车为空：</strong>"购物车空空如也~去逛逛吧"+按钮<br>
+                                    <strong>无搜索结果：</strong>"没有找到相关内容"+推荐关键词<br>
+                                    <strong>无消息：</strong>"暂无新消息"+下拉刷新提示
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>空状态是产品体验的重要细节。好的空状态设计能将"没有内容"转化为"引导用户产生内容"的机会，而不是让用户感到失望。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>通知推送组件</h2>
+                <span class="badge">用户触达</span>
+            </div>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/push_notification.png" alt="推送通知UI设计" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    </div>
+                    <div class="component-info">
+                        <h3>🔔 推送通知 Push Notification</h3>
+                        <p>由服务器主动推送到用户设备的通知消息</p>
+                        <div class="component-tags">
+                            <span class="tag primary">用户触达</span>
+                            <span class="tag">消息提醒</span>
+                            <span class="tag">唤醒用户</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>权限申请：</strong>首次使用时友好地请求授权</li>
+                                <li><strong>内容精简：</strong>标题+正文，控制在合理长度</li>
+                                <li><strong>个性化：</strong>根据用户偏好推送相关内容</li>
+                                <li><strong>时机恰当：</strong>避免在深夜等不合适时间推送</li>
+                                <li><strong>可操作性：</strong>点击通知可跳转到相关页面</li>
+                            </ul>
+                            <div class="real-example-image">
+                                <img src="images/push_notification.png" alt="推送通知UI设计示例" onerror="this.style.display='none'">
+                                <div class="image-caption">推送通知UI设计示例</div>
+                            </div>
+                            <h4>📱 推送类型</h4>
+                            <ul>
+                                <li><strong>系统通知：</strong>更新提醒、安全警告</li>
+                                <li><strong>社交通知：</strong>新粉丝、评论回复、点赞</li>
+                                <li><strong>内容通知：</strong>关注的博主更新、新文章</li>
+                                <li><strong>营销通知：</strong>促销活动、优惠券到期</li>
+                                <li><strong>交易通知：</strong>支付成功、发货提醒</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>微信：</strong>消息通知即时推送，支持分组和免打扰设置<br>
+                                    <strong>淘宝：</strong>物流更新、促销活动分类型推送<br>
+                                    <strong>抖音：</strong>关注用户更新推送，算法推荐热门内容<br>
+                                    <strong>外卖APP：</strong>订单状态实时推送，骑手位置更新
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>推送是把双刃剑。好的推送能唤醒用户、提升活跃度；过度推送会导致用户关闭通知权限甚至卸载APP。要平衡"唤醒用户"和"不打扰用户"。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="section-title">
+                <h2>高级交互组件</h2>
+                <span class="badge">进阶组件</span>
+            </div>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #e8f4f8 0%, #d4e8ed 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 40px; margin-bottom: 10px;">⬇️</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">下拉刷新</div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>🔄 下拉刷新 Pull to Refresh</h3>
+                        <p>在列表顶部下拉触发刷新操作的交互模式</p>
+                        <div class="component-tags">
+                            <span class="tag primary">手势交互</span>
+                            <span class="tag">数据更新</span>
+                            <span class="tag">移动端标配</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>下拉距离：</strong>通常需要下拉50-100px触发</li>
+                                <li><strong>视觉反馈：</strong>下拉时显示加载动画</li>
+                                <li><strong>释放提示：</strong>显示"释放刷新"或类似文案</li>
+                                <li><strong>加载状态：</strong>刷新时显示loading动画</li>
+                                <li><strong>完成反馈：</strong>刷新完成后短暂显示成功提示</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>微信朋友圈：</strong>下拉刷新获取最新动态<br>
+                                    <strong>微博：</strong>下拉刷新加载新微博<br>
+                                    <strong>邮箱APP：</strong>下拉刷新检查新邮件
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>下拉刷新已成为移动端标准交互，用户已经形成了习惯。设计时要确保下拉区域足够大，避免与页面滚动冲突。同时要考虑刷新失败的处理方案。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #fff3e6 0%, #ffe6cc 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="display: flex; justify-content: center; gap: 5px; margin-bottom: 10px;">
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--primary-color);"></div>
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: #ddd;"></div>
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: #ddd;"></div>
+                            </div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">轮播指示器</div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>🖼️ 轮播图 Carousel</h3>
+                        <p>自动或手动切换的图片/内容展示组件</p>
+                        <div class="component-tags">
+                            <span class="tag primary">内容展示</span>
+                            <span class="tag">运营位</span>
+                            <span class="tag">自动播放</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>自动播放：</strong>通常3-5秒切换一张</li>
+                                <li><strong>手动切换：</strong>支持左右滑动切换</li>
+                                <li><strong>指示器：</strong>圆点或数字显示当前位置</li>
+                                <li><strong>数量控制：</strong>建议3-6张，不宜过多</li>
+                                <li><strong>点击跳转：</strong>每张图片可配置跳转链接</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>淘宝首页：</strong>活动Banner轮播，点击跳转活动页<br>
+                                    <strong>美团：</strong>限时优惠轮播，营造紧迫感<br>
+                                    <strong>资讯APP：</strong>头条新闻轮播，吸引点击
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>轮播图是重要的运营位，但要注意不要过度使用。研究表明，用户往往只看第一张图片。要确保第一张图是最重要的内容，并考虑是否真的需要轮播。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);">
+                        <div class="skeleton-demo" style="margin: 0 auto;">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                                <div class="skeleton-item skeleton-avatar" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+                                <div style="flex: 1;">
+                                    <div class="skeleton-item skeleton-text" style="width: 60%; height: 12px;"></div>
+                                    <div class="skeleton-item skeleton-text" style="width: 40%; height: 10px; margin-top: 6px;"></div>
+                                </div>
+                            </div>
+                            <div class="skeleton-item skeleton-text" style="width: 100%; height: 80px; border-radius: 8px;"></div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>⏳ 骨架屏 Skeleton</h3>
+                        <p>内容加载前的占位展示，提升感知速度</p>
+                        <div class="component-tags">
+                            <span class="tag primary">加载体验</span>
+                            <span class="tag">占位展示</span>
+                            <span class="tag">感知优化</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>布局一致：</strong>骨架屏与实际内容布局相同</li>
+                                <li><strong>动画效果：</strong>闪烁动画表示正在加载</li>
+                                <li><strong>灰度展示：</strong>使用灰色块代替实际内容</li>
+                                <li><strong>渐进加载：</strong>优先展示首屏骨架屏</li>
+                                <li><strong>避免跳变：</strong>减少内容加载后的布局跳动</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>朋友圈：</strong>加载时显示头像+文字+图片的骨架<br>
+                                    <strong>商品列表：</strong>商品卡片骨架屏占位<br>
+                                    <strong>知乎：</strong>文章列表骨架屏加载
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>骨架屏能显著提升用户对加载速度的感知。相比空白loading，骨架屏让用户预知即将展示的内容结构，减少等待焦虑。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);">
+                        <div style="background: white; border-radius: 12px 12px 0 0; padding: 15px; text-align: center; border-bottom: 1px solid #eee;">
+                            <div style="font-size: 14px; font-weight: 600; margin-bottom: 5px;">分享到</div>
+                        </div>
+                        <div style="background: white; padding: 15px; display: flex; justify-content: space-around;">
+                            <div style="text-align: center;"><div style="font-size: 24px;">💬</div><div style="font-size: 10px; color: #999;">微信</div></div>
+                            <div style="text-align: center;"><div style="font-size: 24px;">📱</div><div style="font-size: 10px; color: #999;">朋友圈</div></div>
+                            <div style="text-align: center;"><div style="font-size: 24px;">🔗</div><div style="font-size: 10px; color: #999;">复制链接</div></div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>📤 底部操作栏 Action Sheet</h3>
+                        <p>从底部滑出的操作选项面板</p>
+                        <div class="component-tags">
+                            <span class="tag primary">操作选择</span>
+                            <span class="tag">分享场景</span>
+                            <span class="tag">底部弹出</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>选项数量：</strong>建议不超过6个选项</li>
+                                <li><strong>取消按钮：</strong>必须提供取消/关闭方式</li>
+                                <li><strong>危险操作：</strong>删除等操作用红色突出</li>
+                                <li><strong>图标+文字：</strong>提高识别效率</li>
+                                <li><strong>点击遮罩关闭：</strong>提供多种关闭方式</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>分享功能：</strong>微信、朋友圈、微博等分享选项<br>
+                                    <strong>图片操作：</strong>保存图片、识别二维码、转发<br>
+                                    <strong>消息操作：</strong>复制、转发、删除、撤回
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>底部操作栏符合手机单手操作习惯，拇指热区覆盖好。设计时要考虑选项的优先级排序，高频操作放上方。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 32px; margin-bottom: 10px;">🗓️</div>
+                            <div style="background: white; border-radius: 8px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <div style="font-size: 12px; color: #999; margin-bottom: 5px;">2024年1月</div>
+                                <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 10px;">
+                                    <div style="color: #999;">日</div>
+                                    <div style="color: #999;">一</div>
+                                    <div style="color: #999;">二</div>
+                                    <div style="color: #999;">三</div>
+                                    <div style="color: #999;">四</div>
+                                    <div style="color: #999;">五</div>
+                                    <div style="color: #999;">六</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>📅 日期选择器 Date Picker</h3>
+                        <p>选择日期、时间的交互组件</p>
+                        <div class="component-tags">
+                            <span class="tag primary">表单输入</span>
+                            <span class="tag">时间选择</span>
+                            <span class="tag">滚轮交互</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>默认值：</strong>默认选中当前日期或合理日期</li>
+                                <li><strong>范围限制：</strong>设置可选日期范围</li>
+                                <li><strong>快捷选项：</strong>今天、明天、下周等快捷选择</li>
+                                <li><strong>格式显示：</strong>年月日时分根据场景组合</li>
+                                <li><strong>确认取消：</strong>明确操作按钮</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>订票APP：</strong>选择出发日期<br>
+                                    <strong>日历APP：</strong>创建日程选择时间<br>
+                                    <strong>外卖APP：</strong>选择配送时间段
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>日期选择器要考虑用户的使用场景。如果是订票，要显示价格和余票；如果是日程，要显示冲突提醒。尽量减少用户的选择步骤。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #fff0f6 0%, #ffccc7 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 10px;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-size: 20px;">👤</div>
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background: #f5f5f5; display: flex; align-items: center; justify-content: center; color: #999; font-size: 20px;">📷</div>
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">头像选择器</div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>📷 图片选择器 Image Picker</h3>
+                        <p>选择或拍摄图片的交互组件</p>
+                        <div class="component-tags">
+                            <span class="tag primary">媒体上传</span>
+                            <span class="tag">相册访问</span>
+                            <span class="tag">拍照功能</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>权限申请：</strong>首次使用时申请相册/相机权限</li>
+                                <li><strong>数量限制：</strong>设置最多可选图片数量</li>
+                                <li><strong>预览编辑：</strong>支持预览、裁剪、滤镜</li>
+                                <li><strong>压缩上传：</strong>自动压缩大图提升上传速度</li>
+                                <li><strong>上传进度：</strong>显示上传进度和状态</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>朋友圈：</strong>选择9张图片，支持编辑和排序<br>
+                                    <strong>评价晒单：</strong>选择商品图片，支持拍照<br>
+                                    <strong>头像设置：</strong>选择或拍摄头像，支持裁剪
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>图片选择要考虑用户的使用习惯和设备限制。要提供拍照快捷入口，支持多选和排序，并做好上传失败的重试机制。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>页面级组件</h2>
+                <span class="badge">完整页面</span>
+            </div>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #e6f7ff 0%, #f0f5ff 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 40px; margin-bottom: 10px;">🔍</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">搜索结果页</div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>🔎 搜索结果页 Search Result</h3>
+                        <p>展示搜索结果的页面，包含筛选和排序</p>
+                        <div class="component-tags">
+                            <span class="tag primary">检索结果</span>
+                            <span class="tag">筛选排序</span>
+                            <span class="tag">内容聚合</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>结果统计：</strong>显示搜索结果数量</li>
+                                <li><strong>关键词高亮：</strong>结果中高亮匹配关键词</li>
+                                <li><strong>筛选器：</strong>多维度筛选条件</li>
+                                <li><strong>排序方式：</strong>综合、价格、时间等排序</li>
+                                <li><strong>无结果处理：</strong>推荐相关搜索词</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>淘宝搜索：</strong>商品列表+筛选+排序+标签<br>
+                                    <strong>知乎搜索：</strong>内容列表+话题+用户<br>
+                                    <strong>App Store：</strong>应用列表+分类筛选
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>搜索结果页是用户决策的关键页面。要帮助用户快速找到目标内容，提供有效的筛选和排序工具，同时考虑无结果时的引导策略。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 40px; margin-bottom: 10px;">👤</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">个人中心</div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>👤 个人中心 Profile</h3>
+                        <p>用户个人信息和设置的聚合页面</p>
+                        <div class="component-tags">
+                            <span class="tag primary">用户信息</span>
+                            <span class="tag">设置入口</span>
+                            <span class="tag">账户管理</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>头像昵称：</strong>突出展示用户身份信息</li>
+                                <li><strong>数据统计：</strong>关注、粉丝、获赞等数据</li>
+                                <li><strong>功能入口：</strong>订单、收藏、历史等常用功能</li>
+                                <li><strong>设置入口：</strong>账户设置、隐私设置等</li>
+                                <li><strong>会员信息：</strong>会员等级、权益展示</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>微信"我"：</strong>简洁设计，功能入口清晰<br>
+                                    <strong>淘宝"我的"：</strong>订单状态+会员+功能入口<br>
+                                    <strong>抖音"我"：</strong>作品展示+数据统计+功能
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>个人中心是用户管理账户的入口，也是展示用户价值的页面。要根据产品定位设计，社交产品突出社交数据，电商产品突出订单和会员。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>更多UI组件</h2>
+                <span class="badge">常用组件</span>
+            </div>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #333 0%, #666 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="background: rgba(255,255,255,0.95); color: #333; padding: 10px 20px; border-radius: 8px; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">✓ 操作成功</div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>🍞 Toast 提示</h3>
+                        <p>轻量级的操作反馈提示，自动消失</p>
+                        <div class="component-tags">
+                            <span class="tag primary">轻量反馈</span>
+                            <span class="tag">自动消失</span>
+                            <span class="tag">不打断</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>显示时长：</strong>通常1.5-3秒后自动消失</li>
+                                <li><strong>位置选择：</strong>页面中央或顶部</li>
+                                <li><strong>内容精简：</strong>不超过一行文字</li>
+                                <li><strong>不打断用户：</strong>用户可继续操作</li>
+                                <li><strong>类型区分：</strong>成功/失败/警告/普通</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>微信：</strong>发送成功、复制成功提示<br>
+                                    <strong>淘宝：</strong>加入购物车成功提示<br>
+                                    <strong>外卖APP：</strong>地址保存成功提示
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>Toast适合轻量级的操作反馈，不需要用户确认。如果是重要信息或需要用户决策，应该使用弹窗而不是Toast。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="display: flex; justify-content: center; gap: 20px; align-items: center;">
+                                <div style="width: 50px; height: 28px; border-radius: 14px; background: var(--primary-color); position: relative;">
+                                    <div style="width: 24px; height: 24px; border-radius: 50%; background: white; position: absolute; right: 2px; top: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                                </div>
+                                <div style="width: 50px; height: 28px; border-radius: 14px; background: #ccc; position: relative;">
+                                    <div style="width: 24px; height: 24px; border-radius: 50%; background: white; position: absolute; left: 2px; top: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>🔘 开关 Switch</h3>
+                        <p>二元状态切换控件，开/关两种状态</p>
+                        <div class="component-tags">
+                            <span class="tag primary">状态切换</span>
+                            <span class="tag">即时生效</span>
+                            <span class="tag">二元选择</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>即时生效：</strong>切换后立即执行，无需确认</li>
+                                <li><strong>视觉区分：</strong>开/关状态颜色明显不同</li>
+                                <li><strong>动画过渡：</strong>平滑的切换动画</li>
+                                <li><strong>禁用状态：</strong>灰色显示不可操作</li>
+                                <li><strong>配合标签：</strong>说明当前控制的功能</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>设置页面：</strong>消息通知开关、定位开关<br>
+                                    <strong>隐私设置：</strong>允许搜索、添加好友开关<br>
+                                    <strong>显示设置：</strong>深色模式开关
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>开关适合即时生效的设置项。如果切换需要用户确认或会带来重大影响，应该使用复选框+确认按钮的方式。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding: 10px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--primary-color); display: flex; align-items: center; justify-content: center;">
+                                        <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--primary-color);"></div>
+                                    </div>
+                                    <span style="font-size: 13px;">选项一</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #ccc;"></div>
+                                    <span style="font-size: 13px; color: #999;">选项二</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>⭕ 单选/多选 Radio/Checkbox</h3>
+                        <p>从多个选项中选择一个或多个</p>
+                        <div class="component-tags">
+                            <span class="tag primary">选择控件</span>
+                            <span class="tag">表单元素</span>
+                            <span class="tag">状态反馈</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>单选Radio：</strong>圆形，互斥选择，只能选一个</li>
+                                <li><strong>多选Checkbox：</strong>方形，可多选</li>
+                                <li><strong>点击区域：</strong>文字也可点击，增大热区</li>
+                                <li><strong>默认选中：</strong>可设置默认选项</li>
+                                <li><strong>禁用状态：</strong>灰色显示不可选择</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>性别选择：</strong>单选按钮<br>
+                                    <strong>支付方式：</strong>单选一种支付方式<br>
+                                    <strong>兴趣标签：</strong>多选感兴趣的标签
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>选项少于5个时使用单选/多选，选项较多时考虑下拉选择器。确保选项之间互斥，避免用户困惑。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="width: 150px; margin: 0 auto;">
+                                <div style="display: flex; justify-content: space-between; font-size: 12px; color: #666; margin-bottom: 5px;">
+                                    <span>¥0</span>
+                                    <span>¥100</span>
+                                </div>
+                                <div style="height: 6px; background: #ddd; border-radius: 3px; position: relative;">
+                                    <div style="width: 60%; height: 100%; background: var(--primary-color); border-radius: 3px;"></div>
+                                    <div style="width: 16px; height: 16px; background: white; border: 2px solid var(--primary-color); border-radius: 50%; position: absolute; right: 40%; top: -5px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>🎚️ 滑块 Slider</h3>
+                        <p>通过滑动选择数值范围</p>
+                        <div class="component-tags">
+                            <span class="tag primary">数值选择</span>
+                            <span class="tag">连续调节</span>
+                            <span class="tag">直观反馈</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>范围标注：</strong>显示最小值和最大值</li>
+                                <li><strong>当前值显示：</strong>实时显示当前选择的数值</li>
+                                <li><strong>步进设置：</strong>可设置每次滑动的增量</li>
+                                <li><strong>双滑块：</strong>可选择范围区间</li>
+                                <li><strong>刻度标记：</strong>关键节点显示刻度</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>价格筛选：</strong>选择价格区间<br>
+                                    <strong>音量调节：</strong>调节播放音量<br>
+                                    <strong>亮度调节：</strong>调节屏幕亮度
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>滑块适合连续数值的选择，让用户直观地看到数值变化。如果精度要求高，建议配合输入框使用。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%);">
+                        <div style="text-align: center; padding: 15px;">
+                            <div style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+                                <div style="width: 30px; height: 30px; border-radius: 50%; background: var(--primary-color); color: white; display: flex; align-items: center; justify-content: center; font-size: 14px;">✓</div>
+                                <div style="width: 30px; height: 2px; background: var(--primary-color);"></div>
+                                <div style="width: 30px; height: 30px; border-radius: 50%; background: var(--primary-color); color: white; display: flex; align-items: center; justify-content: center; font-size: 14px;">2</div>
+                                <div style="width: 30px; height: 2px; background: #ddd;"></div>
+                                <div style="width: 30px; height: 30px; border-radius: 50%; background: #ddd; color: #999; display: flex; align-items: center; justify-content: center; font-size: 14px;">3</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>📋 步骤条 Steps</h3>
+                        <p>展示流程进度和当前步骤</p>
+                        <div class="component-tags">
+                            <span class="tag primary">流程引导</span>
+                            <span class="tag">进度展示</span>
+                            <span class="tag">多步骤</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>步骤数量：</strong>建议不超过5步</li>
+                                <li><strong>当前步骤：</strong>突出显示当前位置</li>
+                                <li><strong>完成状态：</strong>已完成步骤打勾标记</li>
+                                <li><strong>步骤标题：</strong>简短描述每个步骤</li>
+                                <li><strong>可点击：</strong>已完成步骤可返回</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>电商下单：</strong>购物车→确认订单→支付→完成<br>
+                                    <strong>注册流程：</strong>填写信息→验证手机→设置密码<br>
+                                    <strong>实名认证：</strong>上传证件→人脸识别→审核中
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>步骤条让用户清楚知道流程进度，降低放弃率。复杂流程要合理拆分步骤，每步任务要明确。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #333 0%, #666 100%);">
+                        <div style="position: relative; height: 80px;">
+                            <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 60%; background: white; box-shadow: -2px 0 10px rgba(0,0,0,0.2); padding: 15px;">
+                                <div style="font-size: 14px; font-weight: 600; margin-bottom: 10px;">菜单项</div>
+                                <div style="font-size: 12px; color: #666;">菜单内容</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>📂 抽屉 Drawer</h3>
+                        <p>从屏幕边缘滑出的面板</p>
+                        <div class="component-tags">
+                            <span class="tag primary">侧边导航</span>
+                            <span class="tag">滑出面板</span>
+                            <span class="tag">遮罩层</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>滑出方向：</strong>通常从左侧或右侧滑出</li>
+                                <li><strong>遮罩层：</strong>背景变暗，点击可关闭</li>
+                                <li><strong>宽度设置：</strong>通常占屏幕50%-80%</li>
+                                <li><strong>手势关闭：</strong>支持滑动关闭</li>
+                                <li><strong>内容层次：</strong>可包含导航、设置等内容</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>侧边导航：</strong>抽屉式导航菜单<br>
+                                    <strong>筛选面板：</strong>商品筛选抽屉<br>
+                                    <strong>设置面板：</strong>快捷设置抽屉
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>抽屉适合承载次要功能或设置项，不占用主界面空间。但要注意不要把核心功能藏在抽屉里。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);">
+                        <div style="text-align: center; padding: 15px;">
+                            <div style="display: flex; justify-content: space-around; background: white; border-radius: 8px; padding: 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <div style="text-align: center;"><div style="font-size: 18px;">🏠</div><div style="font-size: 10px; color: var(--primary-color);">首页</div></div>
+                                <div style="text-align: center;"><div style="font-size: 18px;">🔍</div><div style="font-size: 10px; color: #999;">发现</div></div>
+                                <div style="text-align: center;"><div style="font-size: 18px;">👤</div><div style="font-size: 10px; color: #999;">我的</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>📱 底部导航 Bottom Navigation</h3>
+                        <p>固定在底部的页面级导航</p>
+                        <div class="component-tags">
+                            <span class="tag primary">主导航</span>
+                            <span class="tag">固定位置</span>
+                            <span class="tag">页面切换</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>数量控制：</strong>建议3-5个导航项</li>
+                                <li><strong>图标+文字：</strong>确保识别度</li>
+                                <li><strong>选中状态：</strong>颜色或大小变化</li>
+                                <li><strong>固定底部：</strong>滚动时保持可见</li>
+                                <li><strong>拇指热区：</strong>考虑单手操作</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>微信：</strong>微信、通讯录、发现、我<br>
+                                    <strong>抖音：</strong>首页、朋友、+、消息、我<br>
+                                    <strong>淘宝：</strong>首页、逛逛、消息、购物车、我的
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>底部导航是App的核心入口，要放置最高频的功能。导航项不宜过多，避免用户迷失。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);">
+                        <div style="text-align: center; padding: 15px;">
+                            <div style="display: flex; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <div style="padding: 8px 16px; background: var(--primary-color); color: white; font-size: 12px;">推荐</div>
+                                <div style="padding: 8px 16px; background: white; color: #666; font-size: 12px;">关注</div>
+                                <div style="padding: 8px 16px; background: white; color: #666; font-size: 12px;">热门</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>📑 标签页 Tabs</h3>
+                        <p>在同一区域内切换不同内容</p>
+                        <div class="component-tags">
+                            <span class="tag primary">内容切换</span>
+                            <span class="tag">分类导航</span>
+                            <span class="tag">同级内容</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>数量控制：</strong>建议2-5个标签</li>
+                                <li><strong>选中状态：</strong>下划线或背景高亮</li>
+                                <li><strong>滑动切换：</strong>支持左右滑动切换</li>
+                                <li><strong>内容联动：</strong>标签切换时内容跟随变化</li>
+                                <li><strong>可滚动：</strong>标签过多时可横向滚动</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>新闻APP：</strong>推荐、关注、热点、视频<br>
+                                    <strong>电商APP：</strong>综合、销量、价格、筛选<br>
+                                    <strong>社交APP：</strong>推荐、关注、附近
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>标签页用于展示同级内容，避免页面跳转。要确保每个标签的内容量足够，避免空洞。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="section-title">
+                <h2>UX交互模式</h2>
+                <span class="badge">用户体验</span>
+            </div>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 40px; margin-bottom: 10px;">🔄</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">用户流程</div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>🔄 用户流程 User Flow</h3>
+                        <p>用户完成目标的操作路径设计</p>
+                        <div class="component-tags">
+                            <span class="tag primary">流程设计</span>
+                            <span class="tag">路径优化</span>
+                            <span class="tag">转化提升</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>最短路径：</strong>减少操作步骤，提高效率</li>
+                                <li><strong>分支处理：</strong>考虑各种操作分支</li>
+                                <li><strong>返回路径：</strong>支持用户返回上一步</li>
+                                <li><strong>异常处理：</strong>网络失败、数据错误等</li>
+                                <li><strong>流程可视化：</strong>用流程图梳理用户路径</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>购买流程：</strong>浏览→加购→结算→支付→完成<br>
+                                    <strong>注册流程：</strong>输入手机→验证码→设置密码<br>
+                                    <strong>发布流程：</strong>选择类型→编辑内容→预览→发布
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>好的用户流程设计能让用户"无感"地完成任务。要站在用户角度思考，减少认知负担。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #fff2f0 0%, #ffccc7 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 40px; margin-bottom: 10px;">⚠️</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">错误处理</div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>⚠️ 错误处理 Error Handling</h3>
+                        <p>友好地处理用户操作错误</p>
+                        <div class="component-tags">
+                            <span class="tag primary">容错设计</span>
+                            <span class="tag">友好提示</span>
+                            <span class="tag">引导修正</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>及时反馈：</strong>错误发生时立即提示</li>
+                                <li><strong>明确原因：</strong>用用户能理解的语言说明</li>
+                                <li><strong>解决方案：</strong>告诉用户如何修正</li>
+                                <li><strong>预防错误：</strong>提前限制不可输入的内容</li>
+                                <li><strong>保存数据：</strong>避免用户重新填写</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>表单验证：</strong>"手机号格式不正确，请重新输入"<br>
+                                    <strong>网络错误：</strong>"网络不给力，请稍后重试"<br>
+                                    <strong>支付失败：</strong>"余额不足，请更换支付方式"
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>错误处理是UX的重要部分。好的错误提示能让用户从挫折中快速恢复，而不是放弃使用。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #f0f5ff 0%, #d6e4ff 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 40px; margin-bottom: 10px;">⏳</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">加载状态</div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>⏳ 加载状态 Loading State</h3>
+                        <p>数据加载时的用户等待体验</p>
+                        <div class="component-tags">
+                            <span class="tag primary">等待体验</span>
+                            <span class="tag">进度反馈</span>
+                            <span class="tag">感知优化</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>即时反馈：</strong>操作后立即显示加载状态</li>
+                                <li><strong>骨架屏：</strong>用占位图预览内容结构</li>
+                                <li><strong>进度显示：</strong>可预估时显示进度条</li>
+                                <li><strong>趣味动画：</strong>品牌化的加载动画</li>
+                                <li><strong>超时处理：</strong>长时间加载提示重试</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>朋友圈：</strong>骨架屏+渐显动画<br>
+                                    <strong>淘宝：</strong>商品图片懒加载<br>
+                                    <strong>视频APP：</strong>缓冲进度条
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>加载状态设计能降低用户等待焦虑。目标是让用户感觉"快"，而不是真的变快。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-preview" style="background: linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%);">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 40px; margin-bottom: 10px;">📭</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">空状态</div>
+                        </div>
+                    </div>
+                    <div class="component-info">
+                        <h3>📭 空状态 Empty State</h3>
+                        <p>无数据时的友好引导</p>
+                        <div class="component-tags">
+                            <span class="tag primary">空数据处理</span>
+                            <span class="tag">引导操作</span>
+                            <span class="tag">情感化</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleExpand(this)">展开详情 ↓</button>
+                        <div class="expanded-content">
+                            <h4>📋 设计要点</h4>
+                            <ul>
+                                <li><strong>友好插图：</strong>缓解用户失落感</li>
+                                <li><strong>说明原因：</strong>解释为什么没有数据</li>
+                                <li><strong>引导操作：</strong>提供下一步行动按钮</li>
+                                <li><strong>情感化文案：</strong>避免冷冰冰的提示</li>
+                                <li><strong>区分场景：</strong>搜索无结果vs首次使用</li>
+                            </ul>
+                            <div class="case-study">
+                                <div class="case-study-title">🎯 真实案例</div>
+                                <div class="case-study-content">
+                                    <strong>购物车：</strong>"空空如也~去逛逛吧"+按钮<br>
+                                    <strong>消息列表：</strong>"暂无新消息"下拉刷新提示<br>
+                                    <strong>搜索无结果：</strong>"换个关键词试试"+推荐词
+                                </div>
+                            </div>
+                            <div class="knowledge-tip">
+                                <strong>💡 产品经理视角：</strong>空状态是将"没有内容"转化为"引导用户产生内容"的机会，而不是让用户失望离开。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <div class="knowledge-tip" style="background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(123, 104, 238, 0.1)); border-left: 4px solid var(--primary-color);">
+                <strong>📚 学习建议：</strong>UI/UX的学习需要多观察、多实践。建议下载常用APP，分析它们使用了哪些组件，为什么这样设计。同时可以尝试用设计工具（如Figma、Sketch）临摹这些组件，加深理解。记住，好的设计是"看不见的设计"——用户不需要思考就能自然地使用。
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>🎓 产品经理教学案例网站 | 专为初学者打造的交互式学习平台</p>
+            <p style="margin-top: 10px; font-size: 12px;">建议使用Chrome浏览器访问，获得最佳体验</p>
+        </div>
+    </footer>
+    
+    <button onclick="scrollToTop()" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; font-size: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4); z-index: 999; transition: all 0.3s;">↑</button>
+    
+    <script>
+        function toggleExpand(btn) {
+            const content = btn.nextElementSibling;
+            const isVisible = content.classList.contains('visible');
+            
+            if (isVisible) {
+                content.classList.remove('visible');
+                btn.textContent = '展开详情 ↓';
+            } else {
+                content.classList.add('visible');
+                btn.textContent = '收起详情 ↑';
+            }
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
