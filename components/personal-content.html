@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星星学长 - 求职规划与内推服务</title>
+    <style>
+/* 基础样式 - 紧凑版 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.5;
+    color: #333;
+    background: #f8f9fa;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* 导航栏 */
+.navbar {
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+}
+
+.logo h1 {
+    font-size: 18px;
+    color: #4a6fa5;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: #4a6fa5;
+}
+
+/* 英雄区域 */
+.hero {
+    background: linear-gradient(135deg, #4a6fa5 0%, #6b8cce 100%);
+    color: #fff;
+    padding: 80px 0 40px;
+    margin-top: 48px;
+    text-align: center;
+}
+
+.hero-content h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.hero-content p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.hero-desc {
+    font-size: 16px !important;
+    margin-top: 8px;
+}
+
+.stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 24px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-num {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.stat-txt {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* 关于我 */
+.about {
+    background: #fff;
+    padding: 40px 0;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 30px;
+    align-items: start;
+}
+
+.about-left {
+    display: flex;
+    gap: 20px;
+}
+
+.about-avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.about-text p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.about-social {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.about-social h3 {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.social-grid {
+    display: flex;
+    gap: 12px;
+}
+
+.social-item {
+    text-align: center;
+}
+
+.social-item img {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.social-item span {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+}
+
+.social-tip {
+    font-size: 12px;
+    color: #4a6fa5;
+    margin-top: 12px;
+    padding: 8px;
+    background: #fff;
+    border-radius: 6px;
+}
+
+/* 内推岗位 */
+.jobs {
+    padding: 40px 0;
+}
+
+.jobs h2, .reviews h2, .faq h2, .contact h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.job-card {
+    background: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    border-left: 3px solid #4a6fa5;
+}
+
+.job-card h3 {
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.job-tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.job-tags span {
+    font-size: 12px;
+    color: #666;
+    background: #f0f3f8;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.job-card p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.btn-apply {
+    background: #4a6fa5;
+    color: #fff;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-apply:hover {
+    background: #3a5a85;
+}
+
+/* 学员评价 */
+.reviews {
+    background: #fff;
+    padding: 40px 0;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.review-item img {
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.review-item img:hover {
+    transform: scale(1.02);
+}
+
+/* 常见问题 */
+.faq {
+    padding: 40px 0;
+}
+
+.faq-grid {
+    display: grid;
+    gap: 10px;
+}
+
+.faq-item {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.faq-q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.faq-q:hover {
+    background: #f8f9fa;
+}
+
+.faq-icon {
+    font-size: 18px;
+    color: #4a6fa5;
+}
+
+.faq-a {
+    display: none;
+    padding: 0 16px 12px;
+    font-size: 13px;
+    color: #666;
+}
+
+/* 联系方式 */
+.contact {
+    background: #fff;
+    padding: 40px 0;
+}
+
+.contact-grid {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.contact-item {
+    text-align: center;
+}
+
+.contact-item img {
+    width: 120px;
+    border-radius: 8px;
+}
+
+.contact-item p {
+    font-size: 13px;
+    color: #666;
+    margin-top: 8px;
+}
+
+.contact-phone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+/* 页脚 */
+.footer {
+    background: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 12px;
+}
+
+/* 悬浮按钮 */
+.float-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #4a6fa5 0%, #6b8cce 100%);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(74, 111, 165, 0.3);
+    z-index: 999;
+    transition: transform 0.2s;
+}
+
+.float-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* 模态框 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    font-size: 16px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #999;
+}
+
+.modal-body {
+    padding: 16px;
+}
+
+.form-row {
+    margin-bottom: 12px;
+}
+
+.form-row input,
+.form-row textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.form-row input:focus,
+.form-row textarea:focus {
+    outline: none;
+    border-color: #4a6fa5;
+}
+
+.btn-submit {
+    width: 100%;
+    background: #4a6fa5;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #3a5a85;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 12px;
+    }
+    
+    .nav-links a {
+        font-size: 12px;
+    }
+    
+    .stats-row {
+        gap: 20px;
+    }
+    
+    .stat-num {
+        font-size: 20px;
+    }
+    
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-left {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .about-social {
+        width: 100%;
+    }
+    
+    .social-grid {
+        justify-content: center;
+    }
+    
+    .jobs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .reviews-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .contact-grid {
+        flex-direction: column;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>星星学长</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#jobs">内推岗位</a></li>
+                <li><a href="#reviews">学员评价</a></li>
+                <li><a href="#faq">常见问题</a></li>
+                <li><a href="#contact">联系我</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 + 社交证明 -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Hey，我是星星学长 👋</h2>
+                <p>8年互联网人 | 产品经理 | 求职规划师</p>
+                <p class="hero-desc">帮你少走弯路，拿到心仪offer</p>
+            </div>
+            <div class="stats-row">
+                <div class="stat-item"><span class="stat-num">500+</span><span class="stat-txt">已帮助</span></div>
+                <div class="stat-item"><span class="stat-num">98%</span><span class="stat-txt">通过率</span></div>
+                <div class="stat-item"><span class="stat-num">50+</span><span class="stat-txt">合作企业</span></div>
+                <div class="stat-item"><span class="stat-num">30%</span><span class="stat-txt">薪资涨幅</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我 + 社交平台 -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-left">
+                    <div class="about-avatar">
+                        <img src="../images/personal/8.jpg" alt="星星学长">
+                    </div>
+                    <div class="about-text">
+                        <p>嗨！我在互联网行业摸爬滚打8年，从产品助理做到资深产品经理，去过几家大厂，也创过业。</p>
+                        <p>特别喜欢帮助学弟学妹，看着你们从迷茫到拿到理想offer，那种成就感比我自己升职加薪还开心！</p>
+                    </div>
+                </div>
+                <div class="about-social">
+                    <h3>找到我</h3>
+                    <div class="social-grid">
+                        <div class="social-item">
+                            <img src="../images/personal/1.png" alt="微信">
+                            <span>微信</span>
+                        </div>
+                        <div class="social-item">
+                            <img src="../images/personal/2.jpg" alt="闲鱼">
+                            <span>闲鱼</span>
+                        </div>
+                        <div class="social-item">
+                            <img src="../images/personal/3.jpg" alt="小红书">
+                            <span>小红书</span>
+                        </div>
+                    </div>
+                    <p class="social-tip">💡 加微信备注「求职」，优先通过</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 内推岗位 -->
+    <section id="jobs" class="jobs">
+        <div class="container">
+            <h2>内推岗位</h2>
+            <div class="jobs-grid">
+                <div class="job-card">
+                    <h3>产品经理 - 字节跳动</h3>
+                    <div class="job-tags">
+                        <span>北京</span><span>全职</span><span>25K-35K</span>
+                    </div>
+                    <p>短视频产品，团队氛围好，成长快，适合想挑战自己的同学。</p>
+                    <button class="btn-apply" onclick="openApplyModal('产品经理 - 字节跳动')">申请内推</button>
+                </div>
+                <div class="job-card">
+                    <h3>前端工程师 - 阿里巴巴</h3>
+                    <div class="job-tags">
+                        <span>杭州</span><span>全职</span><span>20K-30K</span>
+                    </div>
+                    <p>电商平台，技术栈新，学到的东西多，前端爱好者的好选择。</p>
+                    <button class="btn-apply" onclick="openApplyModal('前端工程师 - 阿里巴巴')">申请内推</button>
+                </div>
+                <div class="job-card">
+                    <h3>数据分析师 - 腾讯</h3>
+                    <div class="job-tags">
+                        <span>深圳</span><span>全职</span><span>22K-32K</span>
+                    </div>
+                    <p>海量用户数据，对想往数据方向发展的同学很有帮助。</p>
+                    <button class="btn-apply" onclick="openApplyModal('数据分析师 - 腾讯')">申请内推</button>
+                </div>
+                <div class="job-card">
+                    <h3>运营专员 - 美团</h3>
+                    <div class="job-tags">
+                        <span>北京</span><span>全职</span><span>15K-25K</span>
+                    </div>
+                    <p>外卖业务，用户量巨大，运营策略影响千万用户，特别锻炼人。</p>
+                    <button class="btn-apply" onclick="openApplyModal('运营专员 - 美团')">申请内推</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学员评价 -->
+    <section id="reviews" class="reviews">
+        <div class="container">
+            <h2>学员真实评价</h2>
+            <div class="reviews-grid">
+                <div class="review-item">
+                    <img src="../images/personal/4.jpg" alt="学员评价1">
+                </div>
+                <div class="review-item">
+                    <img src="../images/personal/5.jpg" alt="学员评价2">
+                </div>
+                <div class="review-item">
+                    <img src="../images/personal/6.jpg" alt="学员评价3">
+                </div>
+                <div class="review-item">
+                    <img src="../images/personal/7.jpg" alt="学员评价4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 常见问题 -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2>常见问题</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">
+                        <span>内推真的有用吗？</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-a">
+                        <p>内推简历直接送HR，跳过海选。面试邀请率是普通投递的3-5倍。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">
+                        <span>服务怎么收费？</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-a">
+                        <p>根据服务内容不同收费不同，简历优化、面试辅导等单项价格透明，加微信咨询详情。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">
+                        <span>多久能拿到offer？</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-a">
+                        <p>一般1-3个月，应届生秋招春招更快，社招看岗位匹配度，我会全程跟进。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>联系我</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <img src="../images/personal/1.png" alt="微信二维码">
+                    <p>微信：xingxing-xuezhang</p>
+                </div>
+                <div class="contact-item contact-phone">
+                    <div class="contact-icon">📱</div>
+                    <p>电话：18327093942</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 星星学长 · 助力你的职业发展</p>
+        </div>
+    </footer>
+
+    <!-- 悬浮按钮 -->
+    <div class="float-btn" onclick="scrollToContact()">
+        💬 咨询学长
+    </div>
+
+    <!-- 内推申请模态框 -->
+    <div id="apply-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>申请内推</h3>
+                <button class="modal-close" onclick="closeApplyModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="apply-form">
+                    <div class="form-row">
+                        <input type="text" id="apply-name" placeholder="你的名字" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="tel" id="apply-phone" placeholder="手机号码" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="apply-wechat" placeholder="微信号" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="apply-job" readonly>
+                    </div>
+                    <div class="form-row">
+                        <textarea id="apply-intro" placeholder="简单介绍自己（学历、经验、技能）" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">提交申请</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // FAQ展开收起
+        function toggleFaq(el) {
+            const answer = el.nextElementSibling;
+            const icon = el.querySelector('.faq-icon');
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                icon.textContent = '+';
+            } else {
+                answer.style.display = 'block';
+                icon.textContent = '−';
+            }
+        }
+
+        // 滚动到联系区域
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 打开申请模态框
+        function openApplyModal(jobTitle) {
+            document.getElementById('apply-job').value = jobTitle;
+            document.getElementById('apply-modal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭申请模态框
+        function closeApplyModal() {
+            document.getElementById('apply-modal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 点击模态框外部关闭
+        document.getElementById('apply-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeApplyModal();
+        });
+
+        // 表单提交
+        document.getElementById('apply-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('申请已提交！学长会尽快联系你~');
+            this.reset();
+            closeApplyModal();
+        });
+    </script>
+</body>
+</html>
